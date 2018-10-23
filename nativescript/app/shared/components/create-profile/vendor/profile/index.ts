@@ -1,1 +1,0 @@
-export * from './create-vendor-profile.component';

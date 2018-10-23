@@ -1,1 +1,0 @@
-export * from './couple-timeline.component';

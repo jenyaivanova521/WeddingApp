@@ -1,1 +1,0 @@
-export * from './remind-password.component';
