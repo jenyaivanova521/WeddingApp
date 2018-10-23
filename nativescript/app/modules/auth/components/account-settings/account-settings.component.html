@@ -1,0 +1,83 @@
+<ScrollView [height]="scrollHeight">
+
+    <StackLayout>
+
+        <Label class="header header--full-width gray-bg text-align-left"
+               text="Settings"></Label>
+
+        <FlexboxLayout class="tab-bar tab-bar--alternative">
+            <Label class="tab-bar__tab"
+                   (tap)="setActiveTab('account')"
+                   [class.tab-bar__tab--active]="activeTab === 'account'"
+                   text="Account"></Label>
+            <Label class="tab-bar__tab"
+                   (tap)="setActiveTab('notifications')"
+                   [class.tab-bar__tab--active]="activeTab === 'notifications'"
+                   text="Notifications"></Label>
+            <Label class="tab-bar__tab tab-bar__tab--last"></Label>
+        </FlexboxLayout>
+
+        <StackLayout class="p-15">
+
+            <Label class="form-header" text="User info"></Label>
+            <Label class="input-label" text="Picture"></Label>
+
+            <upload-photo (photoSelected)="photoSelected($event)" [src]="selectedPicture"></upload-photo>
+
+            <Label class="input-label" text="First name*"></Label>
+            <TextField class="input input--light" [text]="account.firstName"></TextField>
+
+            <Label class="input-label" text="Last name*"></Label>
+            <TextField class="input input--light" [text]="account.lastName"></TextField>
+
+            <Label class="input-label" text="E-mail*"></Label>
+            <TextField class="input input--light" [text]="account.email" editable="false"></TextField>
+
+            <FlexboxLayout class="m-t-15 m-b-30">
+                <Button class="btm btn--sides-padding btn--semibold btn--small btn--action text-uppercase btn_white"
+                        text="Save changes" (tap)="submitAccountInfo()"></Button>
+            </FlexboxLayout>
+
+            <StackLayout class="divider"></StackLayout>
+
+            <Label class="form-header" text="Change password"></Label>
+
+            <Label class="input-label" text="Old password*"></Label>
+            <TextField class="input input--light" [text]="changePasswordForm.password" secure="true"></TextField>
+
+            <Label class="input-label" text="New password*"></Label>
+            <TextField class="input input--light" [text]="changePasswordForm.password_new" secure="true"></TextField>
+
+            <Label class="input-label" text="Repeat new password*"></Label>
+            <TextField class="input input--light"  [text]="changePasswordForm.password_new_repeat" secure="true"></TextField>
+
+            <FlexboxLayout class="m-t-15 m-b-30">
+                <Button class="btm btn--sides-padding btn--semibold btn--small btn--action text-uppercase btn_white"
+                        text="Submit"
+                        (tap)="submitChangePassword()"></Button>
+            </FlexboxLayout>
+
+            <StackLayout class="divider"></StackLayout>
+
+            <Label class="form-header" text="Delete account"></Label>
+
+            <Label class="input-label" text="password*"></Label>
+            <TextField class="input input--light" [text]="deleteAccountPassword" secure="true"></TextField>
+
+            <Label class="additional-info"
+                   textWrap="true"
+                   text="If you do not have a password, because you logged in using a social network, use the password reset option to get one">
+            </Label>
+
+            <FlexboxLayout class="m-t-15 m-b-30">
+                <Button class="btm btn--sides-padding btn--semibold btn--small btn--danger text-uppercase m-r-10 btn_white"
+                        text="Delete" (tap)="submitDeleteAccount()"></Button>
+
+                <Button [nsRouterLink]="['/remind-password']"
+                        class="btm btn--sides-padding btn--semibold btn--small btn--action text-uppercase btn_white"
+                        text="Password reset"></Button>
+            </FlexboxLayout>
+
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

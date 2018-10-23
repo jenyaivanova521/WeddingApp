@@ -1,0 +1,33 @@
+<StackLayout>
+
+    <FlexboxLayout alignItems="center" class="gray-bg" justifyContent="space-between">
+
+        <Label class="text-l standard-padding section-header"
+               text="Photos">
+        </Label>
+
+        <FlexboxLayout class="btn btn--flex btn--action btn--small">
+
+            <Label text="&#xe90a;" class="icon"></Label>
+
+            <!-- TODO adding photo-->
+
+            <Label class="btn__text"
+                   text="Add photos">
+            </Label>
+
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+
+    <FlexboxLayout class="couple-photos">
+
+        <StackLayout class="couple-photos__photo"
+                     [width]="photoWidth"
+                     *ngFor="let photo of photos; let i = index">
+            <Image [src]="photo.thumb" (tap)="showGallery(i)"></Image>
+        </StackLayout>
+
+    </FlexboxLayout>
+
+</StackLayout>

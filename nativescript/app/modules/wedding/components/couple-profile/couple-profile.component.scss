@@ -1,0 +1,15 @@
+@import '../../../../resources/scss/variables';
+
+.private-profile {
+	flex-grow: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	&__label {
+		margin: 20dp 0;
+		font-size: 18dp;
+		font-weight: 300;
+		color: $gray;
+	}
+}

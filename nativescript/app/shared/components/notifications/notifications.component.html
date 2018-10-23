@@ -1,0 +1,86 @@
+<StackLayout>
+
+    <ScrollView [height]="containerHeight">
+
+        <StackLayout *ngIf="notifications.length">
+            <GridLayout class="notification"
+                           [class.notification--unread]="!notification.isRead"
+                           *ngFor="let notification of notifications"
+                           (tap)="getRouterLink(notification)"
+                           columns="auto,*">
+                <avatar 
+                    col="0"
+                    [dir]="notification.actor ? (notification.actor.isWedding ? 'wedding/' : 'account/') + notification.actor.id + '/' + 'avatars' : null"
+                    [filename]="notification.actor ? notification.actor.avatar : null"
+                    [size]="35"></avatar>
+                <StackLayout 
+                    col="1"
+                    class="notification__body">
+                    <StackLayout orientation="horizontal">
+
+                        <Label 
+                            *ngIf="notification.actor"
+                            class="notification__person"
+                            [text]="notification.actor.name">
+                        </Label>
+                        <Label 
+                            *ngIf="notification.additionalData.guest"
+                            class="notification__person"
+                            [text]="notification.additionalData.guest.firstName + ' ' + notification.additionalData.guest.lastName">
+                        </Label>
+                        <Label *ngIf="notification.type == 'comment_created'"
+                            class="notification__text"
+                            text=" commented your story post">
+                        </Label>
+                        <Label *ngIf="notification.type == 'like_created'"
+                            class="notification__text"
+                            [text]="' liked your story post'">
+                        </Label>
+                        <Label *ngIf="notification.type == 'invitation_received'"
+                            class="notification__text"
+                            [text]="' invited you to plan a wedding'">
+                        </Label>
+                        <Label *ngIf="notification.type == 'vendor_review_created'"
+                            class="notification__text"
+                            [text]="' reviewed your vendor profile'">
+                        </Label>
+                        <StackLayout *ngIf="notification.type == 'guest_status_changed'">
+                            <Label *ngIf="notification.additionalData.newCeremonyStatusId == 3"
+                                class="notification__text"
+                                [text]="' confirmed ceremony invitation'">
+                            </Label>
+                            <Label *ngIf="notification.additionalData.newCeremonyStatusId == 4"
+                                class="notification__text"
+                                [text]="' rejected ceremony invitation'">
+                            </Label>
+                            <Label *ngIf="notification.additionalData.newReceptionStatusId == 3"
+                                class="notification__text"
+                                [text]="' confirmed reception invitation'">
+                            </Label>
+                            <Label *ngIf="notification.additionalData.newReceptionStatusId == 4"
+                                class="notification__text"
+                                [text]="' rejected reception invitation'">
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <Label class="notification__time"
+                           [text]="notification.createdAt | amTimeAgo">
+                    </Label>
+
+                </StackLayout>
+
+            </GridLayout>
+        </StackLayout>
+
+    </ScrollView>
+
+    <FlexboxLayout class="clear-buttons-container">
+
+        <Button class="btn btn--small btn--light-gray btn--large-padding btn--semibold text-uppercase"
+                text="Clear all">
+        </Button>
+
+    </FlexboxLayout>
+
+</StackLayout>

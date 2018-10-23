@@ -1,0 +1,47 @@
+<FlexboxLayout class="standard-padding top-bar"
+               top="0"
+               left="0"
+               width="100%">
+
+    <FlexboxLayout class="hamburger"
+                   (tap)="toggleMenu()">
+        <Label class="hamburger__slice"></Label>
+        <Label class="hamburger__slice"></Label>
+        <Label class="hamburger__slice"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout class="top-bar__logo">
+        <Image src="~/resources/images/logo.png" stretch="fill" width="48" height="32"></Image>
+        <Label class="app-title text-m" text="Wedding app"></Label>
+    </FlexboxLayout>
+
+    <StackLayout class="top-bar__actions">
+
+        <AbsoluteLayout class="counter-container"
+                        [class.counter-container--active]="conversationsShown"
+                        (tap)="toggleConversations()"
+                        width="45" height="55">
+
+            <Label text="&#xe903;" class="icon"
+                   left="10" top="5"></Label>
+
+            <Label left="25" top="0" *ngIf="unreadMessagesCount"
+                    class="counter" [text]="unreadMessagesCount"></Label>
+
+        </AbsoluteLayout>
+
+        <AbsoluteLayout class="counter-container"
+                        [class.counter-container--active]="notificationsShown"
+                        (tap)="toggleNotifications()"
+                        width="40" height="55">
+
+            <Label left="10" top="5"
+                   text="&#xe904;" class="icon"></Label>
+
+            <Label left="20" top="0" *ngIf="notificationsCount"
+                    class="counter" [text]="notificationsCount"></Label>
+
+        </AbsoluteLayout>
+
+    </StackLayout>
+</FlexboxLayout>

@@ -1,0 +1,16 @@
+@import '../../../resources/scss/variables';
+
+.location {
+	padding: 15dp 10dp;
+	margin: 10dp 0 0;
+	border-width: 1dp;
+	border-color: $light-gray-border;
+
+	&--active {
+		border-color: $green;
+	}
+
+	&__label {
+		font-size: 15dp;
+	}
+}

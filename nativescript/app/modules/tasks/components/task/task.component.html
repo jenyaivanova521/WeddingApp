@@ -1,0 +1,42 @@
+<FlexboxLayout class="task standard-padding"
+               [class.task--done]="task.status === 'done'">
+
+    <FlexboxLayout class="task__main"
+                   (tap)="toggleActions()">
+        <checkbox-component [checked]="task.status === 'done'"
+                            (valueChanged)="updateTaskStatus(task, $event)"></checkbox-component>
+        <Label [text]="task.name"
+               flexGrow="1"
+               class="text-m task__name"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout class="task__extra"
+                   (tap)="toggleActions()">
+
+        <StackLayout>
+            <Label class="task__status"
+                   *ngIf="task.status"
+                   [class.task__status--done]="task.status === 'done'"
+                   [class.task__status--in-progress]="task.status === 'in progress'"
+                   [class.task__status--overdue]="task.status === 'overdue'"
+                   [text]="task.status"></Label>
+        </StackLayout>
+
+        <Label [text]="task.dueDate | fullDate"
+               class="task__created-date"></Label>
+
+    </FlexboxLayout>
+
+
+    <FlexboxLayout class="action-buttons"
+                   *ngIf="showActions">
+        <Button class="btm btn--action btn--sides-padding btn--small action-buttons__first"
+                (tap)="openEditModal(task)"
+                text="Edit"></Button>
+
+        <Button class="btm btn--action btn--danger btn--sides-padding btn--small action-buttons__last"
+                (tap)="deleteTask(task)"
+                text="Delete"></Button>
+    </FlexboxLayout>
+
+</FlexboxLayout>

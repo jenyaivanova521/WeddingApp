@@ -1,0 +1,111 @@
+<ScrollView height="100%"
+            width="100%">
+
+    <FlexboxLayout flexDirection="column"
+                   height="auto"
+                   class="main-container"
+                   width="90%"
+                   alignItems="stretch">
+
+        <Label class="header"
+               text="Sign Up"></Label>
+
+        <FlexboxLayout justifyContent="space-between">
+            <TextField class="input firstName" autocorrect="false"
+                       flexGrow="1"
+                       hint="First name" text=""
+                       (textChange)="onFieldChange($event, 'firstName')"
+                       returnKeyType="next"></TextField>
+            <TextField class="input lastName" autocorrect="false"
+                       flexGrow="1"
+                       hint="Last name" text=""
+                       (textChange)="onFieldChange($event, 'lastName')"
+                       returnKeyType="next"></TextField>
+        </FlexboxLayout>
+
+        <TextField class="input" autocorrect="false"
+                   hint="Your e-mail address" text=""
+                   keyboardType="email"
+                   (textChange)="onFieldChange($event, 'email')"
+                   returnKeyType="next"></TextField>
+        <TextField class="input" autocorrect="false"
+                   hint="Password" text=""
+                   secure="true"
+                   (textChange)="onFieldChange($event, 'password')"
+                   returnKeyType="next"></TextField>
+        <TextField class="input" autocorrect="false"
+                   hint="Repeat password" text=""
+                   secure="true"
+                   (textChange)="onFieldChange($event, 'repeatPassword')"
+                   returnKeyType="send"></TextField>
+
+        <Label class="user-type__title text-l" text="I'm a:"></Label>
+
+        <StackLayout orientation="horizontal" class="user-type">
+
+            <FlexboxLayout class="user-type__tab"
+                           (tap)="setType('couple',2)"
+                           [class.user-type__tab--active]="userType === 'couple'">
+
+                <Label text="&#xe900;" class="icon"></Label>
+                <Label text="Couple"></Label>
+
+            </FlexboxLayout>
+
+            <FlexboxLayout class="user-type__tab"
+                           (tap)="setType('guest',1)"
+                           [class.user-type__tab--active]="userType === 'guest'">
+
+                <Label text="&#xe901;" class="icon"></Label>
+                <Label text="Guest"></Label>
+
+            </FlexboxLayout>
+
+            <FlexboxLayout class="user-type__tab"
+                           (tap)="setType('vendor',3)"
+                           [class.user-type__tab--active]="userType === 'vendor'">
+
+                <Label text="&#xe902;" class="icon"></Label>
+                <Label text="Vendor"></Label>
+
+            </FlexboxLayout>
+
+        </StackLayout>
+        <ActivityIndicator [busy]="processing"></ActivityIndicator>
+
+        <Button class="btn btn--default sign-up"
+                text="Sign Up"
+                (tap)="signUp()"></Button>
+
+        <FlexboxLayout flexDirection="row"
+                       flexWrap="wrap"
+                       justifyContent="flex-start">
+
+            <StackLayout flexGrow="1">
+                <FlexboxLayout class="btn btn--social btn--social--fb">
+
+                    <Image src="~/resources/images/fb_login.png" stretch="fill" width="19" height="21"></Image>
+                    <Label text="Sign Up with Facebook"></Label>
+
+                </FlexboxLayout>
+            </StackLayout>
+
+            <StackLayout flexGrow="1">
+                <FlexboxLayout class="btn btn--social btn--social--google">
+
+                    <Image src="~/resources/images/google_login.png" stretch="aspectFill" width="20" height="20"></Image>
+                    <Label text="Sign Up with Google"></Label>
+
+                </FlexboxLayout>
+            </StackLayout>
+
+        </FlexboxLayout>
+
+        <FlexboxLayout justifyContent="center" class="already-member" [nsRouterLink]="['/login']">
+            <Label class="text-s" text="Already a member? "></Label>
+            <Label class="link text-s" text="Sign In"></Label>
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+
+</ScrollView>

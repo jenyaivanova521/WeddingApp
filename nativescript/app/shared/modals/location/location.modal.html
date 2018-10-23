@@ -1,0 +1,51 @@
+<ScrollView width="100%" height="100%"
+               backgroundColor="white">
+
+    <FlexboxLayout width="100%" height="100%"
+                   alignItems="center"
+                   flexDirection="column"
+                   justifyContent="center">
+
+        <StackLayout width="100%"
+                     class="standard-padding"
+                     flexGrow="1">
+
+            <TextField class="input input--light"
+                       #searchInput
+                       (textChange)="setQuery($event)">
+            </TextField>
+
+            <Button class="btn btn--action btn--md"
+                    text="Search" (tap)="search()">
+            </Button>
+
+            <StackLayout *ngFor="let location of locations"
+                         class="location"
+                         [class.location--active]="location.description === selectedLocation.description || location.description === selectedLocation.formatted_address"
+                         (tap)="selectLocation(location)">
+                <Label [text]="location.description"
+                       textWrap="true"
+                       class="location__label">
+                </Label>
+            </StackLayout>
+
+        </StackLayout>
+
+        <StackLayout class="standard-padding" width="100%">
+            <FlexboxLayout alignSelf="flex-end"
+                        class="btn btn--flex flex-justify-center btn--action btn--md"
+                        [class.btn--disabled]="!selectedLocation || !loadedDetails"
+                        (tap)="close()">
+
+                <Label text="&#xe91b;" class="icon icon--loading" *ngIf="!loadedDetails && selectedLocation">
+                </Label>
+
+                <Label text="Submit" *ngIf="loadedDetails || !selectedLocation">
+                </Label>
+
+            </FlexboxLayout>
+        </StackLayout>
+
+    </FlexboxLayout>
+
+</ScrollView>

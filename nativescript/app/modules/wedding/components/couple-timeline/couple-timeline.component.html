@@ -1,0 +1,6 @@
+<StackLayout class="gray-bg">
+    <post-form *ngIf="showForm" (onSuccess)="appendPost($event)" [activeWedding]="activeWedding">
+    </post-form>
+    <post  *ngFor="let post of posts" [post]="post" [index]="i" (postDeleted)="removePost($event)">
+    </post>
+</StackLayout>

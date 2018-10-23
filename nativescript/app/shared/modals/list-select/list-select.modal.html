@@ -1,0 +1,13 @@
+<FlexboxLayout alignItems="center" justifyContent="center" width="100%" height="100%" flexDirection="column">
+
+    <ListPicker [items]="items"
+                width="100%"
+                selectedIndex="0"
+                (selectedIndexChange)="selectedIndexChanged($event)">
+    </ListPicker>
+
+    <Button class="btn btn--action btn--sides-padding btn--small" text="Select"
+            (tap)="close()">
+    </Button>
+
+</FlexboxLayout>

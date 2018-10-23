@@ -1,0 +1,84 @@
+<ScrollView height="100%"
+            width="100%">
+    <GridLayout rows="auto,auto">
+        <GridLayout height="80" row="0"></GridLayout>
+        <FlexboxLayout row = "1" height="auto"
+                justifyContent="center"
+                flexDirection="column"
+                width="90%"
+                alignItems="stretch"                
+                >
+
+        <StackLayout height="100%" >
+            <Label class="header"
+                text="Sign In">
+            </Label>
+
+            <TextField class="input" autocorrect="false"
+                    hint="Your e-mail address"
+                    text=""
+                    keyboardType="email"
+                    (textChange)="onFieldChange($event, 'email')"
+                    #emailInput
+                    returnKeyType="next">
+            </TextField>
+
+            <TextField class="input" autocorrect="false"
+                    hint="Password"
+                    secure="true"
+                    #passwordInput
+                    (returnPress)="signIn()"
+                    (textChange)="onFieldChange($event, 'password')"
+                    text=""
+                    returnKeyType="done">
+            </TextField>
+            <ActivityIndicator [busy]="processing"></ActivityIndicator>
+
+            <Button class="btn btn--default sign-in"
+                text="Sign In"
+                (tap)="signIn()">
+            </Button>
+
+
+            <Label class="link forgot-password text-s" text="Forgot password?"
+                [nsRouterLink]="['/remind-password']">
+            </Label>
+
+            <FlexboxLayout flexDirection="row"
+                        class="social-login"
+                        flexWrap="wrap"
+                        justifyContent="flex-start">
+
+                <StackLayout flexGrow="1">
+                    <FlexboxLayout class="btn btn--social btn--social--fb">
+
+                        <Image src="~/resources/images/fb_login.png" stretch="fill" width="19" height="21">
+                        </Image>
+
+                        <Label text="Login with Facebook"></Label>
+
+                    </FlexboxLayout>
+                </StackLayout>
+
+                <StackLayout flexGrow="1">
+                    <FlexboxLayout class="btn btn--social btn--social--google">
+
+                        <Image src="~/resources/images/google_login.png" stretch="aspectFill" width="20" height="20">
+                        </Image>
+
+                        <Label text="Login with Google"></Label>
+
+                    </FlexboxLayout>
+                </StackLayout>
+
+            </FlexboxLayout>
+
+            <Label class="link forgot-password text-s" text="Don't have an account yet? SignUp"
+                [nsRouterLink]="['/register']">
+            </Label>
+
+        </StackLayout>
+
+    </FlexboxLayout>
+    </GridLayout>
+</ScrollView>

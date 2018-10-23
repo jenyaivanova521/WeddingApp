@@ -1,0 +1,43 @@
+@import '../../../../resources/scss/variables';
+
+.comment {
+	padding: 15dp;
+	background: $light-gray-bg;
+
+	&--edit {
+		padding: 0;
+	}
+
+	&__avatar {
+		margin-top: 2dp;
+		width: 60dp;
+		margin-right: 10dp;
+	}
+
+	&__body {
+		padding: 5dp 10dp;
+		background: $light-gray;
+		border-radius: 30dp;
+	}
+
+	&__author {
+		margin-right: 5dp;
+	}
+
+	&__text {
+		font-weight: 300;
+		line-height: 1.6;
+	}
+
+	&__author {
+		color: $gray;
+	}
+
+	&__createdAt {
+		margin-left: 15dp;
+		font-weight: 300;
+		font-size: 13dp;
+		line-height: 1;
+		color: $light-gray-text;
+	}
+}

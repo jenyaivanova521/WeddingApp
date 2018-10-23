@@ -1,0 +1,79 @@
+
+<ScrollView left="0" top="0"
+            backgroundColor="white"
+            class="menu"
+            height="100%" width="250">
+    <FlexboxLayout flexDirection="column"
+                   height="auto">
+
+        <FlexboxLayout class="user standard-padding user--border-bottom"
+                       *ngIf="accountInfo"
+                       flexDirection="column">
+            <FlexboxLayout justifyContent="flex-end" (tap)="toggleMenu()">
+                <!-- TODO open settings ?? -->
+                <Label text="&#xe905;" class="icon"></Label>
+            </FlexboxLayout>
+                <!-- TODO remove link to couple on prod -->
+            <FlexboxLayout flexDirection="column" alignItems="center"
+                           [nsRouterLink]="activeProfile?['/app', 'couple-profile']:['/app', 'account-settings']"
+                           (tap)="toggleMenu()">
+                <avatar [dir]="imageDir"
+                        [filename]="activeProfile? activeProfile.avatar:accountInfo.avatar"
+                        [size]="110"></avatar>
+                <Label [text]="activeProfile? activeProfile.name: accountName"
+                       class="user__name text-l"></Label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+
+        <StackLayout class="menu__links">
+            <!-- TODO redirects -->
+            <FlexboxLayout class="menu__link" nsRouterLinkActive="menu__link--active" [nsRouterLink]="['/app', 'social-feed']" (tap)="toggleMenu()">
+                <Label text="&#xe909;" class="icon"></Label>
+                <Label class="label" text="News Feed"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+                *ngIf="activeProfile && activeProfile.type == 'wedding'"
+                class="menu__link" nsRouterLinkActive="menu__link--active" [nsRouterLink]="['/app', 'tasks-list']" (tap)="toggleMenu()">
+                <Label text="&#xe908;" class="icon"></Label>
+                <Label class="label" text="Tasks"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout 
+                *ngIf="activeProfile && activeProfile.type == 'wedding'"
+                class="menu__link" nsRouterLinkActive="menu__link--active" [nsRouterLink]="['/app', 'guest-list']" (tap)="toggleMenu()">
+                <Label text="&#xe907;" class="icon"></Label>
+                <Label class="label" text="Guest List"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout class="menu__link" nsRouterLinkActive="menu__link--active" [nsRouterLink]="['/app', 'marketplace-list']" (tap)="toggleMenu()">
+                <Label text="&#xe906;" class="icon"></Label>
+                <Label class="label" text="Marketplace"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout class="menu__link" nsRouterLinkActive="menu__link--active" [nsRouterLink]="['/app', 'account-settings']" (tap)="toggleMenu()">
+                <Label text="&#xe905;" class="icon"></Label>
+                <Label class="label" text="Settings"></Label>
+            </FlexboxLayout>
+        </StackLayout>
+        <StackLayout class="suggest_create_couple" *ngIf="!activeProfile">
+            <Label class="plan_label" text="PLANNING TO GET MARRIED?" textWrap="true"></Label>
+            <Label class="plan_label_description" text="Create couple profile and try our wedding planner" textWrap="true"></Label>
+            <Label class="plan_label_button" text="FIND OUT MORE" [nsRouterLink]="['/app', 'couple']" (tap)="toggleMenu()"></Label>
+        </StackLayout>
+
+        <StackLayout 
+            *ngIf="activeProfile && activeProfile.type == 'wedding'"
+            class="members">
+            <FlexboxLayout class="members__header">
+                <Label text="Members"></Label>
+                <!-- TODO adding member -->
+                <Label text="&#xe90a;" 
+                       class="icon"
+                       (tap)="openAddMemberModal()"></Label>
+            </FlexboxLayout>
+
+            <member                  
+                *ngFor="let member of members"
+                [member]="member"></member>
+        </StackLayout>
+
+    </FlexboxLayout>
+</ScrollView>
+

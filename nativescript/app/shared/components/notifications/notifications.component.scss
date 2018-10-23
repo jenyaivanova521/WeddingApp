@@ -1,0 +1,35 @@
+@import '../../../resources/scss/variables';
+
+.notification {
+	align-items: center;
+	padding: 20dp;
+	border-bottom-width: 1dp;
+	border-bottom-color: $light-gray-border;
+
+	&--unread {
+		background: $light-blue;
+	}
+
+	&__avatar {
+		border-radius: 100%;
+	}
+
+	&__body {
+		margin-left: 10dp;
+	}
+
+	&__person {
+		font-weight: 500;
+		color: $gray;
+	}
+
+	&__text {
+		font-weight: 300;
+		color: $gray;
+	}
+
+	&__time {
+		color: $light-gray-text;
+		font-weight: 300;
+	}
+}
