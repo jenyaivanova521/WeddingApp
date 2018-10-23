@@ -1,0 +1,10 @@
+<FlexboxLayout class="member standard-padding">
+
+        <avatar [dir]="'account/' + member.id + '/avatars'"
+                [filename]="member.avatar"
+                [size]="35"
+                class="member__avatar"></avatar>
+        <Label class="member__name"
+                [text]="member.firstName + ' ' + member.lastName"></Label>
+
+</FlexboxLayout>

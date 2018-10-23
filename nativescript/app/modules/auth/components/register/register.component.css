@@ -1,0 +1,9 @@
+.user-type{height:130dp;margin-bottom:60dp}
+.user-type__title{text-align:center;font-weight:500;margin-bottom:20dp}
+.user-type__tab{flex-direction:column;align-items:center;justify-content:center;width:33%;background:#eaedef}
+.user-type__tab .icon{font-size:70dp;color:#aab2b6}
+.user-type__tab--active{background:#00d3b3}
+.user-type__tab--active .icon{color:white}
+.sign-up{margin-bottom:15dp;padding-top:14%}
+.already-member{margin:20dp 0}
+.firstName{margin-right:10dp}.lastName{margin-left:10dp}

@@ -1,0 +1,166 @@
+@import './variables.scss';
+
+.clear-buttons-container {
+	justify-content: center;
+	border-top-width: 1dp;
+	border-top-color: $light-gray-border;
+	background: $light-gray;
+	padding: 10dp 20dp;
+}
+
+.action-buttons {
+	margin-top: 10dp;
+	padding-top: 20dp;
+	border-top-width: 1dp;
+	border-top-color: $light-gray-border;
+	justify-content: center;
+
+	Button {
+		text-transform: uppercase;
+		font-weight: 500;
+	}
+
+	&__first {
+		margin-right: 5dp;
+	}
+
+	&__last {
+		margin-left: 5dp;
+	}
+}
+
+.bottom-buttons {
+	justify-content: space-between;
+
+	.btn, Button {
+		padding: 0 10dp;
+	}
+
+	&__first {
+		padding-right: 10dp;
+	}
+
+	&__last {
+		padding-left: 10dp;
+	}
+}
+
+.btn {
+	height: $btn-height;
+	border-radius: $btn-height;
+	padding: 8 8dp;
+	font-size: 20dp;
+	line-height: $btn-height;
+	text-transform: none;
+	width: auto;
+	color: white;
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	justify-content: center;
+
+	.icon {
+		color: white;
+		margin-right: 10dp;
+	}
+
+	&--sides-padding {
+		padding: 0 20dp;
+	}
+
+	&--large-padding {
+		padding: 0 40dp;
+	}
+
+	&--default {
+		background: $gray;
+	}
+
+	&--light-gray {
+		background: $light-gray-border;
+	}
+
+	&--flex {
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&--xs {
+		height: 20dp;
+		line-height: 15dp;
+		border-radius: 20dp;
+		font-size: 10dp !important;
+		font-weight: 400;
+	}
+
+	&--small {
+		height: 40dp;
+		border-radius: 40dp;
+		font-size: 14dp;
+		font-weight: 500;
+
+		.icon {
+			font-size: 26dp;
+		}
+
+		.btn {
+			&__text {
+				font-size: 14dp;
+				font-weight: 500;
+			}
+		}
+	}
+
+	&--md {
+		height: 50dp;
+		border-radius: 50dp;
+		font-size: 14dp;
+		color: white;
+	}
+
+	&--action {
+		background: $deep-blue;
+	}
+
+	&--danger {
+		background: $danger;
+	}
+
+	&--margin {
+		margin: 20dp 0;
+	}
+
+	&--social {
+		height: 40dp;
+		border-radius: 40dp;
+		justify-content: space-between;
+		align-items: center;
+
+		label {
+			font-size: 11dp;
+		}
+
+		image {
+			margin: 0 0 0 5dp;
+		}
+
+		&--fb {
+			background: $blue;
+		}
+
+		&--google {
+			background: $orange;
+		}
+	}
+
+	&--semibold {
+		font-weight: 500;
+	}
+
+	&--disabled {
+		background: #858789;
+	}
+
+	&__text {
+		text-transform: uppercase;
+	}
+}

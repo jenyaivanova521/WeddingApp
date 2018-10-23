@@ -1,0 +1,51 @@
+@import '../../../resources/scss/variables';
+
+.conversation__body {
+	padding-left: 10;
+}
+.conversation__time {
+	padding-left: 10;
+}
+.conversation {
+	padding: 15dp 20dp;
+	border-bottom-width: 1dp;
+	border-bottom-color: $light-gray-border;
+	orientation: horizontal;
+
+	&--unread {
+		background: $light-blue;
+	}
+
+	&__avatar {
+		border-radius: 40dp;
+		margin-right: 10dp;
+	}
+
+	&__body {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	&__title {
+		color: $gray;
+		font-weight: 500;
+	}
+
+	&__header {
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__text {
+		margin-top: 5dp;
+		font-weight: 300;
+		padding-right: 40dp;
+		line-height: 1.3;
+		font-size: 14dp;
+	}
+
+	&__time {
+		font-weight: 300;
+		font-size: 14dp;
+	}
+}

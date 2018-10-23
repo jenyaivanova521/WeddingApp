@@ -1,0 +1,15 @@
+.avatar {
+	border-radius: 100%;
+
+	image {
+		border-radius: 100%;
+	}
+
+	&--square {
+		border-radius: 0;
+
+		image {
+			border-radius: 0;
+		}
+	}
+}

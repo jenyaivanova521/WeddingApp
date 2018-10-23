@@ -1,0 +1,9 @@
+<StackLayout orientation="horizontal" [height]="size">           
+    <image         
+        class="star" 
+        *ngFor="let item of starList; let i = index" 
+        [height]="size" 
+        (tap)="setRate(i)"
+        [src]="i+1<=value?starFill:(i+1>value?starEmpty:starHalf)"
+        ></image>        
+</StackLayout>

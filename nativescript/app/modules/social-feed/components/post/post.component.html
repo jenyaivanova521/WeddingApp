@@ -1,0 +1,179 @@
+<StackLayout class="post">
+
+    <StackLayout class="post__body">
+
+        <FlexboxLayout class="post__header">
+
+            <StackLayout class="post__avatar" [nsRouterLink]="['/app', 'wedding', post.wedding.id]">
+                <avatar [dir]="'wedding/' + post.wedding.id + '/' + 'avatars'"
+                        [filename]="post.wedding.avatar"
+                        [size]="45">
+                </avatar>
+            </StackLayout>
+
+
+            <FlexboxLayout flexGrow="1">
+                <StackLayout flexGrow="1">
+
+                    <Label class="post__sender"
+                           [nsRouterLink]="['/app', 'wedding', post.wedding.id]"
+                           [text]="post.wedding.name">
+                    </Label>
+
+                    <Label class="post__time" [text]="post.createdAt | amTimeAgo">
+                    </Label>
+
+                </StackLayout>
+
+                <Label class="post__more-btn icon"
+                       *ngIf="activeProfile != null && post.wedding.id === activeProfile.id"
+                       (tap)="openSelectActionModal()"
+                       text="&#xe90b;">
+                </Label>
+
+            </FlexboxLayout>
+
+        </FlexboxLayout>
+
+        <Label class="post__content"
+               [text]="post.text"
+               textWrap="true">
+        </Label>
+
+        <StackLayout *ngIf="post.photos.length">
+
+            <FlexboxLayout flexWrap="wrap" alignItems="center" justifyContent="flex-start">
+                <StackLayout *ngFor="let photo of post.photos; let i = index">
+                    <Image (tap)="showGallery(i)"
+                           class="m-b-10 m-r-10"
+                           stretch="aspectFill"
+                           width="100"
+                           height="100"
+                           *ngIf="i < shownPhotosLength"
+                           [src]="cdnUrl + photo.filename">
+                    </Image>
+                </StackLayout>
+            </FlexboxLayout>
+
+            <label *ngIf="post.photos.length > shownPhotosLength"
+                   (tap)="showMorePhotos()"
+                   class="post__show-more-photos"
+                   text="Show more photos">
+            </label>
+
+        </StackLayout>
+
+        <!-- TODO attachments to posts when backend is ready -->
+        <StackLayout *ngIf="post.attachment">
+            <FlexboxLayout class="attachment">
+                <Label class="icon" text="&#xe91a;">
+                </Label>
+
+                <Label class="attachment__label" text="wedding_plan.pdf">
+                </Label>
+            </FlexboxLayout>
+        </StackLayout>
+
+        <FlexboxLayout class="post__actions">
+
+            <FlexboxLayout alignItems="center">
+
+                <FlexboxLayout class="post__reaction">
+
+                    <Label class="icon"
+                           (tap)="likeId ? unlike() : like()"
+                           [ngClass]="{'liked': likeId}"
+                           text="&#xe918;">
+                    </Label>
+
+                    <Label class="post__reaction-counter"
+                           [text]="post.likesCount">
+                    </Label>
+
+                </FlexboxLayout>
+
+                <FlexboxLayout class="post__reaction"
+                               *ngIf="post.allowComments">
+
+                    <Label class="icon" text="&#xe919;"
+                           [class.show-comments]="showComments"
+                           (tap)="toggleShowComments()"></Label>
+
+                    <Label class="post__reaction-counter"
+                           [text]="post.commentsCount">
+                    </Label>
+
+                </FlexboxLayout>
+
+            </FlexboxLayout>
+
+            <FlexboxLayout class="post__add-comment"
+                           *ngIf="!addCommentActive && post.allowComments"
+                           (tap)="toggleAddComment()">
+
+                <Label class="icon" text="&#xe90a;"></Label>
+
+                <Label class="post__add-comment-label"
+                       text="Add comment">
+                </Label>
+
+            </FlexboxLayout>
+
+        </FlexboxLayout>
+
+    </StackLayout>
+
+    <StackLayout *ngIf="(post.comments && post.comments.length > 0) || commentsLoading"
+                 class="comments">
+
+        <FlexboxLayout alignItems="center" justifyContent="space-between"
+                       *ngIf="commentsLoadMore">
+
+            <label class="clickable"
+                   (tap)="showMoreComments()"
+                   text="Show previous comments">
+            </label>
+
+            <label [text]="post.comments.length + ' out of ' + post.commentsCount">
+            </label>
+
+        </FlexboxLayout>
+
+        <label *ngIf="commentsLoading"
+               class="loading-text"
+               text="Loading comments...">
+        </label>
+
+        <StackLayout *ngIf="(post.comments && post.comments.length > 0 && showComments)" class="comments">
+            <!-- TODO Add this to comment if needed or remove -->
+            <!--(commentEditToggled)="commentEditActive = $event"-->
+            <comment 
+                *ngFor="let comment of post.comments" 
+                (commentDeleted)="removeComment($event)" 
+                (commentEditToggled)="commentEditActive = $event" 
+                [asWedding]="asWedding" 
+                [authInfo]="authInfo" 
+                [weddingId]="post.wedding.id" 
+                [postId]="post.id" 
+                [comment]="comment">
+            </comment>
+        </StackLayout>
+
+    </StackLayout>
+
+    <StackLayout class="comments"
+                 *ngIf="post.allowComments && addCommentActive">
+
+        <comment-form [id]="index + '-comment-form'"
+                      [postId]="post.id"
+                      [authInfo]="authInfo"
+                      [activeWedding]="activeWedding"
+                      [postWeddingId]="post.wedding.id"
+                      [asWedding]="asWedding"
+                      (onSuccess)="onCommentAdded($event)"
+                      (cancelEditEvent)="cancelEditEvent($event)">
+        </comment-form>
+
+    </StackLayout>
+
+</StackLayout>

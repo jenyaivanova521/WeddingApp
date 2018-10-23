@@ -1,0 +1,76 @@
+<ScrollView class="modal"
+            [width]="width">
+    <StackLayout class="modal__inner">
+
+        <FlexboxLayout class="modal__header">
+
+            <Label class="modal__title"
+                   *ngIf="modalType === 'create'"
+                   text="Create a new task">
+            </Label>
+
+            <Label class="modal__title"
+                   *ngIf="modalType !== 'create'"
+                   text="Edit task">
+            </Label>
+
+            <Label text="&#xe90f;" (tap)="close()" class="icon">
+            </Label>
+
+        </FlexboxLayout>
+
+        <StackLayout class="modal__body">
+
+            <Label class="input-label" text="Title*">
+            </Label>
+
+            <TextField class="input input--light"
+                       [text]="values.name"
+                       (textChange)="setValue('name',$event, 'value')">
+            </TextField>
+
+            <Label class="input-label" text="Due Date">
+            </Label>
+
+            <date-input [startValue]="values.dueDate"
+                        (dateChanged)="setValue('dueDate', $event)">
+            </date-input>
+
+            <Label class="input-label" text="Assigned to">
+            </Label>
+
+            <select-input [items]="members"
+                          [propertyToShow]="'name'"
+                          [selectedElement]="selectedMember"
+                          [hint]="'Choose'"
+                          (itemSelected)="setValue('assignedMemberId', $event, 'id')">
+            </select-input>
+
+        </StackLayout>
+
+        <StackLayout class="divider divider--asymetrical"></StackLayout>
+
+        <FlexboxLayout class="bottom-buttons">
+
+            <StackLayout class="bottom-buttons__first" width="50%">
+
+                <Button class="btm btn--light-gray next-step-btn btn--md btn--semibold text-uppercase"
+                        (tap)="close()"
+                        text="Cancel">
+                </Button>
+
+            </StackLayout>
+
+            <StackLayout class="bottom-buttons__last" width="50%">
+
+                <Button class="btm btn--action next-step-btn btn--md btn--semibold text-uppercase"
+                        (tap)="submit()"
+                        [text]="modalType === 'create' ? 'Submit' : 'Save'">
+                </Button>
+
+            </StackLayout>
+
+        </FlexboxLayout>
+
+    </StackLayout>
+</ScrollView>

@@ -1,0 +1,47 @@
+@import '../../../../../resources/scss/variables';
+
+.product {
+	orientation: horizontal;
+
+	&__image {
+		width: 80dp;
+		height: 80dp;
+		margin-right: 20dp;
+	}
+
+	&__info {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	&__header {
+
+		.icon {
+			align-self: flex-start;
+			font-size: 29dp;
+			color: #c5c8cb;
+			translateY: -20;
+		}
+	}
+
+	&__name {
+		color: $gray;
+		flex-grow: 1;
+		font-size: 16dp;
+		font-weight: 500;
+	}
+
+	&__description {
+		color: $light-gray-text;
+		font-size: 14dp;
+		line-height: 1.4;
+	}
+
+	&__price {
+		padding-top: 10dp;
+		color: $gray;
+		font-weight: 600;
+		font-size: 16dp;
+	}
+
+}

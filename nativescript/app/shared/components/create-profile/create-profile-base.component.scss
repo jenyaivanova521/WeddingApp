@@ -1,0 +1,143 @@
+@import '../../../resources/scss/variables';
+
+.step {
+	flex-direction: column;
+	align-items: center;
+
+	&--active {
+		.step-icon {
+			&__dot {
+				border-color: $deep-blue;
+			}
+
+			&__line {
+				background: $deep-blue;
+			}
+		}
+
+		.step {
+			&__name {
+				color: $deep-blue;
+			}
+		}
+	}
+
+	&--done {
+		.step-icon {
+			&__dot {
+				background: $green;
+				border-color: $green;
+			}
+
+			&__line {
+				background: $green;
+			}
+
+			.icon {
+				font-size: 17dp;
+				color: white;
+			}
+		}
+	}
+
+	&__number, &__name {
+		font-size: 13dp;
+		text-transform: uppercase;
+	}
+
+	&__number {
+		font-size: 11dp;
+		color: $light-gray-text;
+	}
+
+	&__name {
+		font-weight: 600;
+		font-size: 13dp;
+		color: #585f61;
+		text-align: center;
+	}
+}
+
+.step-container {
+	width: 100%;
+	padding: 10dp 20dp;
+
+	border-top-width: 1dp;
+	border-top-color: $light-gray-border;
+}
+
+.step-icon {
+
+	&__dot {
+		border-color: $step-bg;
+		border-width: 5dp;
+		border-radius: 16dp;
+		background: white;
+		width: 20dp;
+		height: 20dp;
+	}
+
+	&__line {
+		height: 5dp;
+		width: 100%;
+		background: $step-bg;
+		border-right-width: 2dp;
+		border-right-color: white;
+	}
+}
+
+.next-step-btn {
+	margin: 5dp auto 0 auto;
+}
+
+.payment-operator {
+	width: 100%;
+
+	&__box {
+		justify-content: space-between;
+		align-items: center;
+		padding: 20dp;
+	}
+
+	&__name {
+		flex-grow: 1;
+		padding: 0 20dp;
+		font-weight: 600;
+		font-size: 16dp;
+		color: $gray;
+		text-transform: uppercase;
+	}
+
+	&__details {
+		border-top-width: 1dp;
+		border-top-color: #f3f3f5;
+		background: $light-gray-bg;
+		padding: 20dp;
+	}
+
+	&__cc-details {
+		align-items: center;
+
+		StackLayout {
+			width: 120dp;
+		}
+	}
+}
+
+.payment-cost {
+	margin-top: 5dp;
+	margin-bottom: 10dp;
+	text-align: center;
+	font-weight: 600;
+
+	&__header {
+		text-transform: uppercase;
+		color: $gray;
+		font-size: 15dp;
+	}
+
+	&__value {
+		color: $green;
+		font-size: 40dp;
+	}
+}

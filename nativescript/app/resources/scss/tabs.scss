@@ -1,0 +1,44 @@
+@import './variables.scss';
+
+.tab-bar {
+	orientation: horizontal;
+
+	&--alternative {
+		width: 100%;
+		background: #f7f8f9;
+
+		.tab-bar {
+			&__tab {
+				border-right-width: 0;
+
+				&--last {
+					flex-grow: 1;
+				}
+
+				&--active {
+					border-right-width: 1dp;
+					border-left-width: 1dp;
+					border-bottom-width: 0;
+				}
+			}
+		}
+	}
+
+	&__tab {
+		border-right-width: 1dp;
+		border-color: #ecedef;
+		border-top-width: 1dp;
+		border-bottom-width: 1dp;
+		padding: 7dp 9dp;
+		font-weight: 300;
+		font-size: 14dp;
+		background: #f7f8f9;
+
+		&--active {
+			border-top-width: 0;
+			font-weight: 500;
+			color: $gray;
+			background: white;
+		}
+	}
+}

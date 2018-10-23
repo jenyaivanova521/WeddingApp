@@ -1,0 +1,23 @@
+<StackLayout  class="main-screen">
+
+    <StackLayout height="40%">
+
+    </StackLayout>
+
+    <StackLayout height="60%">
+
+        <FlexboxLayout flexDirection="column" alignItems="center">
+            <Image src="~/resources/images/logo.png" stretch="aspectFill" width="72" height="50"></Image>
+            <Label class="app-title" text="Wedding app"></Label>
+        </FlexboxLayout>
+
+        <Button class="sign-in welcome-btn"
+                text="Sign In"
+                [nsRouterLink]="['/login']"></Button>
+        <Button class="welcome-btn sign-up"
+                text="Sign Up"
+                [nsRouterLink]="['/register']"></Button>
+
+    </StackLayout>
+
+</StackLayout>

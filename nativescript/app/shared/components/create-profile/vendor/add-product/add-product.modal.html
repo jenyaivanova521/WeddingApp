@@ -1,0 +1,60 @@
+<StackLayout class="modal"
+            [width]="width">
+    <StackLayout class="modal__inner" height="100%">
+
+        <FlexboxLayout class="modal__header">
+            <Label class="modal__title"
+                   text="Add a product"></Label>
+            <Label text="&#xe90f;" (tap)="close()"
+                   class="icon"></Label>
+        </FlexboxLayout>
+
+        <ScrollView class="modal__body">
+            <StackLayout>
+
+                <Label class="input-label" text="Product name*"></Label>
+                <TextField class="input input--light"
+                           (textChange)="setTextValue('name', $event)"></TextField>
+
+                <Label class="input-label" text="Product price*"></Label>
+                <TextField class="input input--light"
+                           (textChange)="setTextValue('price', $event)"></TextField>
+
+                <Label class="input-label" text="Currency*"></Label>
+                <select-input [items]="currencies" [hint]="'Choose'"
+                              (itemSelected)="setValue('currency', $event)"></select-input>
+
+                <Label class="input-label" text="Unit"></Label>
+                <select-input [items]="units" [hint]="'Choose'"
+                              (itemSelected)="setValue('unit', $event)"></select-input>
+
+                <Label class="input-label" text="Description"></Label>
+                <TextView class="input input--light"
+                          (textChange)="setTextValue('description', $event)"></TextView>
+
+                <Label class="input-label" text="Product photo"></Label>
+
+                <!-- TODO handle upload -->
+                <upload-photo></upload-photo>
+
+                <StackLayout class="divider divider--asymetrical"></StackLayout>
+
+                <FlexboxLayout class="bottom-buttons">
+                    <StackLayout class="bottom-buttons__first" width="50%">
+                        <Button class="btm btn--light-gray next-step-btn btn--md btn--semibold text-uppercase"
+                                (tap)="close()"
+                                text="Cancel"></Button>
+                    </StackLayout>
+
+                    <StackLayout class="bottom-buttons__last" width="50%">
+                        <Button class="btm btn--action next-step-btn btn--md btn--semibold text-uppercase"
+                                (tap)="submit()"
+                                text="Submit"></Button>
+                    </StackLayout>
+                </FlexboxLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+    </StackLayout>
+</StackLayout>

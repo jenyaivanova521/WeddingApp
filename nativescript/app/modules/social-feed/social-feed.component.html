@@ -1,0 +1,57 @@
+<ScrollView [height]="screenHeight"
+            (scroll)="onScroll($event)"
+            class="gray-bg"
+            width="100%">
+
+    <!-- TODO show only followed ?? -->
+
+    <!-- TODO infinite scroll -->
+
+    <StackLayout #itemsContainer>
+
+        <Label class="header header--full-width gray-bg"
+               text="News feed">
+        </Label>
+
+        <post-form *ngIf="showForm" (onSuccess)="appendPost($event)" [activeProfile]="activeProfile">
+        </post-form>
+
+        <post  *ngFor="let post of posts" [post]="post" [index]="i" (postDeleted)="removePost($event)" [activeProfile]="activeProfile">
+        </post>
+
+    </StackLayout>
+
+
+</ScrollView>
+
+
+    <!--<div class="row">-->
+
+            <!--<div class="clearfix">-->
+
+                <!--<h3 class="float-left">News feed</h3>-->
+
+                <!--<div class="float-right" placement="bottom-right" ngbDropdown>-->
+                    <!--<a id="navbarDropdown" role="button" data-toggle="dropdown" ngbDropdownToggle placement="top-right">-->
+                        <!--<span *ngIf="!followed" ngbTooltip="Showing&nbsp;only&nbsp;public&nbsp;posts">Public</span>-->
+                        <!--<span *ngIf="followed" ngbTooltip="Showing&nbsp;posts&nbsp;only from&nbsp;followed&nbsp;weddings">Followed</span>-->
+                    <!--</a>-->
+                    <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>-->
+                        <!--<a class="dropdown-item link" (click)="showFollowed(false)">Public</a>-->
+                        <!--<a class="dropdown-item link" (click)="showFollowed(true)">Followed</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+
+
+            <!--<ul class="posts" *ngIf="posts" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="onScroll('down')" [infiniteScrollDisabled]="infiniteScrollDisabled">-->
+                <!--<li *ngFor="let post of objectValues(posts); let i = index">-->
+                 <!---->
+                <!--</li>-->
+            <!--</ul>-->
+
+        <!--</div>-->
+
+    <!--</div>-->
+

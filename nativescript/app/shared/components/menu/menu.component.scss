@@ -1,0 +1,103 @@
+@import '../../../resources/scss/variables';
+
+.menu {
+	border-right-width: 1px;
+	border-right-color: $light-gray-border;
+
+	&__links {
+		margin: 20dp 0;
+	}
+
+	&__link {
+		padding: 10dp 20dp;
+		font-size: 20dp;
+		font-weight: 300;
+		align-items: center;
+
+		.icon {
+			color: $light-gray-text;
+			font-size: 26dp;
+			margin-right: 10dp;
+		}
+
+		&--active {
+			color: $gray;
+
+			.icon {
+				color: $gray;
+			}
+
+			.label {
+				font-weight: 500;
+			}
+		}
+	}
+}
+
+.members {
+	margin: 15dp 0;
+
+	&__header {
+		padding: 0 20dp;
+		align-items: stretch;
+		justify-content: space-between;
+
+		.icon {
+			font-size: 20dp;
+			color: $gray-icon;
+		}
+
+		label {
+			color: $gray;
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+	}
+}
+
+.member {
+	align-items: center;
+	padding: 10dp 20dp;
+
+	&__avatar {
+		border-radius: 35dp;
+	}
+
+	&__name {
+		margin-left: 10dp;
+		font-weight: 300;
+		font-size: 17dp;
+	}
+}
+
+.suggest_create_couple {
+	margin: 20px 0 0 0;
+	color: #fff;
+	padding: 30px 20px;
+	font-weight: 300;
+	text-align: center;
+	background: #fea088;
+	background: -moz-linear-gradient(45deg, #fea088 0%, #f782a0 100%);
+	background: -webkit-linear-gradient(45deg, #fea088 0%,#f782a0 100%);
+	background: linear-gradient(45deg, #fea088 0%,#f782a0 100%);       
+	line-height: 1.4;	
+}
+.plan_label {
+	font-size: 22;
+	margin-top: 20;
+}
+.plan_label_description {
+	font-size: 16;
+	margin-top: 10;
+}
+.plan_label_button {
+	font-size: 16;
+	height:35;
+	width: 170;
+	border-radius: 50%;
+	border-color: white;
+	border-width: 1;
+	margin-top: 15;
+	margin-bottom: 20;	
+	padding-top: 5;
+}

@@ -1,0 +1,10 @@
+<FlexboxLayout class="checkbox"
+               [class.checkbox--small]="small"
+               (tap)="toggle()"
+               [class.checkbox--checked]="checked">
+    <Image src="~/resources/images/checkbox/check.png"
+           *ngIf="checked"
+           [width]="small ? 11 : 16" [height]="small ? 8 : 13"
+           stretch="aspectFill">
+    </Image>
+</FlexboxLayout>

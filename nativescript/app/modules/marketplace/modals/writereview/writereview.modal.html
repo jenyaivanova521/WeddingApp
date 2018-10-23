@@ -1,0 +1,42 @@
+<ScrollView class="modal"
+            [width]="width">
+    <StackLayout class="modal__inner">
+        <FlexboxLayout class="modal__header">
+            <Label class="modal__title"
+                   text="Write a review"></Label>
+            <Label text="&#xe90f;"
+                   (tap)="close()"
+                   class="icon"></Label>
+        </FlexboxLayout>
+
+        <StackLayout class="modal__body">
+
+            <Label class="input-label" text="Your Review*"></Label>
+            <TextField class="input input--light"
+                       (textChange)="onFieldChange($event, 'vendorReview.text')"></TextField>
+            <Label class="input-label" text="Rating*"></Label>
+            <!-- <StarRating emptyBorderColor="gray" emptyColor="white"  filledColor="red" value="4" max="5"></StarRating> -->
+            <StackLayout width="80%">
+                <custome-star [value]="vendorReview.rating" [size]="40" (valueChanged)="valueChanged($event)" [bigstar]="true"></custome-star>      
+            </StackLayout>
+
+        </StackLayout>
+
+        <StackLayout class="divider divider--asymetrical"></StackLayout>
+
+        <FlexboxLayout class="bottom-buttons">
+            <StackLayout class="bottom-buttons__first" width="50%">
+                <Button class="btm btn--light-gray next-step-btn btn--md btn--semibold text-uppercase"
+                        (tap)="close()"
+                        text="Cancel"></Button>
+            </StackLayout>
+
+            <StackLayout class="bottom-buttons__last" width="50%">
+                <Button class="btm btn--action next-step-btn btn--md btn--semibold text-uppercase"
+                        (tap)="submit()"
+                        text="Submit"></Button>
+            </StackLayout>
+        </FlexboxLayout>
+
+    </StackLayout>
+</ScrollView>

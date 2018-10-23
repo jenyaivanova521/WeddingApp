@@ -1,0 +1,56 @@
+.icon {
+	font-family: 'icomoon';
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1 !important;
+	color: black;
+
+	&--loading {
+		animation-name: rotate;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+	}
+}
+
+$icon-couple: "\e900";
+$icon-guest: "\e901";
+$icon-vendor: "\e902";
+$icon-forum: "\e903";
+$icon-bell: "\e904";
+$icon-settings-outline: "\e905";
+$icon-domain: "\e906";
+$icon-format-list-checks: "\e907";
+$icon-calendar-check: "\e908";
+$icon-newspaper: "\e909";
+$icon-plus-circle: "\e90a";
+$icon-dots-horizontal: "\e90b";
+$icon-camera: '\e90d';
+$icon-triangle: '\e90c';
+$icon-calendar: '\e90e';
+$icon-close-circle: '\e90f';
+$icon-icons8-padlock: '\e910';
+$icon-icons8-upload: '\e911';
+$icon-icons8-user-account: '\e912';
+$icon-icons8-checked-user-ma: '\e913';
+$icon-icons8-facebook-like: '\e914';
+$icon-checkbox-marked-circle-outline: '\e915';
+$icon-checkbox-blank-circle-outline: '\e916';
+$icon-google-maps: '\e917';
+$icon-heart: '\e918';
+$icon-comment: '\e919';
+$icon-attachment: '\e91a';
+$icon-loading: '\e91b';
+$icon-check: '\e91c';
+
+
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

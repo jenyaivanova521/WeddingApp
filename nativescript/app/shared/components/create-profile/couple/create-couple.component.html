@@ -1,0 +1,56 @@
+<FlexboxLayout [height]="screenHeight"
+               width="100%"
+               flexDirection="column">
+
+    <Label class="header header--full-width gray-bg"
+           text="Create couple profile"></Label>
+
+    <StackLayout [height]="height">
+        <create-couple-profile *ngIf="activeStep === 0"
+                               (nextStepEvent)="nextStep($event)"></create-couple-profile>
+        <create-couple-partner *ngIf="activeStep === 1"
+                               [partnerNumber]="0"
+                               (nextStepEvent)="nextStep($event)"
+                               (previousStepEvent)="previousStep()"></create-couple-partner>
+        <create-couple-partner *ngIf="activeStep === 2"
+                               [partnerNumber]="1"
+                               (nextStepEvent)="nextStep($event)"
+                               (previousStepEvent)="previousStep()"></create-couple-partner>
+        <create-couple-privacy *ngIf="activeStep === 3"
+                               (createProfileEvent)="nextStep($event)"
+                               (previousStepEvent)="previousStep()"></create-couple-privacy>
+    </StackLayout>
+
+    <FlexboxLayout class="step-container" height="100">
+
+        <FlexboxLayout class="step"
+                       [class.step--done]="activeStep > i"
+                       [class.step--active]="activeStep === i"
+                       *ngFor="let step of steps; let i = index">
+
+            <AbsoluteLayout class="step-icon"
+                            width="100%" height="30">
+                <Label class="step-icon__line"
+                       left="0" top="10"></Label>
+                <FlexboxLayout left="0" top="3" width="100%"
+                               justifyContent="center" alignItems="center">
+                    <StackLayout class="step-icon__dot"></StackLayout>
+                </FlexboxLayout>
+                <FlexboxLayout left="0" top="4" width="100%"
+                               *ngIf="activeStep > i"
+                               justifyContent="center" alignItems="center">
+                    <Label class="icon" text="&#xe91b;"></Label>
+                </FlexboxLayout>
+            </AbsoluteLayout>
+
+            <Label class="step__number"
+                   [text]="'Step ' + i"></Label>
+            <Label class="step__name"
+                   textWrap="true"
+                   [text]="step.name"></Label>
+
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+</FlexboxLayout>
+

@@ -1,0 +1,8 @@
+@import '../../../resources/scss/variables.scss';
+
+.dialog {
+	background: $error;
+	padding: 20dp;
+	border-bottom-color: white;
+	border-bottom-width: 2dp;
+}

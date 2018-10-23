@@ -1,0 +1,15 @@
+<FlexboxLayout justifyContent="space-between" alignItems="center"
+               class="input input--light"
+               (tap)="openSelectModal()">
+
+    <Label *ngIf="!propertyToShow"
+           [text]="selectedElement ? selectedElement : hint">
+    </Label>
+
+    <Label *ngIf="propertyToShow"
+           [text]="selectedElement ? selectedElement[propertyToShow] : hint">
+    </Label>
+
+    <Label text="&#xe90c;" class="icon select-chevron"></Label>
+
+</FlexboxLayout>
