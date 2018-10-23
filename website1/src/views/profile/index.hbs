@@ -1,0 +1,42 @@
+<div class="profile">
+    <div class="header clearfix">
+        <div class="row">
+            <div class="col" style="flex: 0 0 150px;">
+                {{#if profile.avatar}}
+                    {{{avatar (concat config.cdnUrl '/wedding/' profile.id '/avatars/') profile.avatar 150}}}
+                {{/if}}
+
+            </div>
+            <div class="col-sm-8">
+                <h2>{{profile.name}}</h2>
+                {{#if restricted}}
+                    {{#if onlyRegistered}}
+                        <span class="text-danger">Visible only to Wedding App users</span>
+                    {{/if}}
+                    {{#if onlyFollowers}}
+                        <span class="text-danger">Visible only to followers</span>
+                    {{/if}}
+                {{else}}
+                    <div class="description" data-readmore="true">{{profile.description}}</div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    {{#if restricted}}
+    {{else}}
+        {{> profile/nav profileId=profile.id}}
+    {{/if}}
+    <div class="row content">
+        <div class="col-sm-8 col-lg-9">
+            <div class="box">
+                {{> (partial templateName) }}
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-3">
+            <h4>Photos</h4>
+            <div class="box mb-4"></div>
+            <h4>Guests</h4>
+            <div class="box"></div>
+        </div>
+    </div>
+</div>

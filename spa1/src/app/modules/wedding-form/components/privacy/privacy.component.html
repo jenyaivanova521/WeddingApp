@@ -1,0 +1,12 @@
+<div class="row no-gutters privacy-settings">
+    <div class="col-sm-6" *ngFor="let setting of privacySettings">
+        <div class="privacy-setting" [ngClass]="{'active': setting.name == model.privacySetting}" (click)="setPrivacySetting(setting.name)">
+            <i class="icon-wa-{{setting.icon}}"></i>
+            <strong>{{setting.title | translate}}</strong>
+            <p>{{setting.description | translate}}</p>
+            <div class="check">
+                <mat-icon svgIcon="check"></mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

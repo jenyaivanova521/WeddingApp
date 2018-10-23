@@ -1,0 +1,53 @@
+.form-progress
+    .step
+        border-top: 8px solid #e6e9ec
+        text-align: center
+        margin: 40px 0
+        padding: 24px 0 0 0
+        line-height: 1
+        position: relative
+        .mat-icon
+            position: absolute
+            z-index: 2
+            left: 50%
+            top: -18px
+            margin: 0 0 0 -12px
+            color: #fff
+            display: none
+        &:after
+            content: " "
+            display: block
+            background: #fff
+            width: 36px
+            height: 36px
+            border-radius: 50%
+            border: 8px solid #e6e9ec
+            position: absolute
+            left: 50%
+            margin: 0 0 0 -18px
+            top: -24px
+        &.active
+            border-color: #2191d1
+            &:after
+                border-color: #2191d1
+            strong
+                color: #2191d1
+        &.done
+            border-color: #1dcbac
+            &:after
+                background: #1dcbac
+                border-color: #1dcbac
+            strong
+                color: #1dcbac
+            .mat-icon
+                display: block
+        small
+            text-transform: uppercase
+            display: block
+            color: #bec2c4
+            font-size: 10px
+            font-weight: 300
+        strong
+            text-transform: uppercase
+            font-size: 12px
+            font-weight: 700

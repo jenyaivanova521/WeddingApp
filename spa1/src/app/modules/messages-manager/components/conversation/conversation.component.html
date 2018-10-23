@@ -1,0 +1,23 @@
+<div *ngIf="conversationDetails" class="conversation-details">
+    <div class="conversation-header text-center">
+        <h4 *ngIf="authInfo.account.id != conversationDetails.vendor.accountId">{{conversationDetails.vendor.name}}</h4>
+        <h4 *ngIf="authInfo.account.id == conversationDetails.vendor.accountId">{{conversationDetails.wedding.name}}</h4>
+        <small>{{conversationDetails.createdAt | amTimeAgo}}</small>
+    </div>
+    <div class="messages" #messagesContainer [infiniteScrollContainer]="'.messages'" infinite-scroll [infiniteScrollUpDistance]="1" [infiniteScrollThrottle]="100" (scrolledUp)="getMessages()" [infiniteScrollDisabled]="infiniteScrollDisabled">
+        <div *ngFor="let message of messages; let i = index" class="message" [ngClass]="{'owned': message.authorAccount.id == authInfo.account.id, 'stacked': (messages[i-1] && messages[i-1].authorAccount.id) == message.authorAccount.id}">
+            <cdn-image class="avatar" [dir]="(message.asVendor ? 'vendor/' + conversationDetails.vendor.id : 'account/' + message.authorAccount.id)  + '/' + 'avatars'" [filename]="message.asVendor ? conversationDetails.vendor.avatar : message.authorAccount.avatar"
+                [width]="26" [rounded]="true"></cdn-image>
+            <small *ngIf="!message.asVendor">{{message.authorAccount.firstName}} {{message.authorAccount.lastName}}</small>
+            <small *ngIf="message.asVendor">{{conversationDetails.vendor.name}}</small>
+            <div class="content" [title]="message.createdAt | amTimeAgo">{{message.text}}</div>
+        </div>
+        {{scrollToBottom()}}
+    </div>
+    <div class="message-form">
+        <form #messageForm="ngForm" (keyup.enter)="messageForm.form.valid ? submitMessage() : null">
+            <textarea [(ngModel)]="messageFormData.text" name="text" class="form-control form-control-lg" required="true" (keyup.escape)="$event.preventDefault()" (keydown.enter)="$event.preventDefault()" placeholder="{{ 'Enter your message here' | translate }}..." autosize #textarea>
+        </textarea>
+        </form>
+    </div>
+</div>

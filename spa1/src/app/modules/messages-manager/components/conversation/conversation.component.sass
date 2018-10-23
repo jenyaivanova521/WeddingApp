@@ -1,0 +1,74 @@
+.conversation-details
+    height: 81vh
+    border-left: 1px solid #e5e7e7
+    position: relative
+    .conversation-header
+        position: absolute
+        left: 0
+        top: 0
+        right: 0
+        height: 70px
+        padding: 15px 0 0 0
+        border-bottom: 1px solid #e5e7e7
+        h4
+            margin: 0
+        small
+            font-weight: 300
+    .messages
+        padding: 20px
+        overflow-x: scroll
+        position: absolute
+        left: 0
+        top: 70px
+        right: 0
+        bottom: 51px
+        .message
+            max-width: 70%
+            clear: both
+            margin: 5px 0
+            position: relative
+            padding: 0 0 0 32px
+            .avatar
+                position: absolute
+                left: 0
+                top: 20px
+            .content
+                display: inline-block
+                background: #edeff1
+                padding: 5px 14px
+                border-radius: 16px
+                font-size: 14px
+            &.owned
+                float: right
+                padding: 0 32px 0 0
+                .content
+                    background: #9ba2a6
+                    color: #fff
+                    float: right
+                .avatar
+                    left: auto
+                    right: 0
+            &.stacked
+                margin: 2px 0
+                small,
+                .avatar
+                    display: none
+            small
+                margin: 0 0 0 10px
+                display: block
+                color: #abafb1
+                font-size: 12px
+                font-weight: 300
+    .message-form
+        background: #fff
+        border-top: 1px solid #e5e7e7
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        .form-control
+            border: 0
+            padding: 10px 14px
+            &:active, &:focus
+                outline: none
+                box-shadow: none

@@ -1,0 +1,147 @@
+.inspirations
+    position: relative
+    .filters
+        margin: 0 0 10px 0
+        .nav-link
+            color: #42494c
+            font-size: 14px
+            padding: 6px 16px
+        .active
+            background: #b2b5b6
+            color: #fff
+    .search
+        position: relative
+        .mat-icon
+            position: absolute
+            left: 15px
+            top: 13px
+            opacity: 0.4
+            transform: scale(1.1)
+            z-index: 1002
+        .ng-select-container
+            background: #fff
+            margin: 0 0 15px 0
+            border: 0
+            border-radius: 4px
+            padding-left: 40px
+            &:hover
+                box-shadow: none !important
+        .ng-arrow-wrapper
+            display: none !important
+        .ng-value-container
+            padding-top: 0 !important
+        .ng-placeholder
+            top: 11px !important
+            font-size: 18px
+        .ng-dropdown-panel
+            border: 0
+            border-top: 1px dashed #e6e6e6
+            margin-top: -3px
+        .ng-select
+            &.ng-select-focused:not(.ng-select-opened) > .ng-select-container
+                box-shadow: none
+            .ng-clear-wrapper
+                margin-right: 10px
+                .ng-clear
+                    font-size: 22px
+            &.ng-select-multiple
+                .ng-select-container
+                    .ng-value-container
+                        .ng-value
+                            margin-top: 4px
+                            border-radius: 3px
+                            font-size: 16px
+                            .ng-value-icon,
+                            .ng-value-label
+                                padding: 3px 8px
+    .masonry
+        margin: 0 -1% 0 0
+    .masonry-item
+        width: 32.33333%
+        cursor: pointer
+        .inspiration-thumbnail
+            margin: 0 3% 3% 0
+            position: relative
+            border-radius: 4px
+            overflow: hidden
+            .loading
+                text-align: center
+                padding: 50px 20px
+
+                background: #ced4da
+            .image
+                max-width: 100%
+                -webkit-animation: fadeIn .6s ease-in-out forwards
+                animation: fadeIn .6s ease-in-out forwards
+                z-index: 1
+            .actions
+                position: absolute
+                right: 10px
+                top: 10px
+                opacity: 0
+                transition: opacity 0.2s ease-in-out
+                z-index: 3
+            a
+                display: block
+            &:hover
+                .actions
+                    opacity: 1
+                a:after
+                    content: ''
+                    display: block
+                    background: rgba(0,0,0,0.4)
+                    position: absolute
+                    left: 0
+                    top: 0
+                    right: 0
+                    bottom: 0
+                    z-index: 2
+
+
+    @-webkit-keyframes fadeIn
+    	0%
+            opacity: 0
+    	100%
+            opacity: 1
+
+    @keyframes fadeIn
+    	0%
+            opacity: 0
+    	100%
+            opacity: 1
+
+    .inspiration-details
+        position: fixed
+        right: 0
+        left: 16.666667%
+        top: 70px
+        bottom: 0
+        background: #eaedf0
+        z-index: 1020
+        overflow-y: scroll
+        padding: 30px
+        .tags
+            padding: 10px 0 0 0
+            .badge
+                margin: 0 4px 0 0
+        .image
+            img
+                border-radius: 4px
+        .author
+            line-height: 1.4
+            small
+                display: block
+                font-weight: 300
+                font-size: 12px
+                opacity: 0.5
+        .description
+            margin: 20px 0
+
+@media (max-width: 576px)
+    .inspirations
+        .masonry-item
+            width: 100%
+            .inspiration-thumbnail
+                margin: 0 0 3% 0
+        .inspiration-details
+            left: 0

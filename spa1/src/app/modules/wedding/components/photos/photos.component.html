@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-8">
+        <div class="content-box">
+            <div class="clearfix">
+                <h3 class="float-left mt-1 mb-4">{{ 'Photos' | translate }}</h3>
+                <label *ngIf="activeProfile && activeProfile.id  == weddingId" class="fileinput float-right">
+                    <span class="btn btn-icon btn-primary">
+                        <mat-icon svgIcon="plus-circle"></mat-icon>
+                        {{ 'Add photos' | translate }}
+                    </span>
+                    <input name="imageInput" type="file" (change)="uploaderImagesChange($event)" multiple="true" accept=".jpg,.jpeg,.png,.gif">
+                </label>
+            </div>
+            <div class="row no-gutters photos" style="margin: 0 -.5rem" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="onScroll('down')" [infiniteScrollDisabled]="infiniteScrollDisabled">
+                <div class="col-6 col-md-4 col-lg-3 p-2" *ngFor="let photo of photos; let i = index">
+                    <div class="photo">
+                        <img [src]="photo.thumb" (click)="open(i); false">
+                        <mat-icon *ngIf="activeProfile && activeProfile.id  == weddingId" class="delete" (click)="deletePhoto(photo, $event)" svgIcon="delete-forever"></mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>

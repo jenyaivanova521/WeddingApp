@@ -1,0 +1,129 @@
+.posts
+    display: block
+    padding: 0
+    margin: 0
+    list-style: none
+    .post-details
+        .post:not(.wedding-day-post)
+            border: 2px solid #2191d1
+    .post
+        background: #fff
+        margin: 0 0 15px 0
+        font-weight: 300
+        min-height: 100px
+        position: relative
+        &.hidden
+            display: none
+        &.wedding-day-post
+            margin: 80px 0 15px 0
+            .content
+                position: absolute
+                top: -55px
+                left: 0
+                right: 0
+                color: #ffffff
+                text-align: center
+                font-size: 18px
+            &::before
+                content: " "
+                display: block
+                position: absolute
+                left: -5px
+                top: -65px
+                right: -5px
+                bottom: -5px
+                background: rgb(252,151,143)
+                background: -moz-linear-gradient(left, rgba(252,151,143,1) 0%, rgba(247,130,160,1) 100%)
+                background: -webkit-linear-gradient(left, rgba(252,151,143,1) 0%,rgba(247,130,160,1) 100%)
+                background: linear-gradient(to right, rgba(252,151,143,1) 0%,rgba(247,130,160,1) 100%)
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc978f', endColorstr='#f782a0',GradientType=1 )
+                z-index: -1
+        .author
+            padding: 20px 20px 0
+            margin: 0 0 10px 0
+            .avatar
+                margin: 0 10px 0 0
+                float: left
+            strong, small
+                display: block
+                line-height: 1.4
+            small
+                font-weight: 300
+                font-size: 12px
+                opacity: 0.5
+        .content
+            padding: 0 20px
+            margin: 10px 0
+        .photos
+            margin: 10px 0
+            .cover
+                .image
+                    vertical-align: middle
+                    height: 380px
+                    overflow: hidden
+        .stats
+            font-size: 14px
+            color: #bec2c4
+            font-weight: 400
+            padding: 0 18px
+            margin: 10px 0
+            .stats-likes
+                margin: 0 8px 0 0
+                .mat-icon
+                    cursor: pointer
+                    &:hover
+                        opacity: 0.85
+                &.liked
+                    .mat-icon
+                        color: #fa8c98
+            *
+                float: left
+            .mat-icon
+                transform: scale(0.9)
+                color: #bec2c4
+                margin: 0 2px 0 0
+        .comments
+            border-top: 1px solid #edeff1
+            background: #f7f8f9
+            padding: 5px 20px
+            margin: 10px 0 0 0
+            .load-more-comments
+                font-size: 14px
+                padding: 4px 0
+                color: #bec2c4
+            .comment
+                position: relative
+                padding: 0 0 0 30px
+                margin: 6px 0
+                font-size: 14px
+                .avatar
+                    position: absolute
+                    left: 0
+                    top: 5px
+                .comment-body
+                    display: inline-block
+                    padding: 5px 12px
+                    background: #edeff1
+                    border-radius: 15px
+
+                    &--full-width
+                        width: calc(100% - 50px)
+                small
+                    display: block
+                    font-size: 12px
+                    font-weight: 300
+                    opacity: 0.4
+                    margin: 0 0 0 12px
+        .comment-form
+            border-top: 1px solid #edeff1
+            position: relative
+            padding: 5px
+            .avatar
+                position: absolute
+                left: 18px
+                top: 8px
+            textarea
+                border: 0
+                margin: 0 0 0 34px
+                &:focus, &:active
+                    box-shadow: none

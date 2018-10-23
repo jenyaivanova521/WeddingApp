@@ -1,0 +1,206 @@
+.ng-select
+  &.is-invalid
+    > .ng-select-container
+      border-color: #dc3545
+  &.ng-select-opened
+
+    > .ng-select-container
+      background: #fff
+      border-color: #ced4da
+
+      .ng-arrow
+        top: -2px
+        border-color: transparent transparent #999
+        border-width: 0 5px 5px
+
+        &:hover
+          border-color: transparent transparent #666
+
+  &.ng-select-focused:not(.ng-select-opened) > .ng-select-container
+    border-color: #80bdff
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
+
+  &.ng-select-disabled > .ng-select-container
+    background-color: #f9f9f9
+
+  .ng-has-value .ng-placeholder
+    display: none
+
+  .ng-select-container
+    background-color: #fff
+    border: 1px solid #ced4da
+    min-height: 50px
+    align-items: center
+
+    &:hover
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06)
+
+    .ng-value-container
+      align-items: center
+      padding-left: 15px
+
+      .ng-placeholder
+        color: #dadbdb
+
+  &.ng-select-single .ng-select-container
+    height: 36px
+
+    .ng-value-container
+        padding: 12px 15px
+        .ng-value,
+        .ng-placeholder
+            font-size: 20px
+            font-weight: 300
+            small
+                font-weight: 300
+        .ng-input
+          left: 0
+          padding-left: 10px
+          padding-right: 50px
+          top: 5px
+          > input
+              font-size: 20px
+              font-weight: 300
+              padding: 2px 5px
+
+  &.ng-select-multiple
+    &.ng-select-disabled > .ng-select-container .ng-value-container .ng-value
+      background-color: #f9f9f9
+      border: 1px solid #e3e3e3
+
+      .ng-value-label
+        padding: 0px 5px
+
+    .ng-select-container .ng-value-container
+      padding-left: 7px
+      padding-top: 5px
+
+      .ng-value
+        font-size: 20px
+        margin-right: 5px
+        margin-bottom: 5px
+        background-color: #f5faff
+        border: 1px solid #c2e0ff
+
+        &.ng-value-disabled
+          background-color: #f9f9f9
+          border: 1px solid #e3e3e3
+
+          .ng-value-label
+            padding-left: 5px
+
+        .ng-value-label
+          display: inline-block
+          padding: 0px 5px 0px 5px
+
+        .ng-value-icon
+          display: inline-block
+          padding: 0px 5px
+
+          &:hover
+            background-color: #d8eafd
+
+          &.left
+            border-right: 1px solid #c2e0ff
+
+          &.right
+            border-left: 1px solid #c2e0ff
+
+
+      .ng-placeholder
+        top: 5px
+        padding-bottom: 5px
+        padding-left: 3px
+
+  .ng-clear-wrapper
+    color: #999
+
+    .ng-clear:hover
+      color: #D0021B
+
+  .ng-spinner-zone
+    padding-right: 5px
+    padding-top: 5px
+
+  .ng-arrow-wrapper
+    padding-right: 5px
+    width: 25px
+
+    .ng-arrow
+      border-color: #999 transparent transparent
+      border-style: solid
+      border-width: 5px 5px 2.5px
+
+      &:hover
+        border-top-color: #666
+
+.ng-dropdown-panel
+  background-color: #fff
+  border: 1px solid #ced4da
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06)
+
+  &.ng-select-bottom
+    top: 100%
+    border-top-color: #e6e6e6
+    margin-top: -1px
+
+  &.ng-select-top
+    bottom: 100%
+    border-bottom-color: #e6e6e6
+    margin-bottom: -1px
+
+  .ng-dropdown-header
+    border-bottom: 1px solid #ced4da
+    padding: 5px 7px
+
+  .ng-dropdown-footer
+    border-top: 1px solid #ced4da
+    padding: 5px 7px
+
+  .ng-dropdown-panel-items
+    margin-bottom: 1px
+
+    .ng-optgroup
+      user-select: none
+      cursor: default
+      padding: 8px 10px
+      font-weight: 500
+      color: rgba(0, 0, 0, 0.54)
+      cursor: pointer
+
+      &.ng-option-disabled
+        cursor: default
+
+      &.ng-option-marked
+        background-color: #ebf5ff
+
+      &.ng-option-selected
+        background-color: #f5faff
+        font-weight: 600
+
+    .ng-option
+      background-color: #fff
+      color: rgba(0, 0, 0, 0.87)
+      padding: 8px 10px
+
+      &.ng-option-selected
+        color: #333
+        background-color: #f5faff
+
+        .ng-option-label
+          font-weight: 600
+
+      &.ng-option-marked
+        background-color: #ebf5ff
+        color: #333
+
+      &.ng-option-disabled
+        color: #cccccc
+
+      &.ng-option-child
+        padding-left: 22px
+
+      .ng-tag-label
+        padding-right: 5px
+        font-size: 80%
+        font-weight: 400

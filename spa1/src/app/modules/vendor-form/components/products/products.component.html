@@ -1,0 +1,113 @@
+<ul class="products-list">
+    <li *ngFor="let product of products; let i = index" class="product">
+        <div>
+            <cdn-image [dir]="'vendor/' + activeProfile.id + '/' + 'avatars'" [filename]="product.avatar" [width]="48"></cdn-image>
+        </div>
+        <div class="name">
+            <strong>{{product.name}}</strong>
+            <small>{{product.description}}</small>
+        </div>
+        <div class="price">
+            <div>{{product.price | currency:product.currency.name}} <small *ngIf="product.unit">per {{product.unit.name}}</small></div>
+        </div>
+        <div class="actions">
+            <div class="nav-item dropdown" ngbDropdown placement="bottom-right">
+                <mat-icon svgIcon="dots-horizontal" data-toggle="dropdown" ngbDropdownToggle></mat-icon>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                    <a class="dropdown-item link" (click)="openVendorProductModal({mode: 'edit', vendorProductId: product.id})">{{ 'Edit' | translate }}</a>
+                    <a class="dropdown-item link text-danger" (click)="openDeleteVendorProductModal(product)">{{ 'Delete' | translate }}</a>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+<div class="pt-3 pb-5 text-center">
+    <button class="btn btn-icon btn-primary" (click)="openVendorProductModal({mode:'add'})"><mat-icon svgIcon="plus-circle"></mat-icon> {{ 'Add a product' | translate }}</button>
+</div>
+<hr>
+<button class="btn btn-lg btn-secondary mr-2" (click)="setStep.emit(2)">{{ 'Previous step' | translate }}</button>
+<button class="btn btn-lg btn-primary float-right" type="submit" [disabled]="submitted" (click)="setStep.emit(mode == 'create' ? 4 : 5)">
+    <span *ngIf="!submitted && mode == 'create'">{{ 'Next step' | translate }}</span>
+    <span *ngIf="!submitted && mode == 'edit'">{{ 'Submit' | translate }}</span>
+    <span *ngIf="submitted">{{ 'Saving' | translate }}...</span>
+</button>
+
+<ng-template #vendorProductModal let-c="close" let-d="dismiss">
+    <form (ngSubmit)="submitVendorProductForm()" #vendorProductForm="ngForm">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span *ngIf="modalOptions.mode == 'add'">{{ 'Add a product' | translate }}</span>
+                <span *ngIf="modalOptions.mode == 'edit'">{{ 'Edit the product' | translate }}</span>
+            </h4>
+            <button type="button" class="close" (click)="d('Cross click')">
+                <mat-icon svgIcon="close-circle"></mat-icon>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" *ngIf="error">
+                {{error.title | translate}}
+            </div>
+            <div class="form-group">
+                <label for="email">{{ 'Product name' | translate }}*</label>
+                <input [(ngModel)]="product.name" #name="ngModel" name="name" [ngClass]="{'is-invalid' : name.invalid && name.dirty}" type="text" class="form-control form-control-lg" required="true" minlength="3">
+                <div *ngIf="name.invalid && name.dirty" class="invalid-feedback">
+                    <div *ngIf="name.errors.required">
+                        {{ 'Product name is required.' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-sm-4 pr-2">
+                    <div class="form-group">
+                        <label for="price">Price*</label>
+                        <input [(ngModel)]="product.price" #price="ngModel" name="price" [ngClass]="{'is-invalid' : price.invalid && price.dirty}" type="number" class="form-control form-control-lg" required="true">
+                        <div *ngIf="price.invalid && price.dirty" class="invalid-feedback">
+                            <div *ngIf="price.errors.required">
+                                {{ 'Product price is required.' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pl-2 pr-2">
+                    <div class="form-group">
+                        <label>{{ 'Currency' | translate }}*</label>
+                        <ng-select [(ngModel)]="product.currency.id" [items]="currencies" bindValue="id" bindLabel="name" #currencyId="ngModel" [ngClass]="{'is-invalid' : currencyId.invalid && currencyId.dirty}" name="currencyId" placeholder="{{ 'Choose' | translate }}" required>
+                        </ng-select>
+                        <div *ngIf="currencyId.invalid && currencyId.dirty" class="invalid-feedback" style="display: block;">
+                            <div *ngIf="currencyId.errors.required">
+                                {{ 'Currency is required.' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pl-2">
+                    <div class="form-group">
+                        <label>{{ 'Unit' | translate }}</label>
+                        <ng-select [(ngModel)]="product.unit.id" [items]="vendorProductUnits" bindValue="id" bindLabel="name" name="vendorProductId" placeholder="{{ 'Choose' | translate }}">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">{{ 'Description' | translate }}</label>
+                <textarea [(ngModel)]="product.description" #description="ngModel" name="description" class="form-control form-control-lg" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ 'Product photo' | translate }}</label>
+                <div class="form-group">
+                    <avatar *ngIf="productPhotoUrl" [src]="sanitizer.bypassSecurityTrustUrl(productPhotoUrl)" [size]="100" [square]="true"></avatar>
+                </div>
+                <image-input [formData]="productFormData" [fieldName]="'avatar'" [validate]="true" (previewUrl)="productPhotoUrl = $event" (isValid)="isImageValid = $event"></image-input>
+                <div *ngIf="!isImageValid" class="invalid-feedback" style="display: block;">
+                    {{ 'Invalid image size, min. 200 x 200 px' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-lg btn-secondary" (click)="d('Cross click')">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-lg btn-primary" [disabled]="!vendorProductForm.form.valid || submitted">
+                <span *ngIf="!submitted">{{ 'Submit' | translate }}</span><span *ngIf="submitted">{{ 'Saving' | translate }}...</span>
+            </button>
+        </div>
+    </form>
+</ng-template>

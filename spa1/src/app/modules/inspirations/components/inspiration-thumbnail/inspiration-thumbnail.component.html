@@ -1,0 +1,7 @@
+<div *ngIf="!inspiration.isDeleted" class="inspiration-thumbnail">
+    <div class="loading" *ngIf="inspiration.loading">{{ 'Loading' | translate }}...</div>
+    <a *ngIf="!inspiration.loading" [routerLink]="['/inspirations', inspiration.id]">
+    <img class="image" [src]="getUrl(inspiration)">
+</a>
+    <app-inspiration-actions [inspiration]="inspiration" (inspirationDeleted)="inspiration.isDeleted = true"></app-inspiration-actions>
+</div>

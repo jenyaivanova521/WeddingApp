@@ -1,0 +1,87 @@
+.add-inspiration-modal
+    .description
+        height: 205px !important
+    .image
+        position: relative
+        .delete
+            width: 36px
+            height: 36px
+            border-radius: 18px
+            background: rgba(0,0,0,0.6)
+            position: absolute
+            top: 15px
+            left: 15px
+            opacity: 0
+            -webkit-transition: opacity 0.2s ease-in-out
+            transition: opacity 0.2s ease-in-out
+            text-align: center
+            cursor: pointer
+            .mat-icon
+                margin: 6px 0 0 0
+                color: #fff
+        &:hover
+            .delete
+                opacity: 1
+        img
+            border-radius: 4px
+    .dropzone
+        padding: 70px 50px
+        border: 1px solid #e7e8eb
+        border-radius: 4px
+        text-align: center
+        font-size: 12px
+        color: #bec2c4
+        transition: all 0.3s ease-in-out
+        .icon-wa-upload
+            display: inline-block
+            font-size: 100px
+            color: #d9dcdf
+            margin: 0 0 20px 0
+            transition: color 0.3s ease-in-out
+        .fileinput
+            float: none
+            margin: 0 0 10px 0
+        .info
+            display: inline-block
+        &.dragover
+            border-color: #1dcbac
+            background: #f2fcfa
+            .icon-wa-upload
+                color: #1dcbac
+    .fileinput
+        float: left
+        display: block
+        cursor: pointer
+        margin: 0
+        input
+            width: 0.1px
+            height: 0.1px
+            opacity: 0
+            overflow: hidden
+            position: absolute
+            z-index: -1
+        .mat-icon
+            opacity: 0.4
+        .mat-icon.camera
+            transform: scale(0.9)
+        .mat-icon.plus
+            display: none
+        &.add-more
+            width: 80px
+            height: 80px
+            border: 2px dashed #bbbfc3
+            position: relative
+            opacity: 0.4
+            .mat-icon.camera
+                display: none
+            .mat-icon.plus
+                position: absolute
+                left: 50%
+                top: 50%
+                margin: -12px 0 0 -12px
+                display: block
+        &:hover
+            .mat-icon
+                opacity: 0.7
+            &.add-more
+                opacity: 0.7

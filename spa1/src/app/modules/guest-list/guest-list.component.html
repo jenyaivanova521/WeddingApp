@@ -1,0 +1,36 @@
+<app-layout>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="header clearfix">
+                <h3 class="float-left">{{ 'Guest List' | translate }}</h3>
+                <div class="float-right">
+                    <button class="btn btn-icon btn-primary float-right" (click)="openGuestAddModal()">
+                        <mat-icon svgIcon="plus-circle"></mat-icon> {{ 'Add a guest' | translate }}
+                    </button>
+                </div>
+            </div>
+            <ul [hidden]="!guests.length" class="guest-list" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="loadMoreGuests()" [infiniteScrollDisabled]="infiniteScrollDisabled">
+                <li class="guest header">
+                    <div class="name">
+                        <input [(ngModel)]="term" #search="ngModel" class="form-control float-left search" placeholder="Search...">
+                    </div>
+                    <div class="role d-none d-sm-block">
+                    </div>
+                    <div class="side d-none d-sm-block">
+                    </div>
+                    <div class="status d-none d-sm-block">
+                        {{ 'Ceremony' | translate }}
+                    </div>
+                    <div class="status d-none d-sm-block">
+                        {{ 'Reception' | translate }}
+                    </div>
+                    <div class="actions"></div>
+                </li>
+                <app-guest *ngFor="let guest of guests" [guest]="guest" (onChangeEvent)="resetGuests(); getStats();"></app-guest>
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <guest-stats *ngIf="guests.length && stats" [inputStats]="stats"></guest-stats>
+        </div>
+    </div>
+</app-layout>

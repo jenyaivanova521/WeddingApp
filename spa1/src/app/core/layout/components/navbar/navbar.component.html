@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <a class="navbar-brand d-none d-sm-inline-block" routerLink="">
+        <img src="/assets/images/logo.png" width="170">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavCollapse(!_collapseNav)">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <messages-indicator></messages-indicator>
+    <notifications-indicator></notifications-indicator>
+    <div class="navbar-collapse">
+        <ul class="navbar-nav ml-auto" >
+            <li class="nav-item dropdown" ngbDropdown placement="bottom-right" #dropdown="ngbDropdown">
+                <a *ngIf="authInfo" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown" ngbDropdownToggle>
+                    <avatar [dir]="'account/' + authInfo.account.id + '/avatars'" [filename]="authInfo.account.avatar" [size]="32"></avatar>
+                    <span class="d-none d-sm-inline">{{authInfo.account.firstName}} {{authInfo.account.lastName}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                    <a class="dropdown-item" routerLink="/settings/account">{{ 'Settings' | translate }}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item link" (click)="dropdown.close(); logout($event)">{{ 'Logout' | translate }}</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

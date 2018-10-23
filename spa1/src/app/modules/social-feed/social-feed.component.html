@@ -1,0 +1,38 @@
+<app-layout>
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <div class="clearfix">
+                <h3 class="float-left">{{ 'News feed' | translate }}</h3>
+                <div class="float-right" placement="bottom-right" ngbDropdown>
+                    <a id="navbarDropdown" role="button" data-toggle="dropdown" ngbDropdownToggle placement="top-right">
+                        <span *ngIf="!followed" ngbTooltip="{{'Showing only public posts' | translate}}">{{ 'Public' | translate }}</span>
+                        <span *ngIf="followed" ngbTooltip="{{'Showing posts only from followed weddings' | translate}}">{{ 'Followed' | translate }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                        <a class="dropdown-item link" (click)="showFollowed(false)">{{ 'Public' | translate }}</a>
+                        <a class="dropdown-item link" (click)="showFollowed(true)">{{ 'Followed' | translate }}</a>
+                    </div>
+                </div>
+            </div>
+            <post-form *ngIf="showForm" (onSuccess)="appendPost($event)" [activeProfile]="activeProfile"></post-form>
+            <ul class="posts" *ngIf="posts" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="onScroll('down')" [infiniteScrollDisabled]="infiniteScrollDisabled">
+                <li *ngFor="let post of objectValues(posts); let i = index">
+                    <post [post]="post" [index]="i" (postDeleted)="removePost($event)"></post>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-4 recommended-vendors d-sm-none d-md-block">
+            <h5>{{ 'Recommended vendors' | translate }}</h5>
+            <a *ngFor="let vendor of recommendedVendors" class="recommended-vendor" [routerLink]="['/vendor', vendor.id]">
+                <span class="avatar">
+                <cdn-image [dir]="'vendor/' + vendor.id + '/' + 'avatars'" [filename]="vendor.avatar" [width]="40" [rounded]="true"></cdn-image>
+            </span>
+                <span class="title">
+                    <strong>{{vendor.name}}</strong>
+                    <small>{{vendor.category.name | translate}}</small>
+                </span>
+                <p class="description">{{vendor.description}}</p>
+            </a>
+        </div>
+    </div>
+</app-layout>

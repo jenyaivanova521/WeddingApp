@@ -1,0 +1,53 @@
+<div class="row no-gutters">
+    <div class="col pr-2" style="flex: 0 0 120px;">
+        <div class="form-group avatar-preview">
+            <avatar *ngIf="avatarUrl" [src]="sanitizer.bypassSecurityTrustUrl(avatarUrl)" [size]="120" [square]="true"></avatar>
+            <avatar *ngIf="!avatarUrl" [filename]="" [size]="120" [square]="true"></avatar>
+        </div>
+    </div>
+    <div class="col pl-2">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="partners[0].firstName">{{ 'First name' | translate }}*</label>
+                    <input [(ngModel)]="model.partners[partnerIndex].firstName" #partnerFirstName="ngModel" name="partners[partnerIndex].firstName" type="text" [ngClass]="{'is-invalid' : partnerFirstName.invalid && partnerFirstName.touched}" class="form-control form-control-lg" [registerForm]="parentForm" [registerModel]="partnerFirstName" required>
+                    <div *ngIf="partnerFirstName.invalid && (partnerFirstName.dirty || partnerFirstName.touched)" class="invalid-feedback">
+                        <div *ngIf="partnerFirstName.errors.required">
+                            {{ 'First name is required.' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="partners[0].lastName">{{ 'Last name' | translate }}*</label>
+                    <input [(ngModel)]="model.partners[partnerIndex].lastName" #partnerLastName="ngModel" name="partners[partnerIndex].lastName" type="text" class="form-control form-control-lg" [registerForm]="parentForm" [registerModel]="partnerLastName" required>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>{{ 'Role' | translate }}*</label>
+                    <ng-select [(ngModel)]="model.partners[partnerIndex].role" #role="ngModel" [items]="[{name: ('Groom' | translate), value: 'groom'}, {name: ('Bride' | translate), value: 'bride'}]" bindValue="value" bindLabel="name" [ngClass]="{'is-invalid' : role.invalid && (role.dirty || role.touched)}" name="role"
+                        placeholder="{{ 'Choose' | translate }}" required [registerForm]="parentForm" [registerModel]="role">
+                    </ng-select>
+                    <div *ngIf="role.invalid && (role.dirty || role.touched)" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="role.errors.required">
+                            {{ 'Role is required.' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="avatar">{{ 'Profile picture' | translate }}</label>
+                <image-input [formData]="parentFormData" [fieldName]="'partners['+partnerIndex+'][avatar]'" [validate]="true" (previewUrl)="avatarUrl = $event" (isValid)="isImageValid = $event"></image-input>
+                <div *ngIf="!isImageValid" class="invalid-feedback" style="display: block;">
+                    {{ 'Invalid image size, min. 200 x 200 px' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">{{ 'Description' | translate }}</label>
+            <textarea [(ngModel)]="model.partners[partnerIndex].description" #description="ngModel" name="description" class="form-control form-control-lg description"></textarea>
+        </div>
+    </div>
+</div>

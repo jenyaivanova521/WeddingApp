@@ -1,0 +1,14 @@
+<div class="profile-selector" *ngIf="activeProfile">
+    <div class="text-center">
+        <avatar [dir]="(activeProfile.type == 'wedding' ? 'wedding/' : 'vendor/') + activeProfile?.id + '/avatars'" [filename]="activeProfile?.avatar" [size]="90"></avatar>
+        <h4 [innerHtml]="activeProfile?.name"></h4>
+    </div>
+    <div *ngIf="profiles?.length > 1" placement="bottom-right" ngbDropdown>
+        <a id="navbarDropdown" role="button" data-toggle="dropdown" ngbDropdownToggle>
+            <mat-icon svgIcon="account-box-multiple"></mat-icon>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+            <a class="dropdown-item link" *ngFor="let profile of profiles" (click)="selectProfile(profile)" [innerHtml]="profile?.name"></a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="row no-gutters form-progress">
+    <div class="col" *ngFor="let step of steps; let i = index">
+        <div class="step" [ngClass]="{'active': activeStep == i+1, 'done': activeStep > i+1}">
+            <mat-icon svgIcon="check"></mat-icon>
+            <small>{{ 'Step' | translate }} {{i+1}}</small>
+            <strong>{{step | translate}}</strong>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="body" [ngClass]="{'nav-open': collapseNav}">
+    <ng-progress [color]="'#2191d1'" [showSpinner]="false" [trickleSpeed]="500" ></ng-progress>
+    <app-navbar [collapseNav]="collapseNav" (onToggleCollapseNav)="collapseNav = $event"></app-navbar>
+    <div class="container-fluid p-0">
+        <div class="row no-gutters">
+            <div class="col-sm-4 col-md-3 col-lg-2" *ngIf="!hideNav">
+                <app-nav></app-nav>
+            </div>
+            <div class="col main-content" style="min-height: 100vh">
+                <flash-messages></flash-messages>
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

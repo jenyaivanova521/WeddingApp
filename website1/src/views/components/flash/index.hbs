@@ -1,0 +1,5 @@
+{{#each flash}}
+    <div class="alert alert-{{#if light}}light text-{{@key}}{{else}}{{@key}}{{/if}}{{#if ../center}} text-center{{/if}}" role="alert">
+        {{{this}}}
+    </div>
+{{/each}}

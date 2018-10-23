@@ -1,0 +1,12 @@
+<div *ngIf="stats">
+    <h5>{{ 'Summary' | translate }}</h5>
+
+    <h6>{{ 'Done' | translate }} <span class="float-right">{{stats.done}}/{{stats.all}}</span></h6>
+    <ngb-progressbar type="success" [value]="stats.percentage.done"></ngb-progressbar>
+
+    <h6>{{ 'In progress' | translate }} <span class="float-right">{{stats.in_progress}}/{{stats.all}}</span></h6>
+    <ngb-progressbar type="info" [value]="stats.percentage.in_progress"></ngb-progressbar>
+
+    <h6>{{ 'Overdue' | translate }} <span class="float-right">{{stats.overdue}}/{{stats.all}}</span></h6>
+    <ngb-progressbar type="danger" [value]="stats.percentage.overdue"></ngb-progressbar>
+</div>

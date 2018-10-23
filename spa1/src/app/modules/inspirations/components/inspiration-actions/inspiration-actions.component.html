@@ -1,0 +1,5 @@
+<div class="actions">
+    <button *ngIf="inspiration.authorWeddingId == activeProfile.id || (inspiration.author && inspiration.author.wedding.id == activeProfile.id)" class="btn btn-danger btn-icon mr-1" (click)="delete()"><mat-icon svgIcon="delete"></mat-icon> {{ 'Delete' | translate }}</button>
+    <button *ngIf="!inspiration.isPinned" class="btn btn-primary btn-icon" [disabled]="pinLoading" (click)="togglePin({inspirationId: inspiration.id, event: $event, action: 'pin'})"><mat-icon svgIcon="pin"></mat-icon> {{ 'Pin' | translate }}</button>
+    <button *ngIf="inspiration.isPinned" class="btn btn-danger btn-icon" [disabled]="pinLoading" (click)="togglePin({inspirationId: inspiration.id, event: $event, action: 'unpin'})"><mat-icon svgIcon="pin-off"></mat-icon> {{ 'Unpin' | translate }}</button>
+</div>

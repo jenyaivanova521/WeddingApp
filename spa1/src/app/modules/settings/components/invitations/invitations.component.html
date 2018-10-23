@@ -1,0 +1,41 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{ 'Wedding name' | translate }}</th>
+                <th>{{ 'Invited at' | translate }}</th>
+                <th>{{ 'Role' | translate }}</th>
+                <th class="text-right">{{ 'Actions' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let invitation of invitations">
+                <td scope="row">
+                    {{invitation.wedding.name}}
+                </td>
+                <td>
+                    {{invitation.invitedAt | amDateFormat:'lll'}}
+                </td>
+                <td>
+                    {{ invitation.member.role | translate }}
+                </td>
+                <td class="text-right">
+                    <button class="btn btn-danger mr-2" (click)="rejectInvitation(invitation)">
+                {{ 'Reject' | translate }}
+            </button>
+                    <button class="btn btn-primary" (click)="acceptInvitation(invitation)">
+                {{ 'Accept' | translate }}
+            </button>
+                </td>
+            </tr>
+
+            <tr *ngIf="!invitations?.length">
+                <td>
+                    {{ 'No invitations found' | translate }}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

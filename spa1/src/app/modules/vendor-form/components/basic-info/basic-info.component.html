@@ -1,0 +1,102 @@
+<div class="row no-gutters">
+    <div class="col pr-2" style="flex: 0 0 120px;">
+        <div class="form-group avatar-preview">
+            <avatar *ngIf="avatarUrl" [src]="sanitizer.bypassSecurityTrustUrl(avatarUrl)" [size]="120" [square]="true"></avatar>
+            <avatar *ngIf="!avatarUrl" [filename]="" [size]="120" [square]="true"></avatar>
+        </div>
+    </div>
+    <div class="col pl-2">
+        <div class="form-group">
+            <label for="name">{{ 'Vendor profile name' | translate }}*</label>
+            <input type="text" [(ngModel)]="model['name']" #name="ngModel" [registerForm]="parentForm" [registerModel]="name" [ngClass]="{'is-invalid' : name.invalid && name.touched}" name="name" required minlength="3" class="form-control form-control-lg name">
+            <div *ngIf="name.invalid && name.touched" class="invalid-feedback">
+                <div *ngIf="name.errors.required">
+                    {{ 'Name is required.' | translate }}
+                </div>
+                <div *ngIf="name.errors.minlength">
+                    {{ 'Name must be at least 3 characters long.' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-sm-6 pr-2">
+                <div class="form-group">
+                    <label>{{ 'Category' | translate }}*</label>
+                    <ng-select [(ngModel)]="model.category.id" [items]="vendorCategories" bindValue="id" bindLabel="name" #categoryId="ngModel" [ngClass]="{'is-invalid' : categoryId.invalid && (categoryId.dirty || categoryId.touched)}" name="categoryId" placeholder="Choose"
+                        required [registerForm]="parentForm" [registerModel]="categoryId">
+                    </ng-select>
+                    <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="categoryId.errors.required">
+                            {{ 'Category is required.' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 pl-2">
+                <div class="form-group">
+                    <label>{{ 'Rates' | translate }}*</label>
+                    <ng-select [(ngModel)]="model.rate" [items]="[{name: 'Inexpensive', value: 1}, {name: 'Affordable', value: 2}, {name: 'Moderate', value: 3}, {name: 'Expensive', value: 4}]" bindValue="value" bindLabel="name" #rate="ngModel"
+                        [ngClass]="{'is-invalid' : rate.invalid && (rate.dirty || rate.touched)}" name="rate" placeholder="Choose" required [registerForm]="parentForm" [registerModel]="rate">
+                    </ng-select>
+                    <div *ngIf="rate.invalid && (rate.dirty || rate.touched)" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="rate.errors.required">
+                            {{ 'Rates are required.' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">{{ 'Description' | translate }}*</label>
+            <textarea [(ngModel)]="model['description']" #description="ngModel" [registerForm]="parentForm" [registerModel]="description" [ngClass]="{'is-invalid' : description.invalid && description.touched}" name="description" required minlength="3" class="form-control form-control-lg description"></textarea>
+            <div *ngIf="description.invalid && description.touched" class="invalid-feedback">
+                <div *ngIf="description.errors.required">
+                    {{ 'Description is required.' | translate }}
+                </div>
+                <div *ngIf="description.errors.minlength">
+                    {{ 'Description must be at least 3 characters long.' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="vendorAddress">{{ 'Address' | translate }}*</label>
+            <input [(ngModel)]="model['address']" #address="ngModel" ngx-google-places-autocomplete name="vendorAddress" (onAddressChange)="handleAddressChange($event)" class="form-control form-control-lg" [registerForm]="parentForm" [registerModel]="address"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="description">{{ 'Profile picture' | translate }}</label>
+            <image-input [formData]="parentFormData" [fieldName]="'avatar'" [validate]="true" (previewUrl)="avatarUrl = $event" (isValid)="isImageValid = $event"></image-input>
+            <div *ngIf="!isImageValid" class="invalid-feedback" style="display: block;">
+                {{ 'Invalid image size, min. 200 x 200 px' | translate }}
+            </div>
+        </div>
+        <h5 class="mt-4">{{ 'Contact Informations' | translate }}</h5>
+        <div class="row no-gutters">
+            <div class="col-sm-6 pr-2">
+                <div class="form-group">
+                    <label for="phoneNumber">{{ 'Phone number' | translate }}</label>
+                    <input ng2TelInput [ng2TelInputOptions]="{initialCountry: 'gb'}" type="text" [(ngModel)]="model.contacts.phone.value" name="phoneNumber" class="form-control form-control-lg">
+                    <label>
+                        <input [(ngModel)]="model.contacts.phone.isPublic" type="checkbox" value="">
+                        {{ 'Show on public profile page' | translate }}
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 pl-2">
+                <div class="form-group">
+                    <label for="emailAddress">{{ 'E-mail address' | translate }}</label>
+                    <input type="email" [email]="true" [(ngModel)]="model.contacts.email.value" name="emailAddress" class="form-control form-control-lg" #emailAddress="ngModel" [ngClass]="{'is-invalid' : emailAddress.invalid && emailAddress.touched}">
+                    <div *ngIf="emailAddress.invalid && emailAddress.touched" class="invalid-feedback">
+                        <div *ngIf="emailAddress.errors.email">
+                            {{ 'Invalid e-mail address' | translate }}
+                        </div>
+                    </div>
+                    <label>
+                        <input [(ngModel)]="model.contacts.email.isPublic" type="checkbox" value="">
+                        {{ 'Show on public profile page' | translate }}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{{#each posts}}
+    <div class="post mb-4">
+        <div class="pb-4">
+            <strong>{{wedding.name}}</strong>
+            <br><small class="text-muted">{{dateFormat created_at 'll'}}</small>
+            <p>{{text}}</p>
+            <div>
+                {{#each photos}}
+                    {{{avatar (concat ../../config.cdnUrl '/post/' ../this.id '/') filename 120}}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+{{/each}}

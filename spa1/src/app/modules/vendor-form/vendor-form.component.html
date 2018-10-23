@@ -1,0 +1,30 @@
+<app-layout>
+    <div class="content-box">
+        <h3 class="text-center">
+            <span *ngIf="mode == 'create'">{{ 'Create' | translate }}</span>
+            <span *ngIf="mode == 'edit'">{{ 'Edit' | translate }}</span> {{ 'vendor profile' | translate }}</h3>
+        <form-progress [steps]="steps" [activeStep]="activeStep"></form-progress>
+        <div class="row justify-content-md-center">
+            <div class="col-sm-9">
+                <div class="alert alert-danger" *ngIf="error">
+                    {{error.title | translate}}
+                </div>
+                <form (ngSubmit)="submitBasicInfo()" *ngIf="activeStep == 1" #formStep1="ngForm">
+                    <vendor-form-basic-info [mode]="mode" [model]="vendor" [parentForm]="formStep1" [parentFormData]="basicInfoFormData"></vendor-form-basic-info>
+                    <hr>
+                    <button class="btn btn-lg btn-primary float-right" type="submit" [disabled]="formStep1.invalid || submitted">
+                        <span *ngIf="!submitted">{{ 'Next step' | translate }}</span><span *ngIf="submitted">{{ 'Saving' | translate }}...</span>
+                    </button>
+                </form>
+                <vendor-form-photos *ngIf="activeStep == 2" [mode]="mode" (setStep)="setStep($event)"></vendor-form-photos>
+                <vendor-form-products *ngIf="activeStep == 3" [mode]="mode" (setStep)="setStep($event)"></vendor-form-products>
+                <vendor-form-payment *ngIf="activeStep == 4" [mode]="mode" (setStep)="setStep($event)"></vendor-form-payment>
+                <div *ngIf="activeStep == 5" class="my-5 text-center">
+                    <h3 class="text-success">{{ 'Congratulations!' | translate }}</h3>
+                    <p>{{ 'Your vendor profile has been successfully' | translate }} <span *ngIf="mode == 'edit'">{{ 'edited' | translate }}</span><span *ngIf="mode == 'create'">{{ 'created and activated' | translate }}</span></p>
+                    <a [routerLink]="['/vendor', activeProfile.id]" class="btn btn-primary mt-3">{{ 'Go to your vendor profile' | translate }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-layout>

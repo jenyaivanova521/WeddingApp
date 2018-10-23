@@ -1,0 +1,93 @@
+<app-layout>
+    <div class="vendor" *ngIf="vendor">
+        <div class="header">
+            <div class="row">
+                <div class="col" style="flex: 0 0 150px;">
+                    <cdn-image class="avatar" [dir]="'vendor/' + vendor.id + '/' + 'avatars'" [filename]="vendor.avatar" [width]="150"></cdn-image>
+                </div>
+                <div class="col">
+                    <div class="clearfix">
+                        <h3 class="mb-1">{{vendor.name}}</h3>
+                        <p>{{vendor.address}}</p>
+                        <rating [rating]="vendor.rating" [reviewsCount]="vendor.vendorReviewsCount"></rating>
+                    </div>
+                    <button *ngIf="activeProfile.id == vendor.id" [routerLink]="'/vendor'" class="btn btn-sm btn-secondary edit-profile">Edit</button>
+                </div>
+            </div>
+        </div>
+        <nav class="nav content-box-nav content-box-nav-reverse" ngui-sticky sticky-after=".navbar">
+            <li *ngFor="let navLink of navLinks">
+                <a *ngIf="navLink.isVisible" class="nav-link" [attr.href]="router.url + '/' + navLink.target" [href]="navLink.target" [appScrollSpy]="navLink.target" spyOffset="180" pageScroll [pageScrollOffset]="160" [pageScrollSpeed]="1000">{{navLink.name}}</a>
+            </li>
+        </nav>
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div id="vendor-photos">
+                        <ngx-gallery *ngIf="galleryImages.length" [options]="galleryOptions" [images]="galleryImages" style="display: block;"></ngx-gallery>
+                    </div>
+                    <div class="content-box">
+                        <div id="vendor-description">
+                            <h3>{{ 'About This Vendor' | translate }}</h3>
+                            <p>{{vendor.description}}</p>
+                        </div>
+                        <div id="vendor-pricing" class="vendor-products" *ngIf="vendorProducts.length">
+                            <h3 class="mt-5">{{ 'Pricing' | translate }}</h3>
+                            <div class="row">
+                                <div class="col-sm-6 clearfix" *ngFor="let vendorProduct of vendorProducts">
+                                    <div class="product">
+                                        {{vendorProduct.name}}
+                                        <span class="price">
+                                            {{vendorProduct.price|currency:vendorProduct.currency.code}}
+                                            <small *ngIf="vendorProduct.unit">per {{vendorProduct.unit.name}}</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="vendor-reviews">
+                            <h3 class="mt-5">{{ 'Reviews' | translate }}</h3>
+                            <ul>
+                                <li *ngIf="vendorReviewDetails" class="vendor-review-details" id="vendor-review-details">
+                                    <vendor-review [vendor]="vendor" [vendorReview]="vendorReviewDetails" [activeProfile]="activeProfile" [authInfo]="authInfo" (vendorReviewDeleted)="vendorReviewsPage = 1; getVendorDetails(); getVendorReviews()"></vendor-review>
+                                </li>
+                                <li *ngFor="let vendorReview of vendorReviews">
+                                    <vendor-review *ngIf="!vendorReviewDetails || vendorReviewDetails.id != vendorReview.id" [vendor]="vendor" [vendorReview]="vendorReview" [activeProfile]="activeProfile" [authInfo]="authInfo" (vendorReviewDeleted)="vendorReviewsPage = 1; getVendorDetails(); getVendorReviews()"></vendor-review>
+                                </li>
+                            </ul>
+                            <p class="pt-3 text-center text-muted" *ngIf="!vendorReviews.length">{{ 'There are no reviews yet' | translate }}</p>
+                            <div class="mt-3 text-center" *ngIf="vendorReviewsLoadMore">
+                                <button class="btn btn-sm btn-secondary" (click)="loadMoreVendorReviews()">{{ 'Show more reviews' | translate }}</button>
+                            </div>
+                            <div class="mt-3 text-center" *ngIf="activeProfile && activeProfile.type !== 'vendor' && !vendor.isOwner && !vendor.isReviewed">
+                                <button class="btn btn-icon btn-primary" (click)="openVendorReviewModal({mode:'add'})"><mat-icon svgIcon="plus-circle"></mat-icon> {{ 'Add a review' | translate }}</button>
+                            </div>
+                        </div>
+                        <div id="vendor-contacts">
+                            <h3 class="mt-5">{{ 'Contact' | translate }}</h3>
+                            <p>
+                                <strong>{{vendor.name}}</strong><br> {{vendor.address}}
+                            </p>
+                            <div class="vendor-contacts pb-1" *ngIf="vendor.contacts.length">
+                                <div *ngFor="let vendorContact of vendor.contacts">
+                                    <div *ngIf="vendorContact.isPublic">
+                                        <mat-icon svgIcon="phone" *ngIf="vendorContact.type == 'phone'"></mat-icon>
+                                        <mat-icon svgIcon="email" *ngIf="vendorContact.type == 'email'"></mat-icon>
+                                        <a [href]="sanitizer.bypassSecurityTrustUrl((vendorContact.type =='email' ? 'mailto:' : 'callto:') + vendorContact.value)">{{vendorContact.value}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="content-box text-center">
+                        <button class="btn btn-lg btn-primary" (click)="messageVendor()" [disabled]="activeProfile.type == 'vendor'">
+                            {{ 'Message vendor' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-layout>

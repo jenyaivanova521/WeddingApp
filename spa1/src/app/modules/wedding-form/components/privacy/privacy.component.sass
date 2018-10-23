@@ -1,0 +1,47 @@
+.privacy-settings
+    margin: 0 -10px
+    padding: 40px 0
+    .privacy-setting
+        font-size: 12px
+        color: #9ea1a3
+        padding: 25px 25px 25px 100px
+        border: 1px solid #e7e8eb
+        margin: 10px
+        cursor: pointer
+        position: relative
+        [class^="icon-"]
+            position: absolute
+            font-size: 60px
+            left: 25px
+            top: 22px
+            color: #bec2c4
+        strong
+            text-transform: uppercase
+            color: #505659
+            font-weight: 700
+            margin: 0 0 8px 0
+        p
+            margin: 0
+        .check
+            width: 20px
+            height: 20px
+            border-radius: 50%
+            background: #1dcbac
+            position: absolute
+            right: -10px
+            top: -10px
+            color: #fff
+            display: none
+            .mat-icon
+                margin: -4px 0 0 0
+        &:hover
+            border-color: rgba(80, 86, 89, 0.3)
+            [class^="icon-"]
+                color: #505659
+        &.active
+            border-color: #1dcbac
+            box-shadow: 0 0 20px rgba(29, 203, 172, 0.3)
+            [class^="icon-"]
+                color: #1dcbac
+            .check
+                display: block

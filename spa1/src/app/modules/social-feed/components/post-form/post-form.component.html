@@ -1,0 +1,39 @@
+<div class="post-form" [class.post-form--edit]="editForm">
+    <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+        <div class="alert alert-danger" *ngIf="error">
+            {{error.title}}
+        </div>
+        <div class="form-group">
+            <textarea [(ngModel)]="postFormData.text"
+                      #text="ngModel"
+                      name="text"
+                      autosize
+                      class="form-control form-control-lg"
+                      placeholder="{{textPlaceholder|translate}}"
+                      #textarea>
+            </textarea>
+        </div>
+
+        <uploader (getImages)="images = $event"
+                  [cdnFolder]="'/wedding/' + post?.wedding.id + '/photos/'"
+                  [uploadedImages]="post?.photos"
+                  (uploadedImageRemoved)="removeImage($event)"
+                  class="mt-3 mb-2"
+                  [initImages]="uploaderImages"
+                  #uploader>
+        </uploader>
+
+        <div class="row no-gutters mt-2">
+            <button class="btn btn-danger" *ngIf="editForm" (click)="cancel()">
+                <span>{{ 'Cancel' | translate }}</span>
+            </button>
+
+            <button type="submit" class="btn btn-primary"
+                    [disabled]="submitted || !postForm.form.valid || ((!images || !images.length) && !postFormData.text)">
+                <span *ngIf="submitted">{{ 'Saving' | translate }}...</span>
+                <span *ngIf="!submitted && !editForm">{{ 'Post' | translate }}</span>
+                <span *ngIf="!submitted && editForm">{{ 'Update post' | translate }}</span>
+            </button>
+        </div>
+    </form>
+</div>

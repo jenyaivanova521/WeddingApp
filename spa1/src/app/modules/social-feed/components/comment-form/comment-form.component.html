@@ -1,0 +1,36 @@
+<div class="comment-form" *ngIf="!editForm">
+    <form (ngSubmit)="onSubmit()" #commentForm="ngForm" (keyup.enter)="commentForm.form.valid ? onSubmit() : null">
+        <cdn-image *ngIf="asWedding" class="avatar" [dir]="'wedding/' + activeProfile.id + '/' + 'avatars'" [filename]="activeProfile.avatar" [width]="24" [rounded]="true"></cdn-image>
+        <cdn-image *ngIf="!asWedding" class="avatar" [dir]="'account/' + authInfo.account.id + '/' + 'avatars'" [filename]="authInfo.account.avatar" [width]="24" [rounded]="true"></cdn-image>
+        <textarea [(ngModel)]="commentFormData.text" #text="ngModel" name="text" autosize class="form-control" required="true" placeholder="{{ 'Write a comment' | translate }}..." #textarea (focus)="active = true" (blur)="active = false" (keydown.enter)="$event.preventDefault()"></textarea>
+    </form>
+</div>
+
+<form *ngIf="editForm"
+      (ngSubmit)="onSubmit()"
+      #commentForm="ngForm"
+      (keyup.escape)="cancelEdit()"
+      (keyup.enter)="commentForm.form.valid ? onSubmit() : null">
+
+    <cdn-image *ngIf="asWedding" class="avatar" [dir]="'wedding/' + activeProfile.id + '/' + 'avatars'" [filename]="activeProfile.avatar" [width]="24" [rounded]="true"></cdn-image>
+    <cdn-image *ngIf="!asWedding" class="avatar" [dir]="'account/' + authInfo.account.id + '/' + 'avatars'" [filename]="authInfo.account.avatar" [width]="24" [rounded]="true"></cdn-image>
+
+    <div class="comment-body comment-body--full-width">
+        <textarea [(ngModel)]="commentFormData.text"
+                  #text
+                  name="text"
+                  autosize
+                  class="form-control textarea-transparent"
+                  required="true"
+                  #textarea
+                  (focus)="active = true"
+                  (blur)="active = false"
+                  (keyup.escape)="$event.preventDefault()"
+                  (keydown.enter)="$event.preventDefault()">
+        </textarea>
+    </div>
+
+    <div class="additional-info">
+            press esc to <a class="clickable" (click)="cancelEdit()">exit</a> edition
+    </div>
+</form>

@@ -1,0 +1,17 @@
+<div class="wedding-members" *ngIf="(members | async)">
+    <h6 class="header">
+        {{ 'Members' | translate }}
+        <div class="add-member">
+            <add-member-modal buttonType="small"></add-member-modal>
+        </div>
+    </h6>
+    <ul>
+        <li *ngFor="let member of (members | async)" [hidden]="!member?.isActive">
+            <a *ngIf="member">
+                <avatar [dir]="'account/' + member.account?.id + '/' + 'avatars'" [filename]="member.account?.avatar" [size]="22"></avatar>
+                <span *ngIf="member.account">{{ member.account?.firstName }} {{ member.account?.lastName }}</span>
+                <span *ngIf="!member.account">{{ member.email }}</span>
+            </a>
+        </li>
+    </ul>
+</div>

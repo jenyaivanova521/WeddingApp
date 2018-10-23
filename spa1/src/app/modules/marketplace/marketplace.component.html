@@ -1,0 +1,63 @@
+<app-layout>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="clearfix">
+                <h3 class="float-left">{{ 'Marketplace' | translate }}</h3>
+                <div class="recommended-filter float-right" *ngIf="profilingTest">
+                    <span class="text-muted">{{ 'Show' | translate }}:</span>
+                    <a href="#" (click)="$event.preventDefault(); toggleRecommended(false)" [ngClass]="{'active': !showRecommended}">{{ 'All vendors' | translate }}</a>
+                    <a href="#" (click)="$event.preventDefault(); toggleRecommended(true)" [ngClass]="{'active': showRecommended}">{{ 'Only recommended' | translate }}</a>
+                </div>
+            </div>
+            <div class="row" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="loadMoreVendors()" [infiniteScrollDisabled]="infiniteScrollDisabled">
+                <div class="col-sm-4" *ngFor="let vendor of vendors; let i = index">
+                    <div class="marketplace-vendor">
+                        <a [routerLink]="['/vendor', vendor.id]">
+                            <span class="recommended-label" *ngIf="vendor.isRecommended">
+                                {{ 'Recommended' | translate }}
+                            </span>
+                            <span class="thumbnail">
+                                <cdn-image *ngIf="vendor.avatar" [dir]="'vendor/' + vendor.id + '/' + 'avatars'" [filename]="vendor.avatar" format="sm"></cdn-image>
+                            </span>
+                            <span class="description">
+                                <strong class="name" title="{{vendor.name}}">{{vendor.name}}</strong>
+                                <small class="address" title="{{vendor.address}}">{{vendor.address}}</small>
+                                <rating [rating]="vendor.rating" [reviewsCount]="vendor.vendorReviewsCount"></rating>
+                                <span class="rate">
+                                    <span *ngIf="vendor.rate == 1"><strong>$</strong> - {{ 'Inexpensive' | translate }}</span>
+                                    <span *ngIf="vendor.rate == 2"><strong>$$</strong> - {{ 'Affordable' | translate }}</span>
+                                    <span *ngIf="vendor.rate == 3"><strong>$$$</strong> - {{ 'Moderate' | translate }}</span>
+                                    <span *ngIf="vendor.rate == 4"><strong>$$$$</strong> - {{ 'Expensive' | translate }}</span>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="filters">
+                <div class="pb-3" *ngIf="!showRecommended">
+                    <h5>{{ 'Category' | translate }}</h5>
+                    <ng-select [(ngModel)]="filters.categoryId" [items]="vendorCategories" bindValue="id" bindLabel="name" #categoryId="ngModel" name="categoryId" placeholder="Choose" (change)="getVendors(true)"></ng-select>
+                </div>
+                <div class="mb-2" *ngIf="!showRecommended">
+                    <h5>{{ 'Location' | translate }}</h5>
+                    <strong>{{ 'City' | translate }}</strong>
+                    <input ngx-google-places-autocomplete [options]="{types:['(cities)']}" (onAddressChange)="setFilterCoordinates($event)" (input)="cityInputChange($event.target.value)" name="vendorAddress" class="form-control form-control-lg mt-1">
+                </div>
+                <div class="mb-2 pb-3" *ngFor="let filterOption of filtersOptions" [hidden]="showRecommended && !filterOption.showInRecommended">
+                    <h5 *ngIf="filterOption.withHeader">{{filterOption.title | translate}}</h5>
+                    <strong *ngIf="!filterOption.withHeader">{{filterOption.title | translate}}</strong>
+                    <div class="form-check pt-1" *ngFor="let option of filterOption.options">
+                        <input [(ngModel)]="filters[filterOption.modelName]" (change)="getVendors(true)" class="form-check-input" type="radio" id="{{filterOption.name}}-{{option.value}}" name="{{filterOption.name}}" [value]="option.value">
+                        <label class="form-check-label" for="{{filterOption.name}}-{{option.value}}">{{option.title | translate}}</label>
+                    </div>
+                </div>
+                <small>
+                    <a href="#" (click)="$event.preventDefault(); openProfilingTestModal()">{{ 'Fill the profiling test' | translate }}</a>
+                </small>
+            </div>
+        </div>
+    </div>
+</app-layout>

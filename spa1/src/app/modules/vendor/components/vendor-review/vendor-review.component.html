@@ -1,0 +1,7 @@
+<div class="review">
+    <rating [rating]="vendorReview.rating" [showReviewsCount]="false"></rating>
+    <small>{{ 'Reviewed' | translate }} <span class="date">{{vendorReview.createdAt | amTimeAgo}}</span> by <a [routerLink]="['/wedding', vendorReview.author.id]">{{vendorReview.author.name}}</a></small>
+    <small *ngIf="vendorReview.author.accountId == authInfo.account.id || (vendor.isOwner && activeProfile.type == 'vendor')" class="delete-review text-danger" (click)="openDeleteVendorReviewModal(vendorReview)">{{ 'Delete' | translate }}</small>
+    <p class="mt-1">{{vendorReview.text}}</p>
+    <hr>
+</div>

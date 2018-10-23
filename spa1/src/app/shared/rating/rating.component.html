@@ -1,0 +1,8 @@
+<div class="rating clearfix">
+    <mat-icon [svgIcon]="rating > 0 ? 'star' : 'star-outline'"></mat-icon>
+    <mat-icon [svgIcon]="rating > 1 ? (rating > 1 && rating < 2 ? 'star-half' : 'star') : 'star-outline'"></mat-icon>
+    <mat-icon [svgIcon]="rating > 2 ? (rating > 2 && rating < 3 ? 'star-half' : 'star') : 'star-outline'"></mat-icon>
+    <mat-icon [svgIcon]="rating > 3 ? (rating > 3 && rating < 4 ? 'star-half' : 'star') : 'star-outline'"></mat-icon>
+    <mat-icon [svgIcon]="rating > 4 ? (rating > 4 && rating < 5 ? 'star-half' : 'star') : 'star-outline'"></mat-icon>
+    <span class="reviews-count" *ngIf="showReviewsCount">{{reviewsCount}} review<span *ngIf="reviewsCount > 1">s</span></span>
+</div>

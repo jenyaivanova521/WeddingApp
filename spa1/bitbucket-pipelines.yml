@@ -1,0 +1,28 @@
+image: node:8.9.0
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install yarn
+            - npm install -g @angular/cli
+            - yarn install
+            - ng build --configuration=development
+            - tar -zcf dist-spa.tar.gz dist
+            - scp -o StrictHostKeyChecking=no dist-spa.tar.gz muudev@35.195.214.117:/home/muudev/environments/dev
+            - ssh -o StrictHostKeyChecking=no muudev@35.195.214.117 'cd /home/muudev/environments/dev && rm -rf public_html && mkdir public_html && tar -zxf dist-spa.tar.gz --strip 1 -C /home/muudev/environments/dev/public_html/ && rm dist-spa.tar.gz'
+    staging:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install yarn
+            - npm install -g @angular/cli
+            - yarn install
+            - ng build --configuration=staging
+            - tar -zcf dist-spa.tar.gz dist
+            - scp -o StrictHostKeyChecking=no dist-spa.tar.gz muudev@35.195.214.117:/home/muudev/environments/staging
+            - ssh -o StrictHostKeyChecking=no muudev@35.195.214.117 'cd /home/muudev/environments/staging && rm -rf public_html && mkdir public_html && tar -zxf dist-spa.tar.gz --strip 1 -C /home/muudev/environments/staging/public_html/ && rm dist-spa.tar.gz'

@@ -1,0 +1,30 @@
+<app-layout>
+    <div class="wedding" *ngIf="wedding">
+        <div class="header">
+            <div class="row">
+                <div class="col" style="flex: 0 0 150px;">
+                    <cdn-image class="avatar" [dir]="'wedding/' + wedding.id + '/' + 'avatars'" [filename]="wedding.avatar" [width]="150"></cdn-image>
+                </div>
+                <div class="col">
+                    <div class="clearfix">
+                        <h3 class="float-left">{{wedding.name}}</h3>
+                        <button class="float-right btn btn-sm btn-primary" *ngIf="!wedding.follower && !wedding.member" (click)="follow(wedding.id)">{{ 'Follow' | translate }}</button>
+                        <button class="float-right btn btn-sm btn-secondary" *ngIf="wedding.follower" (click)="unfollow(wedding.id)">{{ 'Unfollow' | translate }}</button>
+                    </div>
+                    <div class="description">
+                        <span>{{wedding.description}}</span>
+                        <span *ngIf="wedding.privacySetting == 'followers' && !wedding.follower && !wedding.member" class="text-info">{{ 'You have to be a follower to access this profile' | translate }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="nav content-box-nav content-box-nav-reverse" *ngIf="['public', 'registered'].indexOf(wedding.privacySetting) > -1 || wedding.follower || wedding.member">
+            <a class="nav-link" [routerLink]="['/wedding', wedding.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'Timeline' | translate }}</a>
+            <a class="nav-link" [routerLink]="['/wedding', wedding.id, 'informations']" routerLinkActive="active">{{ 'Informations' | translate }}</a>
+            <a class="nav-link" [routerLink]="['/wedding', wedding.id, 'photos']" routerLinkActive="active">{{ 'Photos' | translate }}</a>
+        </nav>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</app-layout>

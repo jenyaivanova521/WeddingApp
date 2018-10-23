@@ -1,0 +1,18 @@
+<div class="alert alert-danger" *ngIf="error">
+    {{error.title}}
+</div>
+<form (ngSubmit)="submitPhotos()" #formStep2="ngForm">
+    <uploader (getImages)="images = $event"
+              (uploadedImageRemoved)="removeImage($event)"
+              [dropzone]="true"
+              [limit]="8"
+              [uploadedImages]="uploadedImages"
+              [cdnFolder]="'/vendor/' + activeProfile.id + '/photos/'"
+              #uploader>
+    </uploader>
+    <hr>
+    <button class="btn btn-lg btn-secondary mr-2" (click)="setStep.emit(1)">{{ 'Previous step' | translate }}</button>
+    <button class="btn btn-lg btn-primary float-right" type="submit" [disabled]="formStep2.invalid || submitted">
+        <span *ngIf="!submitted">{{ 'Next step' | translate }}</span><span *ngIf="submitted">{{ 'Saving' | translate }}...</span>
+    </button>
+</form>

@@ -1,0 +1,43 @@
+<app-layout>
+    <div class="content-box">
+        <h3 class="text-center">{{ 'Create couple profile' | translate }}</h3>
+        <form-progress [steps]="['Profile info', 'Partner 1', 'Partner 2', 'Privacy settings']" [activeStep]="activeStep"></form-progress>
+        <div class="row justify-content-md-center">
+            <div class="col-sm-9">
+                <form (ngSubmit)="nextStep(1)" *ngIf="activeStep == 1" #formStep1="ngForm">
+                    <wedding-form-basic-info [model]="wedding" [parentForm]="formStep1" [parentFormData]="formData"></wedding-form-basic-info>
+                    <hr>
+                    <button class="btn btn-lg btn-primary float-right" type="submit" [disabled]="formStep1.invalid">{{ 'Next step' | translate }}</button>
+                </form>
+                <form (ngSubmit)="nextStep(2)" *ngIf="activeStep == 2" #formStep2="ngForm">
+                    <wedding-form-partner [model]="wedding" [parentForm]="formStep2" [parentFormData]="formData" [partnerIndex]="0"></wedding-form-partner>
+                    <hr>
+                    <div class="float-right">
+                        <button class="btn btn-lg btn-secondary mr-2" (click)="prevStep(2)">{{ 'Previous step' | translate }}</button>
+                        <button class="btn btn-lg btn-primary" type="submit" [disabled]="formStep2.invalid">{{ 'Next step' | translate }}</button>
+                    </div>
+                </form>
+                <form (ngSubmit)="nextStep(3)" *ngIf="activeStep == 3" #formStep3="ngForm">
+                    <wedding-form-partner [model]="wedding" [parentForm]="formStep3" [parentFormData]="formData" [partnerIndex]="1"></wedding-form-partner>
+                    <hr>
+                    <div class="float-right">
+                        <button class="btn btn-lg btn-secondary mr-2" (click)="prevStep(3)">{{ 'Previous step' | translate }}</button>
+                        <button class="btn btn-lg btn-primary" type="submit" [disabled]="formStep3.invalid">{{ 'Next step' | translate }}</button>
+                    </div>
+                </form>
+                <form (ngSubmit)="onSubmit()" *ngIf="activeStep == 4" #formStep4="ngForm">
+                    <div class="alert alert-danger" *ngIf="error">
+                        {{error.title | translate}}
+                    </div>
+                    <wedding-form-privacy [model]="wedding" [parentForm]="formStep4"></wedding-form-privacy>
+                    <hr>
+                    <button class="btn btn-lg btn-secondary mr-2" (click)="prevStep(4)" [disabled]="submitted">{{ 'Previous step' | translate }}</button>
+                    <button class="btn btn-lg btn-primary" type="submit" [disabled]="formStep4.invalid || submitted || !wedding.privacySetting">
+                        <span *ngIf="submitted">{{ 'Creating profile' | translate }}...</span><span *ngIf="!submitted">{{ 'Create profile' | translate }}</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</app-layout>

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "outDir": "dist",
+        "sourceMap": true,
+        "typeRoots": ["node_modules/@types"],
+        "baseUrl": "./src",
+        "paths": {
+            "controllers/*": [ "controllers/*" ],
+            "middlewares/*": [ "middlewares/*" ],
+            "app/*": ["app/*"],
+            "services/*": [ "services/*" ],
+            "helpers/*": [ "helpers/*" ],
+            "views/*": [ "views/*" ],
+            "routes/*": [ "routes/*" ],
+            "config": [ "config/index" ],
+            "*": [
+                "../node_modules/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "./node_modules/*"
+    ],
+    "compileOnSave": true
+}

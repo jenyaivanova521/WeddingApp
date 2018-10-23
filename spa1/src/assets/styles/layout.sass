@@ -1,0 +1,194 @@
+.main-content
+    padding: 100px 30px 30px !important
+.overflow-hidden
+    overflow: hidden
+.content-box
+    background: #fff
+    padding: 30px
+.content-box-nav
+    background: #f7f8f9
+    border-bottom: 1px solid #eaedf0
+    .nav-link
+        border-right: 1px solid #ecedef
+        padding: 14px 20px
+        color: #42494c
+        font-weight: 300
+        &.active
+            font-weight: 600
+            background: #fff
+            margin-bottom: -1px
+    &.content-box-nav-reverse
+        border-top: 1px solid #eaedf0
+        border-bottom: 0
+        .nav-link
+            &.active
+                margin: -1px 0 0 0
+.navbar-brand
+    margin-right: 50px
+
+.navbar-indicator
+    padding: 3px 0 0 0
+    .dropdown-toggle
+        display: block
+        position: relative
+        .counter
+            position: absolute
+            width: 16px
+            height: 16px
+            border-radius: 50%
+            background: #fa8c98
+            color: #fff
+            font-size: 8px
+            text-align: center
+            font-weight: 400
+            border: 2px solid #fff
+            top: -5px
+            right: -2px
+        .mat-icon
+            opacity: 0.4
+        &:hover
+            .mat-icon
+                opacity: 0.5
+        &:after
+            display: none
+    .list
+        border-top: 1px solid #f5f6f7
+        max-height: 70vh
+        overflow-y: scroll
+        .dropdown-item
+            color: #42494c
+            padding: 10px 15px 10px 50px
+            border-bottom: 1px solid #f5f6f7
+            position: relative
+            line-height: 1.4
+            font-size: 12px
+            width: 350px
+            white-space: normal
+            &.new
+                background: #e4f2f9
+                border-bottom: 1px solid #d3e9f6
+            .avatar
+                position: absolute
+                left: 10px
+                top: 10px
+            .actor
+                font-weight: 600
+            .action
+                font-weight: 300
+            .created
+                font-weight: 300
+                color: #8f9ca1
+
+.main-nav
+    background: #fff
+    border-right: 1px solid #d9dcdf
+    padding: 70px 0 0 0
+    .nav
+        padding: 16px 0 0 30px
+        .nav-item
+            padding: 4px 0
+        .nav-link
+            transition: border 0.3s ease-in-out
+            padding: 5px 0 5px 30px
+            position: relative
+            color: #42494c
+            border-right: 5px solid transparent
+            &:hover,
+            &:active
+                color: #000
+                .mat-icon
+                    color: #939a9d
+            &.active
+                color: #42494c
+                font-weight: 600
+                border-color: #42494c
+                .mat-icon
+                    color: #42494c
+            .mat-icon
+                transition: color 0.1s ease-in-out
+                color: #bec2c4
+                position: absolute
+                left: 0
+                top: 50%
+                margin: -12px 0 0 0
+    .promo
+        margin: 20px 0 0 0
+        color: #fff
+        padding: 30px 20px
+        font-weight: 300
+        text-align: center
+        background: #fea088
+        background: -moz-linear-gradient(45deg, #fea088 0%, #f782a0 100%)
+        background: -webkit-linear-gradient(45deg, #fea088 0%,#f782a0 100%)
+        background: linear-gradient(45deg, #fea088 0%,#f782a0 100%)
+        p
+            font-size: 14px
+            line-height: 1.4
+
+@media (max-width: 576px)
+    .body
+        .main-content
+            padding: 90px 15px 0 15px
+        .navbar-toggler:focus
+            outline: none
+        .main-nav
+            display: none
+            width: 70%
+            height: 100%
+            position: fixed
+            overflow-y: scroll
+            z-index: 1000
+        .navbar
+            .navbar-collapse
+                flex-basis: auto
+                flex-grow: 0
+            .dropdown-menu.show
+                position: absolute
+                right: 0
+        &.nav-open
+            overflow: hidden
+            .main-nav
+                display: block
+                padding: 0
+            .main-content
+                margin: 0 0 0 70%
+                filter: blur(5px)
+                &::before
+                    content: " "
+                    position: absolute
+                    left: -10px
+                    top: 0
+                    bottom: 0
+                    right: 0
+                    background: rgba(0,0,0,0.5)
+                    z-index: 100
+            .navbar
+                margin: 0 0 0 70%
+                > *
+                    display: none
+                .navbar-toggler
+                    display: block
+        .ngui-sticky-filler
+            display: none
+        .content-box-nav
+            flex: none
+            display: block
+            &.ngui-sticky-stuck
+                position: static !important
+                box-shadow: none !important
+            .nav-link
+                display: block
+                text-align: center
+
+@media (min-width: 576px)
+    .main-nav
+        width: 33.333333%
+        height: 100%
+        position: fixed
+        overflow-y: scroll
+@media (min-width: 768px)
+    .main-nav
+        width: 25%
+@media (min-width: 992px)
+    .main-nav
+        width: 16.666667%

@@ -1,0 +1,74 @@
+<div class="post" inViewport [inViewportOptions]="{ threshold: [200] }" (inViewportAction)="onPostVisible($event, post.id)" id="{{post.id}}" [ngClass]="{'wedding-day-post': post.isWeddingDayPost}" [hidden]="post.isWeddingDayPost && weddingPhotos && !weddingPhotos.length">
+    <div class="author clearfix position-relative">
+        <a [routerLink]="['/wedding', post.wedding.id]" class="avatar">
+            <cdn-image [dir]="'wedding/' + post.wedding.id + '/' + 'avatars'" [filename]="post.wedding.avatar" [width]="40" [rounded]="true"></cdn-image>
+        </a>
+
+        <div class="float-left">
+            <a [routerLink]="['/wedding', post.wedding.id]"><strong>{{post.wedding.name}}</strong></a>
+            <small>{{post.createdAt | amTimeAgo}}</small>
+        </div>
+
+        <div class="actions">
+            <div class="nav-item dropdown" ngbDropdown placement="bottom-right" *ngIf="post.wedding.id === activeProfile.id">
+                <mat-icon svgIcon="dots-horizontal" data-toggle="dropdown" ngbDropdownToggle></mat-icon>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                    <a class="dropdown-item link" (click)="editPost()">{{ 'Edit' | translate }}</a>
+                    <a class="dropdown-item link text-danger" (click)="deletePost()">{{ 'Delete' | translate }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        {{post.text}}
+    </div>
+
+    <div class="photos" *ngIf="post.photos.length > 0 && !post.isWeddingDayPost">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+    </div>
+
+    <section *ngIf="post.isWeddingDayPost && weddingPhotos" #photostack class="photostack photostack-start">
+        <div>
+            <figure *ngFor="let image of weddingPhotos">
+                <div class="photostack-img">
+                    <img src="{{image}}" />
+                </div>
+            </figure>
+        </div>
+    </section>
+
+    <div class="stats clearfix">
+        <div class="stats-likes" [ngClass]="{'liked': likeId}">
+            <mat-icon svgIcon="heart" (click)="likeId ? unlike() : like()"></mat-icon> <span>{{post.likesCount}}</span>
+        </div>
+        <div class="stats-comments" *ngIf="post.allowComments">
+            <mat-icon svgIcon="comment"></mat-icon> <span>{{post.commentsCount}}</span>
+        </div>
+        <div class="float-right" placement="bottom-right" ngbDropdown *ngIf="activeProfile && activeProfile.type == 'wedding'">
+            <a id="navbarDropdown" role="button" data-toggle="dropdown" ngbDropdownToggle placement="top-right" [ngbTooltip]="'Liking&nbsp;and&nbsp;commenting&nbsp;as: ' + (asWedding ? activeProfile.name : authInfo.account.firstName + ' ' + authInfo.account.lastName)">
+                <cdn-image *ngIf="asWedding" class="avatar" [dir]="'wedding/' + activeProfile.id + '/' + 'avatars'" [filename]="activeProfile.avatar" [width]="20" [rounded]="true"></cdn-image>
+                <cdn-image *ngIf="!asWedding" class="avatar" [dir]="'account/' + authInfo.account.id + '/' + 'avatars'" [filename]="authInfo.account.avatar" [width]="20" [rounded]="true"></cdn-image>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                <a class="dropdown-item link" [ngClass]="{'active': asWedding}" (click)="setAsWedding(true)">{{activeProfile.name}}</a>
+                <a class="dropdown-item link" [ngClass]="{'active': !asWedding}" (click)="setAsWedding(false)">{{authInfo.account.firstName}} {{authInfo.account.lastName}}</a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="(post.comments && post.comments.length > 0) || commentsLoading" class="comments">
+        <div *ngIf="commentsLoadMore" class="load-more-comments clearfix">
+            <a href="#" class="float-left" (click)="$event.preventDefault(); getComments()">{{ 'Show previous comments' | translate}}</a>
+            <span class="float-right">{{post.comments.length}} out of {{post.commentsCount}}</span>
+        </div>
+        <span *ngIf="commentsLoading">{{ 'Loading' | translate }}...</span>
+        <div *ngIf="(post.comments && post.comments.length > 0)">
+            <comment *ngFor="let comment of post.comments" (commentDeleted)="removeComment($event)" (commentEditToggled)="commentEditActive = $event" [asWedding]="asWedding" [authInfo]="authInfo" [weddingId]="post.wedding.id" [postId]="post.id" [comment]="comment">
+            </comment>
+        </div>
+    </div>
+    <comment-form [id]="index + '-comment-form'" *ngIf="post.allowComments && !commentEditActive" [postId]="post.id" [weddingId]="post.wedding.id" [asWedding]="asWedding" (onSuccess)="onCommentAdded($event)">
+    </comment-form>
+
+</div>

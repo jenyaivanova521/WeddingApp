@@ -1,0 +1,94 @@
+.modal
+    position: static
+    display: block
+    padding: 60px 0
+    .modal-dialog
+        margin: 0 auto
+    .modal-content
+        border: 0
+        border-radius: 0
+        -webkit-box-shadow: 0px 5px 100px 0px rgba(0,0,0,0.2)
+        -moz-box-shadow: 0px 5px 100px 0px rgba(0,0,0,0.2)
+        box-shadow: 0px 5px 100px 0px rgba(0,0,0,0.2)
+
+@media (min-width: 992px)
+    .modal-lg
+        max-width: 740px
+    .modal-md
+        max-width: 600px
+
+.modal-wa
+    .modal-content
+        background-repeat: no-repeat
+        background-size: 550px 354px
+        background-position: -175px bottom
+        background-color: #5b5b5b
+        position: relative
+    .modal-wa-form
+        background: #fff
+        padding: 50px
+        text-align: center
+        a:not(.btn)
+            color: #42494c
+            text-decoration: underline
+        .btn
+            width: 100%
+            &.btn-lg
+                padding: 10px 10px 14px
+                border-radius: 26px
+                font-size: 17px
+        .form-control
+            background: #eaedef
+            border-radius: 0
+            border-color: transparent
+            text-align: center
+            font-weight: 300
+            font-size: 16px
+            padding: 13px
+            &:focus
+                box-shadow: 0 0 0 0.2rem rgba(250,140,152,.4)
+            &.is-invalid
+                background: #f3e9ec
+                border-color: #dc3545
+            &.is-valid
+                background: #ecf6f1
+                border-color: #28a745
+    h2
+        color: #42494c
+    .modal-login-banner
+        position: absolute
+        bottom: 10px
+        padding: 30px
+        h2
+            margin: 15px 0 0 0
+            font-family: 'Arapey', serif
+            font-size: 32px
+            line-height: 34px
+            color: #fff
+    .account-type-selector
+        .form-check
+            width: 33.3%
+            float: left
+            margin: 0
+            padding: 0
+            &:last-child
+                label
+                    border: 0
+        label
+            display: block
+            background: #eaedef
+            cursor: pointer
+            line-height: 64px
+            padding: 20px 0
+            color: #a3a3a3
+            border-right: 1px solid #dbddde
+            i
+                vertical-align: middle
+                font-size: 64px
+        input
+            position: absolute
+            opacity: 0
+            cursor: pointer
+            &:checked ~label
+                background: #22d2b3
+                color: #fff

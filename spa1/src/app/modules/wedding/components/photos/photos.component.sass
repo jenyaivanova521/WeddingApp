@@ -1,0 +1,30 @@
+.photo
+    cursor: pointer
+    position: relative
+    display: inline-block
+
+    &:hover
+        background: #000
+        img
+            opacity: 0.8
+        mat-icon
+            display: block
+
+    mat-icon
+        color: #fff
+        display: none
+        position: absolute
+        top: 5px
+        right: 5px
+
+.fileinput
+    input
+        width: 0.1px
+        height: 0.1px
+        opacity: 0
+        overflow: hidden
+        position: absolute
+        z-index: -1
+.photos
+    img
+        max-width: 100%

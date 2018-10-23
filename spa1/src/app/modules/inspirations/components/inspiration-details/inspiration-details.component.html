@@ -1,0 +1,31 @@
+<div class="inspiration-details" *ngIf="inspiration">
+    <div class="clearfix">
+        <a class="btn btn-secondary btn-icon mb-3 float-left" [routerLink]="['/inspirations']">
+            <mat-icon svgIcon="chevron-left"></mat-icon> {{ 'Back' | translate }}</a>
+        <app-inspiration-actions class="float-right" [inspiration]="inspiration" (inspirationDeleted)="onInspirationDeleted()"></app-inspiration-actions>
+    </div>
+    <div class="content-box">
+        <div class="row">
+            <div class="col-sm-6 mb-4">
+                <cdn-image [dir]="'inspirations/' + inspiration.id" [filename]="inspiration.filename" format="mdw"></cdn-image>
+            </div>
+            <div class="col-sm-6">
+                <div class="author clearfix">
+                    <a [routerLink]="['/wedding', inspiration.author.wedding.id]" class="avatar mr-2 float-left">
+                        <cdn-image [dir]="'wedding/' + inspiration.author.wedding.id + '/' + 'avatars'" [filename]="inspiration.author.wedding.avatar" [width]="40" [rounded]="true"></cdn-image>
+                    </a>
+                    <div>
+                        <a [routerLink]="['/wedding', inspiration.author.wedding.id]"><strong>{{inspiration.author.wedding.name}}</strong></a>
+                        <small>{{inspiration.createdAt | amTimeAgo}}</small>
+                    </div>
+                </div>
+                <div class="tags">
+                    <a [routerLink]="['/inspirations/tag', tag]" class="badge badge-pill badge-secondary" *ngFor="let tag of inspiration.tags">
+                        {{tag}}
+                    </a>
+                </div>
+                <p class="description">{{inspiration.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

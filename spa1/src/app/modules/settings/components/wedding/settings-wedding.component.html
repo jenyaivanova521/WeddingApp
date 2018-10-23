@@ -1,0 +1,13 @@
+<div *ngIf="wedding">
+    <div class="edit-row">
+        <app-settings-wedding-info [wedding]="wedding"></app-settings-wedding-info>
+    </div>
+
+    <div>
+        <app-settings-wedding-partners [wedding]="wedding"></app-settings-wedding-partners>
+    </div>
+
+    <div>
+        <app-settings-wedding-events [wedding]="wedding"></app-settings-wedding-events>
+    </div>
+</div>

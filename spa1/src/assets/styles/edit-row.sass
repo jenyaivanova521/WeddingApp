@@ -1,0 +1,32 @@
+.edit-row
+    position: relative
+
+    &:hover
+        .edit-row__edit-btn
+            display: block
+
+    &__label
+        font-size: 16px
+        font-weight: 700
+        text-transform: capitalize
+
+    &__edit-btn
+        display: none
+        z-index: 1
+        position: absolute
+        right: 0
+        top: 0
+        cursor: pointer
+        font-size: 16px
+
+        mat-icon
+            position: absolute
+            left: -25px
+            transform: scale(0.7)
+
+.wedding-form-row
+    margin-bottom: .5rem
+
+@media (max-width: 576px)
+    .edit-row__edit-btn
+        display: block !important

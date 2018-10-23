@@ -1,0 +1,104 @@
+<div class="position-relative">
+
+    <h4 class="strong mt-4">{{ 'Events' | translate }}</h4>
+
+    <button class="btn btn-primary"
+            *ngIf="(addEvent[0] && !editActive[0]) || (addEvent[1] && !editActive[1])"
+            (click)="showCreateEvent()">
+        {{ 'Create event' | translate }}
+    </button>
+
+</div>
+
+
+<span *ngIf="loading">
+    {{ 'Loading' | translate }}...
+</span>
+
+<div *ngFor="let event of events; let i = index" class="edit-row">
+
+    <div class="edit-row__edit-btn"
+         *ngIf="!editActive[i] && event.type"
+         (click)="editRow(i)">
+        <mat-icon svgIcon="pencil"></mat-icon>
+        {{ 'Edit' | translate }}
+    </div>
+
+    <dl class="row" *ngIf="!editActive[i] && event.type">
+        <dt class="col-sm-3 text-sm-right">
+            {{ 'Type' | translate }}
+        </dt>
+        <dd class="col-sm-9 text-capitalize">
+            {{event.type | translate}}
+        </dd>
+        <dt class="col-sm-3 text-sm-right">{{ 'Location' | translate }}</dt>
+        <dd class="col-sm-9">
+            <strong>{{event.placeName}}</strong><br>
+            {{event.address}}
+        </dd>
+        <dt class="col-sm-3 text-sm-right">
+            {{ 'Date' | translate }}
+        </dt>
+        <dd class="col-sm-9">
+            {{event.date | amDateFormat:'lll'}}
+        </dd>
+
+    </dl>
+
+    <form *ngIf="editActive[i]">
+
+        <div class="d-flex flex-row align-items-center wedding-form-row">
+            <label class="col-sm-3 text-sm-right edit-row__label ">
+                {{ 'Type' | translate }}
+            </label>
+            <select [(ngModel)]="form[i].type"
+                    name="role"
+                    class="form-control">
+                <option [value]="'reception'">{{ 'Reception' | translate }}</option>
+                <option [value]="'ceremony'">{{ 'Ceremony' | translate }}</option>
+            </select>
+        </div>
+
+        <div class="d-flex flex-row align-items-center wedding-form-row">
+            <label class="col-sm-3 text-sm-right edit-row__label">
+                {{ 'Location' | translate }}
+            </label>
+
+            <input ngx-google-places-autocomplete
+                   name="event_{{i}}_location"
+                   (onAddressChange)="handleAddressChange($event, i)"
+                   class="form-control" placeholder="{{ 'Enter a location' | translate }}">
+        </div>
+
+        <div class="d-flex flex-row align-items-center wedding-form-row">
+            <label class="col-sm-3 text-sm-right edit-row__label">
+                {{ 'Date' | translate }}
+            </label>
+            <input class="form-control"
+                   name="date"
+                   [min]="minDate"
+                   [(ngModel)]="form[i]['date']"
+                   [owlDateTime]="dt1"
+                   [owlDateTimeTrigger]="dt1"
+                   placeholder="{{ 'Click to select a date' | translate }}">
+            <owl-date-time #dt1></owl-date-time>
+        </div>
+
+        <div class="d-flex flex-row align-items-center justify-content-center mt-3">
+
+            <button class="btn btn-danger mr-2" *ngIf="!addEvent[i]" (click)="cancelEdit(i)">
+                {{ 'Cancel' | translate }}
+            </button>
+
+            <button class="btn btn-primary" (click)="submit(i)">
+                <span *ngIf="!addEvent[i]">{{ 'Submit' | translate }}</span>
+                <span *ngIf="addEvent[i]">{{ 'Create' | translate }}</span>
+            </button>
+
+        </div>
+
+    </form>
+
+    <hr *ngIf="i === 0 && ( (!editActive[0] && !editActive[1] && event.type) || (editActive[0] && editActive[1]) )">
+
+</div>

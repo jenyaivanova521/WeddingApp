@@ -1,0 +1,51 @@
+<div>
+    <ng-template #modalContent let-c="close" let-d="dismiss">
+        <form (ngSubmit)="onSubmit()" #memberForm="ngForm">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'Add a new member' | translate}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <mat-icon svgIcon="close-circle"></mat-icon>
+        </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" *ngIf="error">
+                    {{error.title | translate}}
+                </div>
+                <div class="form-group">
+                    <label for="email">{{ 'Email' | translate}}*</label>
+                    <input [(ngModel)]="member.email" #email="ngModel" name="email" [ngClass]="{'is-invalid' : email.invalid && (email.dirty || email.touched)}" type="email" class="form-control form-control-lg" required="true" email="true">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                        <div *ngIf="email.errors.required">
+                            {{ 'Email is required.' | translate}}
+                        </div>
+                        <div *ngIf="email.errors.email">
+                            {{ 'Email is invalid.' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">{{ 'Role' | translate}}*</label>
+                    <ng-select [items]="[{name: 'Member', value: 'member'}, {name: 'Owner', value: 'owner'}]"
+                    bindValue="value" bindLabel="name" #role="ngModel" [ngClass]="{'is-invalid' : role.invalid && (role.dirty || role.touched)}"
+                    name="role" [(ngModel)]="member.role" placeholder="{{ 'Choose' | translate}}" required="true">
+                    </ng-select>
+                    <div *ngIf="role.invalid && (role.dirty || role.touched)" class="invalid-feedback" style="display: block;">
+                        <div *ngIf="role.errors.required">
+                            {{ 'Role is required.' | translate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-secondary" (click)="d('Cross click')">{{ 'Cancel' | translate}}</button>
+                <button type="submit" class="btn btn-lg btn-primary" [disabled]="!memberForm.form.valid || submitted">{{ 'Submit' | translate}}</button>
+            </div>
+        </form>
+    </ng-template>
+    <div *ngIf="isOwner">
+        <mat-icon *ngIf="buttonType == 'small'" class="open" svgIcon="plus-circle" (click)="open()"></mat-icon>
+        <button *ngIf="buttonType == 'large'" class="btn btn-icon btn-primary" (click)="open()">
+            <mat-icon svgIcon="plus-circle"></mat-icon> {{ 'Add a member' | translate}}
+        </button>
+    </div>
+</div>

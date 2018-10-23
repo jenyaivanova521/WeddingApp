@@ -1,0 +1,136 @@
+.marketplace-vendor
+    background: #fff
+    margin: 0 0 30px 0
+    position: relative
+    > a
+        color: #42494c
+        &:hover
+            text-decoration: none
+            .description
+                background: #f7f8f9
+    .recommended-label
+        padding: 2px 6px
+        background: #fff
+        color: #1dcbac
+        text-transform: uppercase
+        font-weight: 600
+        position: absolute
+        right: 0
+        top: 15px
+        font-size: 10px
+    .thumbnail
+        display: block
+        min-height: 150px
+        background: #cdd1d3
+        img
+            width: 100%
+            height: 150px
+            object-fit: cover
+    .description
+        display: block
+        padding: 15px 20px
+        border: 1px solid #eaedf0
+        border-top: 0
+        .name
+            font-size: 16px
+            font-weight: 700
+            display: block
+            width: 100%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .address
+            display: inline-block
+            font-weight: 300
+            font-size: 12px
+            color: #5f686c
+            width: 100%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .rate
+            display: block
+            font-size: 12px
+            clear: both
+            padding: 10px 0 0 0
+.vendor
+    h3
+        font-size: 25px
+    strong
+        font-weight: 700
+    .header
+        padding: 30px 30px 30px 0
+        background: #fff
+        border-bottom: 0
+    .content-box-nav
+        z-index: 1020
+        &.ngui-sticky-stuck
+            border-top-color: #f7f8f9
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08)
+    .content
+        padding: 30px 0 0 0
+    .anchor
+        position: absolute
+        margin: -200px 0 0 0
+    .vendor-products
+        .product
+            font-weight: 400
+            border-bottom: 1px solid rgba(0,0,0,0.08)
+            padding: 15px 0
+            .price
+                font-weight: 700
+                float: right
+                line-height: 1.1
+                text-align: right
+                small
+                    display: block
+                    font-size: 11px
+                    opacity: 0.4
+    .vendor-contacts
+        .mat-icon
+            float: left
+            opacity: 0.4
+            margin: 0 5px 0 0
+            transform: scale(0.9)
+    .ngx-gallery-arrow-wrapper
+        width: 100px !important
+        z-index: 1000 !important
+        &.ngx-gallery-arrow-left
+            background: -moz-linear-gradient(left, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 100%)
+            background: -webkit-linear-gradient(left, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%)
+            background: linear-gradient(to right, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%)
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#00000000',GradientType=1 )
+        &.ngx-gallery-arrow-right
+            background: -moz-linear-gradient(right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%)
+            background: -webkit-linear-gradient(right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 100%)
+            background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 100%)
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#33000000',GradientType=1 )
+    .ngx-gallery-arrow
+        &.ngx-gallery-disabled
+            opacity: 0.4 !important
+        .ngx-gallery-icon-content
+            font-size: 50px
+    #vendor-reviews
+        ul
+            list-style: none
+            margin: 0
+            padding: 0
+            li
+                margin: 0
+                padding: 0
+                small
+                    display: inline-block
+                    margin: -4px 0 0 10px
+                    font-weight: 300
+                .date
+                    font-weight: 600
+                .delete-review
+                    cursor: pointer
+                    float: right
+                    margin: 4px 0 0 0
+                &.vendor-review-details
+                    .review
+                        border: 2px solid #2191d1
+                        padding: 15px 15px 0 15px
+                        hr
+                            display: none

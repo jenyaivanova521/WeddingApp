@@ -1,0 +1,30 @@
+<div class="clearfix" [ngClass]="containerClass" (dragover)="$event.preventDefault(); containerClass = 'dragover'" (drop)="$event.preventDefault();" (dragleave)="containerClass = ''">
+    <div class="image" *ngFor="let image of uploadedImages" (click)="removeUploadedImage(image)">
+        <img [src]="handleUploadedImageUrl(image.filename)" width="80" height="80">
+        <mat-icon class="delete" svgIcon="delete-forever"></mat-icon>
+    </div>
+    <div class="image" *ngFor="let image of images; let i = index" (click)="removeImage(i)">
+        <img [src]="sanitizer.bypassSecurityTrustUrl(image.url)" width="80" height="80">
+        <mat-icon class="delete" svgIcon="delete-forever"></mat-icon>
+    </div>
+
+    <div *ngIf="dropzone" [ngClass]="{'dropzone': dropzone && !images.length && !uploadedImages.length}" (drop)="(dropzone && !images.length && !uploadedImages.length) ? imageInputChange($event) : undefined">
+        <i class="icon-wa-upload"></i>
+        <label *ngIf="images.length < limit" class="fileinput" [ngClass]="{'add-more': images.length > 0 || uploadedImages?.length > 0}">
+            <span *ngIf="dropzone && !images.length && !uploadedImages.length" class="btn btn-primary">{{ 'Choose files to upload' | translate }}</span>
+            <ng-container *ngTemplateOutlet="fileInput"></ng-container>
+        </label>
+        <span class="info">{{ 'or drag and drop them here' | translate }}</span>
+    </div>
+
+    <label *ngIf="!dropzone && images.length < limit" class="fileinput" [ngClass]="{'add-more': images.length > 0 || uploadedImages?.length > 0}">
+        <mat-icon class="camera" svgIcon="camera"></mat-icon>
+        <ng-container *ngTemplateOutlet="fileInput"></ng-container>
+    </label>
+
+    <ng-template #fileInput>
+        <mat-icon class="plus" svgIcon="plus"></mat-icon>
+        <input name="imageInput" type="file" (change)="imageInputChange($event, fieldName)" #imageInput multiple="true" accept=".jpg,.jpeg,.png,.gif" />
+    </ng-template>
+
+</div>

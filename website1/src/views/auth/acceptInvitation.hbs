@@ -1,0 +1,15 @@
+<div class="modal">
+    <div class="modal-dialog modal-wa" role="document">
+        <div class="modal-content">
+            <div class="modal-wa-form">
+                <h2>Accept Invitation</h2>
+                {{> components/flash/index center=true}}
+                {{#if user}}
+                    <a class="btn btn-secondary mb-4" href="/logout">Logout</a>
+                    <small><a href="{{config.spaUrl}}">Skip and go to the App</a><small>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+</div>

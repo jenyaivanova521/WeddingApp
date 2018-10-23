@@ -1,0 +1,37 @@
+<div class="informations">
+    <div class="row">
+        <div class="col-sm-4">
+            {{#each events}}
+                <div class="event mb-4">
+                    <div class="pb-4">
+                        <h4>{{type}} date</h4> {{dateFormat date}}
+                    </div>
+                    <h4>{{type}} location</h4>
+                    <strong>{{placeName}}</strong><br> {{address}}
+                </div>
+            {{/each}}
+
+        </div>
+        <div class="col-sm-8">
+            {{#each partners}}
+                <div class="row no-gutters mb-4 partner">
+                    <div class="col pr-3" style="flex: 0 0 64px;">
+                        {{#if avatar}}
+                            {{{avatar (concat ../config.cdnUrl '/wedding/' ../profile.id '/avatars/') avatar 64}}}
+                        {{/if}}
+                    </div>
+                    <div class="col">
+                        <h4>{{firstName}} {{lastName}} <small>{{role}}</small></h4>
+                        <p class="description">{{description}}</p>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+    </div>
+    <hr>
+    <h4>Our story</h4>
+    <div class="description">
+        {{profile.description}}
+    </div>
+</div>

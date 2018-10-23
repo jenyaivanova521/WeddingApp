@@ -1,0 +1,46 @@
+<div class="task-details" *ngIf="details">
+    <dl class="row">
+        <dt class="col-sm-2 text-sm-right">{{ 'Title' | translate }}</dt>
+        <dd class="col-sm-10">{{details.name}}</dd>
+    </dl>
+    <div class="row no-gutters">
+        <div class="col-sm-6">
+            <dl class="row">
+                <dt class="col-sm-4 text-sm-right">{{ 'Author' | translate }}</dt>
+                <dd class="col-sm-8">{{details.author.account.firstName}} {{details.author.account.lastName}}
+                    <small class="text-muted">({{details?.author.account.email}})</small></dd>
+                <dt class="col-sm-4 text-sm-right">{{ 'Created at' | translate }}</dt>
+                <dd class="col-sm-8">{{details.createdAt | amDateFormat:'lll'}}</dd>
+                <dt class="col-sm-4 text-sm-right">{{ 'Status' | translate }}</dt>
+                <dd class="col-sm-8">{{details.status}}</dd>
+            </dl>
+        </div>
+        <div class="col-sm-6">
+            <dl class="row">
+                <dt class="col-sm-4 text-sm-right">{{ 'Assigned to' | translate }}</dt>
+                <dd class="col-sm-8">
+                    <span *ngIf="!details?.assigned">-</span>
+                    <span *ngIf="details.assigned && details.assigned.account">
+                        {{details.assigned.account.firstName}} {{details.assigned.account.lastName}}
+                        <small *ngIf="details.assigned.account.email" class="text-muted">({{details.assigned.account.email}})</small>
+                    </span>
+                    <span *ngIf="details.assigned && !details.assigned.account.firstName">
+                        {{details.assigned.email}}
+                        <small class="text-muted">{{ 'Not registered yet' | translate }}</small>
+                    </span>
+                </dd>
+                <dt class="col-sm-4 text-sm-right">{{ 'Due date' | translate }}</dt>
+                <dd class="col-sm-8">
+                    <span *ngIf="!details?.dueDate">-</span>
+                    {{details.dueDate | amDateFormat:'lll'}}
+                </dd>
+                <dt class="col-sm-4 text-sm-right">{{ 'Done at' | translate }}</dt>
+                <dd class="col-sm-8">
+                    <span *ngIf="!details?.doneAt">-</span>
+                    {{details.doneAt | amDateFormat:'lll'}}
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+</div>

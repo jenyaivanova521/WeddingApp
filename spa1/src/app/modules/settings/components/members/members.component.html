@@ -1,0 +1,81 @@
+<div class="add-member float-right">
+    <add-member-modal buttonType="large"></add-member-modal>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th width="5"></th>
+                <th>{{ 'Name' | translate }}</th>
+                <th>{{ 'E-mail' | translate }}</th>
+                <th>{{ 'Role' | translate }}</th>
+                <th>{{ 'Status' | translate }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let member of (members | async)">
+                <td scope="row">
+                    <avatar [dir]="'account/' + member.account?.id + '/' + 'avatars'" [filename]="member.account?.avatar" [size]="24"></avatar>
+                </td>
+                <td>
+                    <strong *ngIf="member.account">{{ member.account?.firstName }} {{ member.account?.lastName }}</strong>
+                    <small class="text-muted" *ngIf="!member.account">{{ 'Not registered yet' | translate }}</small>
+                    <small class="text-muted" *ngIf="member.account && member.account.id == authInfo.account.id"> ({{ 'It\'s you' | translate }})</small>
+                </td>
+                <td><span>{{ member.email }}</span></td>
+                <td>{{ member.role | translate }}</td>
+                <td>
+                    <span class="text-success" *ngIf="member.isActive">{{ 'Active' | translate }}</span>
+                    <span class="text-info" *ngIf="member.invitation && !member.invitation.isAccepted">{{ 'Invited' | translate }}</span>
+                    <span class="text-danger" *ngIf="member.invitation && member.invitation.deletedAt">{{ 'Rejected' | translate }}</span>
+                </td>
+                <td>
+                    <div class="nav-item dropdown" ngbDropdown placement="bottom-right" *ngIf="(member.account && member.account.id != authInfo.account.id) || !member.account">
+                        <a class="dropdown-toggle" role="button" data-toggle="dropdown" ngbDropdownToggle>
+                            <mat-icon svgIcon="cogs"></mat-icon>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                            <a class="dropdown-item link" (click)="openChangeMemberRoleModal(member)">{{ 'Change role' | translate }}</a>
+                            <a class="dropdown-item link" (click)="openDeleteMemberModal(member)">{{ 'Delete' | translate }}</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #modalContent let-c="close" let-d="dismiss">
+    <form (ngSubmit)="changeMemberRole()" #memberForm="ngForm">
+        <div class="modal-header">
+            <h4 class="modal-title">Edit member</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <mat-icon svgIcon="close-circle"></mat-icon>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" *ngIf="error">
+                {{error.title}}
+            </div>
+            <div class="form-group select">
+                <label for="email">Role*</label>
+                <select [(ngModel)]="member.role" #role="ngModel" name="role" [ngClass]="{'is-invalid' : role.invalid && (role.dirty || role.touched)}" class="form-control form-control-lg" required="true">
+                    <option>Choose</option>
+                    <option value="member">Member</option>
+                    <option value="owner">Owner</option>
+                </select>
+                <div *ngIf="role.invalid && (role.dirty || role.touched)" class="invalid-feedback">
+                    <div *ngIf="role.errors.required">
+                        Role is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-lg btn-secondary" (click)="d('Cross click')">Cancel</button>
+            <button type="submit" class="btn btn-lg btn-primary" [disabled]="!memberForm.form.valid || submitted">Submit</button>
+        </div>
+    </form>
+</ng-template>

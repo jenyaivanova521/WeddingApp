@@ -1,0 +1,44 @@
+<div class="main-nav">
+    <profile-selector></profile-selector>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <mat-icon svgIcon="newspaper"></mat-icon> {{ 'News Feed' | translate }}
+            </a>
+        </li>
+        <li class="nav-item" *ngIf="activeProfile && activeProfile.type == 'vendor'">
+            <a class="nav-link" [routerLink]="activeProfile.isActive ? ['/vendor', activeProfile.id] : '/vendor'" routerLinkActive="active">
+                <mat-icon svgIcon="briefcase"></mat-icon> {{ 'Vendor Profile' | translate }}</a>
+        </li>
+        <li class="nav-item" *ngIf="activeProfile && activeProfile.type == 'wedding'">
+            <a class="nav-link" [routerLink]="['/wedding', activeProfile.id]" routerLinkActive="active">
+                <mat-icon svgIcon="account-heart"></mat-icon> {{ 'Couple Profile' | translate }}</a>
+        </li>
+        <li class="nav-item" *ngIf="activeProfile && activeProfile.type == 'wedding'">
+            <a class="nav-link" routerLink="/tasks" routerLinkActive="active">
+                <mat-icon svgIcon="calendar-check"></mat-icon> {{ 'Tasks' | translate }}</a>
+        </li>
+        <li class="nav-item" *ngIf="activeProfile && activeProfile.type == 'wedding'">
+            <a class="nav-link" routerLink="/guest-list" routerLinkActive="active">
+                <mat-icon svgIcon="format-list-checks"></mat-icon> {{ 'Guest List' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/marketplace" routerLinkActive="active">
+                <mat-icon svgIcon="domain"></mat-icon> {{ 'Marketplace' | translate }}</a>
+        </li>
+        <li class="nav-item" *ngIf="activeProfile && activeProfile.type == 'wedding'">
+            <a class="nav-link" routerLink="/inspirations" routerLinkActive="active">
+                <mat-icon svgIcon="lightbulb-on-outline"></mat-icon> {{ 'Inspirations' | translate }}</a>
+        </li>
+        <li class="nav-item" *ngIf="activeProfile && activeProfile.isOwner">
+            <a class="nav-link" [routerLink]="activeProfile.type == 'wedding' ? '/settings' : '/settings/account'" routerLinkActive="active">
+                <mat-icon svgIcon="settings-outline"></mat-icon> {{ 'Settings' | translate }}</a>
+        </li>
+    </ul>
+    <wedding-members *ngIf="activeProfile && activeProfile.type == 'wedding'" [weddingId]="activeProfile.id"></wedding-members>
+    <div class="promo" *ngIf="!activeProfile">
+        <h5>{{ 'Planning to get married?' | translate }}</h5>
+        <p>{{ 'Create couple profile and try our wedding planner' | translate }}</p>
+        <a class="btn btn-outline-light" routerLink="/wedding">{{ 'Find out more' | translate }}</a>
+    </div>
+</div>

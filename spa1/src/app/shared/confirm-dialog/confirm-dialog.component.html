@@ -1,0 +1,8 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ data.title }}</h4>
+</div>
+<div class="modal-body" [innerHTML]="data.text"></div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-lg btn-secondary" (click)="cancel()">{{ 'Cancel' | translate }}</button>
+    <button type="submit" class="btn btn-lg btn-danger" (click)="confirm()">{{ 'Confirm' | translate }}</button>
+</div>

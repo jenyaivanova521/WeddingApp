@@ -1,0 +1,28 @@
+image: node:8.2.1
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install yarn
+            - npm install -g typescript
+            - yarn install
+            - tsc
+            - tar -zcf dist-web.tar.gz *
+            - scp -o StrictHostKeyChecking=no dist-web.tar.gz muudev@35.195.214.117:/home/muudev/environments/dev/apps
+            - ssh -o StrictHostKeyChecking=no muudev@35.195.214.117 'cd /home/muudev/environments/dev/apps && rm -rf web && mkdir web && tar -zxf dist-web.tar.gz -C /home/muudev/environments/dev/apps/web/ && rm dist-web.tar.gz && cd web && mkdir .tmp && grunt build && export NODE_PATH=dist NODE_ENV=development && if pm2 list | grep "web.dev-c01.muulabs.pl"; then pm2 stop web.dev-c01.muulabs.pl; fi && pm2 start index.js --name web.dev-c01.muulabs.pl'
+    staging:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install yarn
+            - npm install -g typescript
+            - yarn install
+            - tsc
+            - tar -zcf dist-web.tar.gz *
+            - scp -o StrictHostKeyChecking=no dist-web.tar.gz muudev@35.195.214.117:/home/muudev/environments/staging/apps
+            - ssh -o StrictHostKeyChecking=no muudev@35.195.214.117 'cd /home/muudev/environments/staging/apps && rm -rf web && mkdir web && tar -zxf dist-web.tar.gz -C /home/muudev/environments/staging/apps/web/ && rm dist-web.tar.gz && cd web && mkdir .tmp && grunt build && export NODE_PATH=dist NODE_ENV=staging && if pm2 list | grep "web.staging-c01.muulabs.pl"; then pm2 stop web.staging-c01.muulabs.pl; fi && pm2 start index.js --name web.staging-c01.muulabs.pl'

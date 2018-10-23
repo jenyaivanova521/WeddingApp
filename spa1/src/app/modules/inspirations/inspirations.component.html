@@ -1,0 +1,35 @@
+<app-layout>
+    <div class="inspirations">
+        <div class="clearfix">
+            <h3 class="float-left">{{ 'Inspirations' | translate }}</h3>
+            <button class="btn btn-icon btn-primary float-right add-inspiration" (click)="openAddInspirationModal()">
+                <mat-icon svgIcon="plus-circle"></mat-icon> {{ 'Add an Inspiration' | translate }}
+            </button>
+        </div>
+        <ul class="nav nav-pills filters">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/inspirations']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ 'All' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/inspirations', 'pinned']" routerLinkActive="active">{{ 'Pinned' | translate }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/inspirations', 'yours']" routerLinkActive="active">{{ 'Yours' | translate }}</a>
+            </li>
+        </ul>
+        <div class="search">
+            <mat-icon svgIcon="magnify"></mat-icon>
+            <ng-select [items]="tags | async" [addTag]="false" [multiple]="true" [hideSelected]="true" [loading]="tagsLoading" [typeahead]="tagsInput" [(ngModel)]="selectedTags" placeholder="Search" (clear)="onClear()" (change)="resetInspirations()" bindValue="slug">
+            </ng-select>
+        </div>
+        <router-outlet (activate)="childComponentAdded($event)"></router-outlet>
+
+        <div class="masonry" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="loadMoreInspirations()" [infiniteScrollDisabled]="infiniteScrollDisabled">
+            <ng-masonry-grid [masonryOptions]="masonryOptions" [useAnimation]="true" [useImagesLoaded]="true" [scrollAnimationOptions]="{ minDuration : 0.4, maxDuration : 0.7 }" (onNgMasonryInit)="onNgMasonryInit($event)">
+                <ng-masonry-grid-item class="masonry-item" id="{{'masonry-item-'+i}}" *ngFor="let inspiration of inspirations; let i = index">
+                    <app-inspiration-thumbnail [inspiration]="inspiration"></app-inspiration-thumbnail>
+                </ng-masonry-grid-item>
+            </ng-masonry-grid>
+        </div>
+    </div>
+</app-layout>

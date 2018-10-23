@@ -1,0 +1,29 @@
+<div class="messages-indicator navbar-indicator mr-3">
+    <div class="dropdown" ngbDropdown placement="bottom-left" #dropdown="ngbDropdown">
+        <a id="navbarDropdown" role="button" data-toggle="dropdown" ngbDropdownToggle>
+            <mat-icon svgIcon="forum"></mat-icon>
+            <div *ngIf="(unreadMessagesCount | async)" class="counter">{{unreadMessagesCount | async}}</div>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+            <div *ngIf="(conversations|async) && (conversations|async).length && infiniteScroll" class="list" [infiniteScrollContainer]="'.list'" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="getConversations(infiniteScroll.page)" [infiniteScrollDisabled]="infiniteScroll.disabled">
+                <a *ngFor="let conversation of conversations|async" [routerLink]="['/messages', conversation.id]" class="dropdown-item" [ngClass]="{'new': conversation.unreadMessagesCount}">
+                    <cdn-image class="avatar" [dir]="(activeProfile.type == 'vendor' ? 'wedding/' + conversation.wedding.id : 'vendor/' + conversation.vendor.id)  + '/' + 'avatars'" [filename]="activeProfile.type == 'vendor' ? conversation.wedding.avatar : conversation.vendor.avatar" [width]="30" [rounded]="true"></cdn-image>
+                    <div class="content">
+                        <strong class="actor">
+                            <span *ngIf="activeProfile.id == conversation.wedding.id">{{conversation.vendor.name}}</span>
+                            <span *ngIf="activeProfile.id == conversation.vendor.id">{{conversation.wedding.name}}</span>
+                            <span *ngIf="[conversation.vendor.id, conversation.wedding.id].indexOf(activeProfile.id) == -1">{{conversation.wedding.name}} &rarr; {{conversation.vendor.name}}</span>
+                            <span *ngIf="conversation.unreadMessagesCount"> ({{conversation.unreadMessagesCount}})</span>
+                        </strong>
+                        <p class="message">
+                            <span *ngIf="!conversation.lastMessage.asVendor">{{conversation.lastMessage.author}}: </span>{{conversation.lastMessage.text}}
+                        </p>
+                        <div class="created">{{conversation.lastMessage.createdAt | amTimeAgo}}</div>
+                    </div>
+                </a>
+            </div>
+            <div class="p-2 text-center" *ngIf="loading">{{ 'Loading' | translate }...</div>
+            <div class="p-2 text-center" *ngIf="!loading && (conversations|async).length == 0">{{ 'There are no conversations' | translate }}</div>
+        </div>
+    </div>
+</div>

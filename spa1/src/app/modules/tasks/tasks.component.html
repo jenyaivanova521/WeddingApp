@@ -1,0 +1,67 @@
+<app-layout>
+    <div class="row">
+        <div class="col-sm-9">
+
+            <div class="header clearfix">
+                <h3 class="float-left">{{ 'Tasks' | translate }}</h3>
+                <div class="float-right">
+                    <button class="btn btn-icon btn-primary" (click)="openTaskFormModal('add')">
+                        <mat-icon svgIcon="plus-circle"></mat-icon> {{ 'Create a new task' | translate }}
+                    </button>
+                </div>
+            </div>
+
+            <ul class="task-list">
+                <li *ngFor="let task of (tasks | async)" [ngClass]="{'task-done': task.status == 'done'}">
+                    <ng-template let-canEdit="canEditCheck"
+                                 [ngTemplateOutletContext]="{ canEditCheck: !(task.assignedMemberId && activeProfile.memberId != task.assignedMemberId && activeProfile.isOwner) }"
+                                 [ngTemplateOutlet]="self" #self>
+                        <div class="task">
+                            <div class="check">
+                                <div *ngIf="canEdit" class="check-mark" (click)="toggleDone(task)">
+                                    <mat-icon svgIcon="check"></mat-icon>
+                                </div>
+                                <mat-icon class="lock" *ngIf="!canEdit" [ngbTooltip]="'You can\'t edit tasks assigned to someone else' | translate" svgIcon="lock"></mat-icon>
+                            </div>
+                            <div class="name" (click)="toggleDetails(task.id)">{{task.name}}</div>
+                            <div class="status" (click)="toggleDetails(task.id)">
+                                <span class="badge badge-pill badge-danger" *ngIf="task.status != 'done' && task.overdue">{{ 'Overdue' | translate }}</span>
+                                <span class="badge badge-pill ml-1" [ngClass]="{'badge-light': task.status == 'done', 'badge-primary': task.status == 'in_progress'}" *ngIf="task.status != 'to_do'">{{task.status | translate}}</span>
+                            </div>
+                            <div class="assigned">
+                                <mat-icon svgIcon="account-check" *ngIf="task.assignedMemberId" [ngbTooltip]="'Member is assigned' | translate"></mat-icon>
+                            </div>
+                            <div class="due-date" (click)="toggleDetails(task.id)">{{task.dueDate | amDateFormat:'ll'}}</div>
+
+                            <div class="actions">
+                                <div class="nav-item dropdown" ngbDropdown placement="bottom-right" *ngIf="canEdit">
+                                    <mat-icon svgIcon="dots-horizontal" data-toggle="dropdown" ngbDropdownToggle></mat-icon>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                                        <span class="dropdown-title">{{ 'Mark as' | translate }}</span>
+                                        <a class="dropdown-item link" (click)="changeTaskStatus(task, 'done')" *ngIf="task.status != 'done'">{{ 'Done' | translate }}</a>
+                                        <a class="dropdown-item link" (click)="changeTaskStatus(task, 'in_progress')" *ngIf="task.status != 'in_progress'">{{ 'In progress' | translate }}</a>
+                                        <a class="dropdown-item link" (click)="changeTaskStatus(task, 'to_do')" *ngIf="task.status != 'to_do'">{{ 'To do' | translate }}</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item link" (click)="openTaskFormModal('edit', task)">{{ 'Edit' | translate }}</a>
+                                        <a class="dropdown-item link text-danger" (click)="deleteTask(task)">{{ 'Delete' | translate }}</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </ng-template>
+                    <task-details [inputTaskDetails]="taskDetails[task.id]" *ngIf="(taskDetailsToggle | async)[task.id]"></task-details>
+                    <div *ngIf="task.recommendedVendors && task.recommendedVendors.length" class="task-recommended">{{ 'Recommended' | translate }}:
+                        <span *ngFor="let vendor of task.recommendedVendors; let isLast = last">
+                            <a [routerLink]="['/vendor', vendor.id]">{{vendor.name}}</a>{{isLast ? '' : ', '}}
+                        </span>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <task-stats [inputStats]="stats"></task-stats>
+        </div>
+    </div>
+</app-layout>

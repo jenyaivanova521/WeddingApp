@@ -1,0 +1,33 @@
+<app-layout>
+    <h3>Settings</h3>
+
+    <nav class="nav content-box-nav">
+        <a class="nav-link"
+           routerLink="wedding"
+           routerLinkActive="active"
+           *ngIf="activeProfile && activeProfile.type == 'wedding' && activeProfile.isOwner">
+            {{activeProfile.name}}
+        </a>
+        <a class="nav-link"
+           routerLink="members"
+           routerLinkActive="active"
+           *ngIf="activeProfile && activeProfile.type == 'wedding' && activeProfile.isOwner">
+            {{ 'Members' | translate }}
+        </a>
+        <a class="nav-link"
+           routerLink="account"
+           routerLinkActive="active">
+            {{ 'Account' | translate }}
+        </a>
+        <a class="nav-link"
+           routerLink="invitations"
+           routerLinkActive="active">
+            {{ 'Invitations' | translate }}
+        </a>
+    </nav>
+
+    <div class="content-box">
+        <router-outlet></router-outlet>
+    </div>
+
+</app-layout>

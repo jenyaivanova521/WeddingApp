@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-sm-8">
+        <post-form *ngIf="activeProfile && activeProfile.type == 'wedding' && activeProfile.id == weddingId && !postDetails" (onSuccess)="appendPost($event)" [activeProfile]="activeProfile"></post-form>
+        <ul class="posts" *ngIf="posts" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="onScroll('down')" [infiniteScrollDisabled]="infiniteScrollDisabled">
+            <li *ngIf="postDetails" class="post-details" id="post-details">
+                <post [post]="postDetails" [index]="0" (postDeleted)="removePost($event)"></post>
+            </li>
+            <h5 *ngIf="postDetails" class="mt-4 mb-3">{{ 'Newest activity' | translate }}</h5>
+            <li *ngFor="let post of objectValues(posts); let i = index">
+                <post *ngIf="!postDetails || (post.id !== postDetails.id)" [post]="post" [index]="i" (postDeleted)="removePost($event)"></post>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-4"></div>
+</div>

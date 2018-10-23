@@ -1,0 +1,104 @@
+<h4 class="strong">{{ 'Basic info' | translate }}</h4>
+
+<div class="edit-row__edit-btn"
+     *ngIf="!editActive[0]"
+     (click)="editRow(0)">
+    <mat-icon svgIcon="pencil"></mat-icon>
+    {{ 'Edit' | translate }}
+</div>
+
+<dl class="row" *ngIf="!editActive[0]">
+
+    <dt class="col-sm-3 text-sm-right">
+        {{ 'Avatar' | translate }}
+    </dt>
+    <dd class="col-sm-9">
+        <avatar [filename]="wedding?.avatar ? prependAvatarUrl + wedding?.avatar : null"
+                [size]="50">
+        </avatar>
+    </dd>
+
+    <dt class="col-sm-3 text-sm-right">
+        {{ 'Description' | translate }}
+    </dt>
+    <dd class="col-sm-9">
+        {{wedding?.description}}
+    </dd>
+
+    <dt class="col-sm-3 text-sm-right">
+        {{ 'Privacy setting' | translate }}
+    </dt>
+    <dd class="col-sm-9">
+        {{wedding?.privacySetting}}
+    </dd>
+
+</dl>
+
+<form *ngIf="editActive[0]">
+
+    <div class="row wedding-form-row">
+        <label class="col-sm-3 text-sm-right edit-row__label ">
+            {{ 'Avatar' | translate }}
+        </label>
+
+        <div class="col-sm-9">
+            <div class="form-group avatar-preview">
+                <avatar *ngIf="avatarUrl" [src]="sanitizer.bypassSecurityTrustUrl(avatarUrl)"
+                        [size]="120"
+                        [square]="true">
+                </avatar>
+                <avatar *ngIf="!avatarUrl"
+                        [filename]=""
+                        [size]="120"
+                        [square]="true">
+                </avatar>
+            </div>
+            <image-input [formData]="formData"
+                         [fieldName]="'avatar'"
+                         [validate]="true"
+                         (previewUrl)="avatarUrl = $event"
+                         (isValid)="isImageValid = $event">
+            </image-input>
+            <div *ngIf="!isImageValid" class="invalid-feedback" style="display: block;">
+                {{ 'Invalid image size, min. 200 x 200 px' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center wedding-form-row">
+        <label class="col-sm-3 text-sm-right edit-row__label">
+            {{ 'Description' | translate }}
+        </label>
+        <input type="text"
+               [value]="wedding?.description"
+               class="col-sm-9 form-control"
+               (change)="handleInput($event.target.value, 'description')"/>
+    </div>
+
+    <div class="d-flex flex-row align-items-center wedding-form-row">
+        <label class="col-sm-3 text-sm-right edit-row__label">
+            {{ 'Privacy setting' | translate }}
+        </label>
+        <select [(ngModel)]="form.privacySetting"
+                name="privacySetting"
+                class="form-control">
+            <option [value]="PrivacySettingEnum.Public">{{ 'Public' | translate }}</option>
+            <option [value]="PrivacySettingEnum.Registered">{{ 'Registered' | translate }}</option>
+            <option [value]="PrivacySettingEnum.Followers">{{ 'Followers' | translate }}</option>
+            <option [value]="PrivacySettingEnum.Private">{{ 'Private' | translate }}</option>
+        </select>
+    </div>
+
+    <div class="d-flex flex-row align-items-center justify-content-center mt-3">
+
+        <button class="btn btn-danger mr-2" (click)="cancelEdit(0)">
+            {{ 'Cancel' | translate }}
+        </button>
+
+        <button class="btn btn-primary" (click)="submit()">
+            {{ 'Submit' | translate }}
+        </button>
+
+    </div>
+
+</form>

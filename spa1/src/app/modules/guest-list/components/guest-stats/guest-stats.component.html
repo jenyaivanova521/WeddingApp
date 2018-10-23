@@ -1,0 +1,12 @@
+<div *ngIf="stats">
+    <h5>{{ 'Overview' | translate }}</h5>
+    <div *ngFor="let stat of stats" class="my-3">
+        <h6>{{stat.name | translate}} <span class="float-right">{{stat.attending}}/{{stat.all}}</span></h6>
+        <div class="progress">
+            <div class="progress-bar bg-success" [style.width.%]="stat.percentage.attending" [ngbTooltip]="('Attending:&nbsp;' | translate) + stat.attending"></div>
+            <div class="progress-bar" [style.width.%]="stat.percentage.invited" [style.background]="'transparent'" [ngbTooltip]="('Invited:&nbsp;' | translate) + stat.invited"></div>
+            <div class="progress-bar bg-danger" [style.width.%]="stat.percentage.not_attending" [ngbTooltip]="('Not&nbsp;attending:&nbsp;' | translate) + stat.not_attending"></div>
+        </div>
+    </div>
+
+</div>

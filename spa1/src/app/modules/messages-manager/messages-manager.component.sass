@@ -1,0 +1,34 @@
+.messages-manager
+    .conversations
+        overflow-y: scroll
+    .conversation
+        display: block
+        color: #42494c
+        padding: 15px 15px 15px 75px
+        border-bottom: 1px solid #ebedf0
+        position: relative
+        font-size: 12px
+        &:hover,
+        &.active
+            text-decoration: none
+            background: #f4f5f7
+            border-bottom-color: #e5e7e7
+            cursor: pointer
+        &.new
+            background: #e4f2f9
+            border-bottom: 1px solid #d3e9f6
+            .message
+                font-weight: 600
+        .avatar
+            position: absolute
+            left: 15px
+            top: 15px
+        .actor
+            font-weight: 600
+        .message
+            font-weight: 300
+            margin: 0
+            padding: 0 10px 3px 0
+        .created
+            font-weight: 300
+            color: #8f9ca1

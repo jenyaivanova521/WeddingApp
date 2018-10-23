@@ -1,0 +1,59 @@
+<div class="payment">
+    <div class="text-center pt-3 pb-4">
+        <h5 class="m-0">{{ 'Total cost' | translate }}</h5>
+        <h2 class="text-success"><strong>{{vendorProfilePrice|currency:'EUR'}}</strong></h2>
+    </div>
+    <h3>{{ 'Invoice information' | translate }}</h3>
+    <form #invoiceInfoForm="ngForm" #f>
+        <div class="form-group">
+            <label for="companyName">{{ 'Company name' | translate }}*</label>
+            <input type="text" [(ngModel)]="vendorInvoiceInfo.companyName" #companyName="ngModel" [ngClass]="{'is-invalid' : companyName.invalid && companyName.touched}" name="companyName" required class="form-control form-control-lg">
+            <div *ngIf="companyName.invalid && companyName.touched" class="invalid-feedback">
+                <div *ngIf="companyName.errors.required">
+                    {{ 'Company name is required.' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="companyAddress">{{ 'Company address' | translate }}*</label>
+            <input type="text" [(ngModel)]="vendorInvoiceInfo.companyAddress" #companyAddress="ngModel" [ngClass]="{'is-invalid' : companyAddress.invalid && companyAddress.touched}" name="companyAddress" required class="form-control form-control-lg">
+            <div *ngIf="companyName.invalid && companyName.touched" class="invalid-feedback">
+                <div *ngIf="companyAddress.errors.required">
+                    {{ 'Company address is required.' | translate }}
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-sm-6 pr-2">
+                <label for="countryId">{{ 'Country' | translate }}*</label>
+                <ng-select [(ngModel)]="vendorInvoiceInfo.country" [items]="countries" bindLabel="name" #countryId="ngModel" [ngClass]="{'is-invalid' : countryId.invalid && countryId.dirty}" name="countryId" placeholder="Choose" required>
+                </ng-select>
+                <div *ngIf="countryId.invalid && countryId.dirty" class="invalid-feedback" style="display: block;">
+                    <div *ngIf="countryId.errors.required">
+                        {{ 'Country is required.' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 pl-2">
+                <label for="vatNumber">{{ 'VAT number' | translate }}</label>
+                <input type="text" [(ngModel)]="vendorInvoiceInfo.vatNumber" #vatNumber="ngModel" name="vatNumber" class="form-control form-control-lg">
+            </div>
+        </div>
+    </form>
+
+    <h3 class="mt-5">{{ 'Payment method' | translate }}</h3>
+    <ngx-braintree [clientTokenURL]="paymentUrl" [createPurchaseURL]="paymentUrl" [showCardholderName]="true" [enablePaypalCheckout]="true" [currency]="'EUR'" [chargeAmount]="vendorProfilePrice" (paymentStatus)="paymentStatus($event)"
+        [createPurchase]="createPurchase()">
+        <div class="ngxButtons">
+            <hr>
+            <div>
+                <button class="btn btn-lg btn-secondary mr-2" (click)="setStep.emit(3)">{{ 'Previous step' | translate }}</button>
+                <span *ngIf="invoiceInfoForm.invalid" class="float-right text-danger pt-2">
+                    {{ 'Enter the invoice informations in form above' | translate }}
+                </span>
+                <button ngxPay class="btn btn-lg btn-primary float-right" [hidden]="invoiceInfoForm.invalid">{{ 'Submit' | translate }}</button>
+            </div>
+        </div>
+    </ngx-braintree>
+
+</div>

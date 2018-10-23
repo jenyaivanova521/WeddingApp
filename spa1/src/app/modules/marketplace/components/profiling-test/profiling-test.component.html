@@ -1,0 +1,36 @@
+<div class="profiling-test-modal">
+    <form (ngSubmit)="onSubmit()" #profilingTestForm="ngForm">
+        <div class="modal-header">
+            <h4 class="modal-title">
+            {{ 'Profiling test' | translate }}
+        </h4>
+            <button type="button" class="close" aria-label="Close" (click)="cancel()">
+            <mat-icon svgIcon="close-circle"></mat-icon>
+        </button>
+        </div>
+        <div class="modal-body pb-0">
+            <div class="pb-4 text-center">
+                <strong>{{ 'In which city are you planning to get married?' | translate }}</strong>
+                <input [(ngModel)]="model.city" name="city" ngx-google-places-autocomplete [options]="{types:['(cities)']}" (onAddressChange)="setCoordinates($event)" class="form-control form-control-lg mt-1" required="true">
+            </div>
+            <div class="question" *ngFor="let question of categoryFilterQuestions; let i = index">
+                <strong>{{question.text | translate}}</strong>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <label><input [(ngModel)]="model['radio'+i]" class="form-check-input" type="radio" name="q_{{i}}" (change)="removeCategoryId(question.categoryId)" value="1" required>{{ 'Yes' | translate }}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label><input [(ngModel)]="model['radio'+i]" class="form-check-input" type="radio" name="q_{{i}}" (change)="addCategoryId(question.categoryId)" value="0" required>{{ 'No' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-link text-danger skip" (click)="skip()">{{ 'Skip' | translate }}</button>
+            <button type="button" class="btn btn-lg btn-secondary" (click)="cancel()">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-lg btn-primary" [disabled]="!profilingTestForm.form.valid">
+            {{ 'Submit' | translate }}
+        </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+<div class="modal">
+    <div class="modal-dialog modal-lg modal-wa" role="document">
+        <div class="modal-content" style="background-image: url('{{#with assets}}{{ '/img/bg-login-modal.jpg' }}{{/with}}');">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <div class="modal-login-banner">
+                        <img src="{{#with assets}}{{ '/img/logo.png' }}{{/with}}" width="55">
+                        <h2>Your personal wedding plan starts now</h2>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="modal-wa-form">
+                        <h2>Sign In</h2> {{> components/flash/index center=true}}
+                        <form method="post" data-parsley-validate data-parsley-error-class="is-invalid" data-parsley-success-class="is-valid">
+                            <div class="form-group">
+                                <input class="form-control form-control-lg" name="email" placeholder="Your e-mail address" type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" required>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-custom mt-2" type="submit">Sign In</button>
+                            </div>
+                            <small><a href="/remind">Forgot password?</a></small>
+                            {{> components/socialLogin/index action="Login" }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center text-muted mt-4">Don't have an account yet? <a class="ml-2" href="/signup">Sign Up</a></div>
+</div>

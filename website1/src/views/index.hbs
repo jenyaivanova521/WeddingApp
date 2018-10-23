@@ -1,0 +1,118 @@
+<section class="hero" style="background-image: url('{{#with assets}}{{ '/img/hero.jpg' }}{{/with}}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 col-lg-6">
+                <h1>Your All-In-One<br>Wedding Planner</h1>
+                {{#if user}}
+                    <a class="btn btn-lg btn-light" href="{{config.spaUrl}}">Go to the App</a>
+                {{else}}
+                    <a class="btn btn-lg btn-light" href="/signup">Sign Up</a>
+                    <a class="btn btn-lg btn-link" href="/login">Sign In</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content light text-center">
+    <div class="container">
+        <h2 class="section-header" style="background-image: url('{{#with assets}}{{ '/img/header-bg.png' }}{{/with}}');">
+                Wedding Planning Has Never Been Easier
+                <small>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos.</small>
+            </h2>
+        <div class="row features">
+            <div class="col-sm-6 col-md-4">
+                <i class="icon-wa-to-do"></i>
+                <h3>Checklist</h3>
+                <p>Donec blandit euismod risus, convallis hendrerit mauris. Mauris laciniapellentesque diam nec aliquet.</p>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <i class="icon-wa-invite"></i>
+                <h3>Guest List</h3>
+                <p>Quisque dapibus quam lacus, vitaelaoreet orci sollicitudin a. Aenean in ipsum ligula. In fringilla eros quis.</p>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <i class="icon-wa-light-on"></i>
+                <h3>Inspirations</h3>
+                <p>Suspendisse auctor, tellus necpellentesque scelerisque, tortor ipsumrhoncus nulla, eget feugiat erat.</p>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <i class="icon-wa-vendor"></i>
+                <h3>Vendor List</h3>
+                <p>Vivamus sit amet malesuada orci,eget dignissim urna. Cras varius ligulain convallis commodo.</p>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <i class="icon-wa-clockwise-arrow"></i>
+                <h3>Wedding Day Timeline</h3>
+                <p>Vitae varius lacus. Suspendisse sitamet cursus tellus. Class aptent tacitisociosqu ad litora torquent conubia.</p>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <i class="icon-wa-networking-manager"></i>
+                <h3>Vendor Matching</h3>
+                <p>Curabitur maximus, quam tristiqueeleifend auctor, risus dui euismod enim,et fringilla orci dui quis nulla.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content" id="feature-tasks" style="background-image: url('{{#with assets}}{{ '/img/tasks.png' }}{{/with}}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-md-7 col-lg-6">
+                <h2 class="section-header-icon">
+                        <i class="icon-wa-to-do"></i>
+                        Take the Stress Out of Planning
+                    </h2>
+                <p>Vestibulum at congue purus. Integer et ante leo. Nam posuere magnaut ex elementum volutpat. Quisque dapibus quam lacus, vitae laoreetorci sollicitudin a. Aenean in ipsum ligula.</p>
+                <p>Quisque vel vulputate nulla. Orci varius natoque penatibus et magnisdis parturient montes.</p>
+                {{#if user}}
+                    <a class="btn btn-lg btn-custom mt-4" href="{{config.spaUrl}}">Go to the App</a>
+                {{else}}
+                    <a class="btn btn-lg btn-custom mt-4" href="/signup">Get Started Now</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content light text-center" id="profiles">
+    <div class="container">
+        <h2 class="section-header" style="background-image: url('{{#with assets}}{{ '/img/header-bg.png' }}{{/with}}');">
+                Trusted by thousands of couples just like you
+                <small>Vivamus sit amet malesuada orci, eget dignissim urna diam tortor, condimentum.</small>
+            </h2>
+        <div class="row">
+            {{#each weddings}}
+                <div class="col-sm-6 col-md-3">
+                    {{{avatar (concat ../config.cdnUrl '/wedding/' id '/avatars/') avatar '100%'}}}
+                    <h4 class="mt-4">{{name}}</h4>
+                    <p>{{description}}</p>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+<section class="content" id="feature-inspirations" style="background-image: url('{{#with assets}}{{ '/img/inspirations.jpg' }}{{/with}}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="section-header-icon">
+                        <i class="icon-wa-light-on"></i>
+                        Find your inspiration
+                    </h2>
+                <p>Praesent suscipit pretium diam. Maecenas pretium erat lectus. Nunc sollicitudin ultrices tempus. In commodo magna purus, a semper erat tempor eget. Sed porta dictum magna, a dignissim lorem volutpat sed.</p>
+                <p>Proin mi eros, tristique vel dignissim ac, imperdiet eu quam. Vivamus porttitor posuere quam.</p>
+                {{#if user}}
+                    <a class="btn btn-lg btn-custom mt-4" href="{{config.spaUrl}}">Go to the App</a>
+                {{else}}
+                    <a class="btn btn-lg btn-custom mt-4" href="/signup">Get Started Now</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content light text-center">
+    <div class="container">
+        <h2 class="section-header" style="background-image: url('{{#with assets}}{{ '/img/header-bg.png' }}{{/with}}');">
+                Wedding Planning Starts Here
+                <small>Cras finibus magna porttitor congue viverra</small>
+            </h2>
+    </div>
+</section>

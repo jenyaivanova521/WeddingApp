@@ -1,0 +1,248 @@
+html, body
+    height: 100%
+
+body
+    color: #42494c
+    font-family: 'Open Sans', sans-serif
+    font-weight: 300
+    font-size: 16px
+    background: #fff
+    margin: 0
+
+h3
+    margin: 0 0 16px
+    text-transform: uppercase
+    font-size: 20px
+    font-weight: 700
+
+h4
+    font-size: 18px
+    font-weight: 400
+    &.strong
+        padding: 0 0 10px
+        border-bottom: 2px solid #2191d1
+        margin: 0 0 20px
+
+h5
+    font-size: 16px
+    font-weight: 600
+    text-transform: uppercase
+
+h6
+    text-transform: uppercase
+    font-weight: 600
+    font-size: 12px
+
+a
+    color: #2191d1
+    &:hover
+        color: #1c7fb8
+
+.dropdown-toggle
+    cursor: pointer
+
+.dropdown-menu
+    box-shadow: 8px 8px 50px rgba(0, 0, 0, 0.1)
+
+.dropdown-title
+    text-transform: uppercase
+    font-size: 10px
+    font-weight: 600
+    padding: 0 1.5rem 3px
+
+.dropdown-item
+    &:active
+        background: #fff
+    &.active, &:focus
+        background: #f0f5f8
+
+.badge-primary
+    background: #2191d1
+
+.mat-icon svg
+    height: 24px
+    width: 24px
+
+.link
+    cursor: pointer
+
+label
+    text-transform: uppercase
+    font-weight: 600
+    font-size: 12px
+    margin: 0 0 5px 0
+
+textarea.form-control
+    resize: none
+
+.form-control
+    font-weight: 300
+    border-radius: 0
+    box-shadow: none
+    background: none
+    &:focus
+        background: none
+    &::-webkit-input-placeholder
+        color: #dadbdb
+
+select.form-control
+    -webkit-appearance: none
+    -moz-appearance: none
+
+.form-group.select
+    position: relative
+    .form-control
+        position: relative
+        z-index: 2
+    &::after
+        display: inline-block
+        width: 0
+        height: 0
+        margin-left: .255em
+        vertical-align: .255em
+        content: ""
+        border-top: .3em solid
+        border-right: .3em solid transparent
+        border-bottom: 0
+        border-left: .3em solid transparent
+        position: absolute
+        right: 15px
+        top: 50px
+        color: #bac1c4
+        z-index: 1
+
+.btn
+    border-radius: 20px
+    padding: 9px 20px 8px
+    font-size: 13px
+    text-transform: uppercase
+    &.btn-sm
+        padding: 4px 14px
+        border-radius: 14px
+        font-size: 12px
+    &.btn-lg
+        padding: 11px 24px
+        font-size: 15px
+        border-radius: 26px
+    &.btn-secondary
+        background: #cacdd0
+        border: 0
+        &:hover,
+        &:active
+            background: #d9dcdf
+    &.btn-primary
+        background: #2191d1
+        border: 0
+        &:hover,
+        &:active
+            background: #2ca5ea
+    &.btn-icon
+        padding-left: 34px
+        position: relative
+        .mat-icon
+            position: absolute
+            left: 7px
+            top: 6px
+            transform: scale(0.75)
+
+.modal-backdrop
+    background: #f2f5f8
+    &.show
+        opacity: 0.8
+
+.modal
+    padding: 70px 0
+    .modal-dialog
+        margin: 0 auto
+    .modal-content
+        border: 0
+        border-radius: 0
+        -webkit-box-shadow: 0px 5px 120px 0px rgba(0,0,0,0.2)
+        -moz-box-shadow: 0px 5px 120px 0px rgba(0,0,0,0.2)
+        box-shadow: 0px 5px 120px 0px rgba(0,0,0,0.2)
+    .modal-body
+        padding: 30px
+    .modal-header,
+    .modal-footer
+        padding: 20px 0
+        margin: 0 30px
+    .modal-header
+        padding: 25px 0 0 0
+        border: 0
+        .close
+            margin: 0
+            padding: 0
+    .modal-title
+        font-size: 20px
+        text-transform: uppercase
+        font-weight: 700
+
+.modal-open
+    .body
+        filter: blur(3px)
+
+.alert-success
+    background: #1dcbac
+    border: 0
+    color: #fff
+    font-weight: 600
+
+.alert-danger
+    background: #dc3545
+    border: 0
+    color: #fff
+    font-weight: 600
+
+.flash-messages
+    position: fixed
+    z-index: 9999
+    bottom: 15px
+    right: 30px
+    .flash-message
+        margin-bottom: 5px
+        display: block
+
+.alert
+    p
+        margin: 0
+
+.table
+    th
+        border-top: 0
+    td
+        vertical-align: middle
+
+.progress
+    background: #d9dcdf
+    .bg-success
+        background: #1dcbac !important
+    .bg-info
+        background: #2191d1 !important
+    .bg-danger
+        background: #d53e20 !important
+
+.additional-info
+    color: #acb4b7
+    font-size: 14px
+
+    a
+        color: #788083
+        text-decoration: underline
+
+.box
+    padding: 30px
+    background: #fff
+
+.clickable
+    text-decoration: underline !important
+    cursor: pointer
+
+.intl-tel-input
+    width: 100%
+
+.text-success
+    color: #1dcbac !important
+
+.pac-container
+    z-index: 1060
+    position: absolute

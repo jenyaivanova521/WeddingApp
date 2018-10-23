@@ -1,0 +1,65 @@
+<div class="modal">
+    <div class="modal-dialog modal-lg modal-wa" role="document">
+        <div class="modal-content">
+            <div class="modal-wa-form">
+                <h2>Sign Up</h2> {{> components/flash/index center=true}}
+                <form method="post" data-parsley-validate data-parsley-error-class="is-invalid" data-parsley-success-class="is-valid">
+                    <div class="row no-gutters">
+                        <div class="col-sm-6 form-group pr-sm-2">
+                            <input class="form-control form-control-lg" name="first_name" placeholder="First name" type="text" value="{{form.first_name}}" minlength="3" required>
+                        </div>
+                        <div class="col-sm-6 form-group pl-sm-2">
+                            <input class="form-control form-control-lg" name="last_name" placeholder="Last name" type="text" value="{{form.last_name}}" minlength="3" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" name="email" placeholder="Your e-mail address" type="email" value="{{form.email}}" required>
+                    </div>
+                    <div class="row no-gutters">
+                        <div class="col-sm-6 form-group pr-sm-2">
+                            <input class="form-control form-control-lg" name="password" placeholder="Password" type="password" minlength="8" required>
+                        </div>
+                        <div class="col-sm-6 form-group pl-sm-2">
+                            <input class="form-control form-control-lg" name="password_repeat" placeholder="Repeat password" type="password" minlength="8" required>
+                        </div>
+                    </div>
+                    <span class="text-center">I'm a:</span>
+                    <div class="form-group account-type-selector clearfix mt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="account_type_id" id="guestRadio" value="1" required data-parsley-errors-container=".account-type-error">
+                            <label class="form-check-label" for="guestRadio">
+                                <i class="icon-wa-guest"></i>
+                                Guest
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="account_type_id" id="coupleRadio" value="2">
+                            <label class="form-check-label" for="coupleRadio">
+                                <i class="icon-wa-couple"></i>
+                                Couple
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="account_type_id" id="vendorRadio" value="3">
+                            <label class="form-check-label" for="vendorRadio">
+                                <i class="icon-wa-vendor"></i>
+                                Vendor
+                            </label>
+                        </div>
+                    </div>
+                    <div class="account-type-error"></div>
+                    <div class="row justify-content-md-center mt-5">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <button class="btn btn-lg btn-custom" type="submit">Sign Up</button>
+                            </div>
+                            {{> components/socialLogin/index action="Sign Up" }}
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="text-center text-muted mt-4">Already have an account? <a class="ml-2" href="/login">Sign In</a></div>
+</div>

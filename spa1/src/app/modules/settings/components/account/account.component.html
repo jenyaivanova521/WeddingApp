@@ -1,0 +1,348 @@
+<form (ngSubmit)="submitAccountInfo()" #accountInfoForm="ngForm" *ngIf="account">
+
+    <div class="edit-row">
+
+        <h4 class="strong">{{ 'Account info' | translate }}</h4>
+
+        <div class="edit-row__edit-btn"
+             *ngIf="!editActive[0]"
+             (click)="editRow(0)">
+            <mat-icon svgIcon="pencil"></mat-icon>
+            {{ 'Edit' | translate }}
+        </div>
+
+        <dl class="row" *ngIf="!editActive[0]">
+            <dt class="col-sm-3 text-right">
+                {{ 'First name' | translate }}
+            </dt>
+            <dd class="col-sm-9">
+                {{account.firstName}}
+            </dd>
+
+            <dt class="col-sm-3 text-right">
+                {{ 'Last name' | translate }}
+            </dt>
+            <dd class="col-sm-9">
+                {{account.lastName}}
+            </dd>
+
+            <dt class="col-sm-3 text-right">
+                {{ 'Email' | translate }}
+            </dt>
+            <dd class="col-sm-9">
+                {{account.email}}
+            </dd>
+        </dl>
+
+        <div *ngIf="editActive[0]">
+            <div class="alert alert-danger" *ngIf="errors.account">
+                {{errors.account?.title}}
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col-md-6 col-lg-4 pr-2">
+                    <div class="form-group">
+
+                        <label for="firstName">{{ 'First name' | translate }}*</label>
+
+                        <input [(ngModel)]="account.firstName"
+                               #firstName="ngModel"
+                               [ngClass]="{'is-invalid' : firstName.invalid && (firstName.dirty || firstName.touched)}"
+                               name="firstName"
+                               required minlength="3"
+                               type="text"
+                               class="form-control form-control-lg"
+                               [disabled]="submitted.account">
+
+                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                             class="invalid-feedback">
+                            <div *ngIf="firstName.errors.required">
+                                {{ 'First name is required.' | translate }}
+                            </div>
+                            <div *ngIf="firstName.errors.minlength">
+                                {{ 'First name must be at least 3 characters long.' | translate }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 px-2">
+                    <div class="form-group">
+
+                        <label for="lastName">{{ 'Last name' | translate }}*</label>
+
+                        <input [(ngModel)]="account.lastName"
+                               #lastName="ngModel"
+                               [ngClass]="{'is-invalid' : lastName.invalid && lastName.touched}"
+                               name="lastName"
+                               required minlength="3" type="text"
+                               class="form-control form-control-lg"
+                               [disabled]="submitted.account">
+
+                        <div *ngIf="lastName.invalid && lastName.touched" class="invalid-feedback">
+                            <div *ngIf="lastName.errors.required">
+                                {{ 'Last name is required.' | translate }}
+                            </div>
+                            <div *ngIf="lastName.errors.minlength">
+                                {{ 'Last name must be at least 3 characters long.' | translate }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 pl-2">
+                    <div class="form-group">
+                        <label for="email">{{ 'Email' | translate }}*</label>
+                        <input [(ngModel)]="account.email"
+                               #email="ngModel"
+                               name="email"
+                               type="email"
+                               class="form-control form-control-lg"
+                               email="true"
+                               [disabled]="true">
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-danger mr-2" (click)="cancelEdit(0)">
+                {{ 'Cancel' | translate }}
+            </button>
+
+            <button class="btn btn-primary" type="submit"
+                    [disabled]="!accountInfoForm.form.valid || submitted.account">
+                <span *ngIf="submitted.account">{{ 'Loading' | translate }}...</span>
+                <span *ngIf="!submitted.account">{{ 'Submit' | translate }}</span>
+            </button>
+        </div>
+
+    </div>
+
+</form>
+
+
+<form enctype="multipart/form-data"
+      (ngSubmit)="submitAvatar()"
+      *ngIf="account"
+      #accountAvatarForm="ngForm">
+
+    <div class="edit-row">
+
+        <h4 class="strong mt-5">{{ 'Profile photo' | translate }}</h4>
+
+        <div class="edit-row__edit-btn"
+             *ngIf="!editActive[1]"
+             (click)="editRow(1)">
+            <mat-icon svgIcon="pencil"></mat-icon>
+            {{ 'Edit' | translate }}
+        </div>
+
+        <dl class="row" *ngIf="!editActive[1]">
+            <dt class="col-sm-3 text-right">
+                {{ 'Avatar' | translate }}
+            </dt>
+            <dd class="col-sm-9">
+                <avatar [filename]="account?.avatar ? prependAvatarUrl + account?.avatar : null"
+                        [size]="80">
+                </avatar>
+            </dd>
+        </dl>
+
+        <div *ngIf="editActive[1]">
+            <div class="alert alert-danger" *ngIf="errors.avatar">
+                {{errors.avatar?.title}}
+            </div>
+
+            <div class="clearfix">
+                <div class="float-left mr-4">
+                    <avatar *ngIf="url"
+                            [src]="sanitizer.bypassSecurityTrustUrl(url)"
+                            [size]="80">
+                    </avatar>
+                    <avatar *ngIf="!url"
+                            [dir]="'account/' + account.id + '/avatars'"
+                            [filename]="account.avatar"
+                            [size]="80">
+                    </avatar>
+                </div>
+                <div class="float-left form-group">
+                    <label for="avatar">{{ 'File' | translate }}</label>
+                    <input [(ngModel)]="avatar.file"
+                           #avatar="ngModel"
+                           class="form-control-file"
+                           name="avatar"
+                           type="file"
+                           (change)="fileChange($event)"
+                           #fileInput
+                           required="true">
+                    <small class="form-text text-muted">{{ 'Min. 200px × 200px' | translate }}</small>
+                </div>
+            </div>
+
+            <button class="btn btn-danger mr-2 mt-2" (click)="cancelEdit(1)">
+                {{ 'Cancel' | translate }}
+            </button>
+
+            <button class="btn btn-primary mt-2"
+                    type="submit"
+                    [disabled]="!accountAvatarForm.form.valid || submitted.avatar">
+                <span *ngIf="submitted.avatar">{{ 'Loading' | translate }}...</span>
+                <span *ngIf="!submitted.avatar">{{ 'Submit' | translate }}</span>
+            </button>
+        </div>
+
+    </div>
+
+</form>
+
+
+<form (ngSubmit)="submitChangePassword()" #passwordForm="ngForm">
+
+    <h4 class="strong mt-5">{{ 'Change password' | translate }}</h4>
+
+    <div class="row no-gutters">
+        <div class="form-group col-md-6 col-lg-3">
+
+            <label>{{ 'Old password' | translate }}*</label>
+
+            <input [(ngModel)]="changePasswordForm.password"
+                   #password="ngModel"
+                   [ngClass]="{'is-invalid' : password.invalid && password.dirty}"
+                   name="password"
+                   required
+                   minlength="3"
+                   type="password"
+                   class="form-control form-control-lg">
+
+            <div *ngIf="password.invalid && password.dirty"
+                 class="invalid-feedback">
+                <div *ngIf="password.errors.required">
+                    {{ 'Password is required.' | translate }}
+                </div>
+                <div *ngIf="password.errors.minlength">
+                    {{ 'Password must be at least 3 characters long.' | translate }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+
+        <div class="form-group col-md-6 col-lg-3 mr-2">
+
+            <label>{{ 'New password' | translate }}*</label>
+
+            <input [(ngModel)]="changePasswordForm.password_new"
+                   #passwordNew="ngModel"
+                   [ngClass]="{'is-invalid' : passwordNew.invalid && passwordNew.dirty}"
+                   name="passwordNew"
+                   required
+                   minlength="3"
+                   type="password"
+                   class="form-control form-control-lg">
+
+            <div *ngIf="passwordNew.invalid && (passwordNew.dirty || passwordNew.touched)"
+                 class="invalid-feedback">
+                <div *ngIf="passwordNew.errors.required">
+                    {{ 'Password is required.' | translate }}
+                </div>
+                <div *ngIf="passwordNew.errors.minlength">
+                    {{ 'Password must be at least 3 characters long.' | translate }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group col-md-6 col-lg-3">
+
+            <label>{{ 'Repeat new password' | translate }}*</label>
+
+            <input [(ngModel)]="changePasswordForm.password_new_repeat"
+                   #passwordNewRepeat="ngModel"
+                   [ngClass]="{'is-invalid' : passwordNewRepeat.invalid && passwordNewRepeat.dirty}"
+                   name="passwordNewRepeat"
+                   required
+                   minlength="3"
+                   type="password"
+                   class="form-control form-control-lg">
+
+            <div *ngIf="passwordNewRepeat.invalid && passwordNewRepeat.dirty"
+                 class="invalid-feedback">
+                <div *ngIf="passwordNewRepeat.errors.required">
+                    {{ 'Password is required.' | translate }}
+                </div>
+                <div *ngIf="passwordNewRepeat.errors.minlength">
+                    {{ 'Password must be at least 3 characters long.' | translate }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="btn btn-primary mt-2"
+            type="submit"
+            [disabled]="!passwordForm.form.valid">
+        <span>{{ 'Submit' | translate }}</span>
+    </button>
+
+</form>
+
+<form (ngSubmit)="submitDeleteAccount()" #deleteForm="ngForm">
+
+    <h4 class="strong mt-5">{{ 'Delete account' | translate }}</h4>
+
+    <div class="d-flex flex-row align-items-center no-gutters">
+
+        <div class="col-md-6 col-lg-3 mr-2">
+            <label>{{ 'Password' | translate }}*</label>
+        </div>
+
+    </div>
+
+    <div class="d-flex flex-row no-gutters">
+
+        <div class="form-group col-md-6 col-lg-3 mr-4">
+            <input [(ngModel)]="deleteAccountPassword"
+                   #deletePassword="ngModel"
+                   [ngClass]="{'is-invalid' : deletePassword.invalid && deletePassword.dirty}"
+                   name="deletePassword"
+                   required
+                   minlength="3"
+                   type="password"
+                   class="form-control form-control-lg">
+
+        </div>
+
+        <div class="form-group col-md-8 col-lg-4">
+
+            <span class="additional-info">
+                <!-- TODO link to pass reset inside spa-->
+                {{ 'If you do not have a password, because you logged in using a social network, use the' | translate }} <a href="{{webUrl}}/remind">{{ 'password reset' | translate }}</a> {{ 'option to get one.' | translate }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div>
+        <div *ngIf="deletePassword.invalid && deletePassword.dirty"
+             class="invalid-feedback">
+            <div *ngIf="deletePassword.errors.required">
+                {{ 'Password is required.' | translate }}
+            </div>
+            <div *ngIf="deletePassword.errors.minlength">
+                {{ 'Password must be at least 3 characters long.' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-danger mt-2"
+            type="submit"
+            [disabled]="!deleteForm.form.valid">
+        <span>{{ 'Delete your account' | translate }}</span>
+    </button>
+
+</form>

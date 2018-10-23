@@ -1,0 +1,31 @@
+<app-layout>
+    <div class="content-box p-0 messages-manager">
+        <div class="row no-gutters">
+            <div class="col-sm-4 conversations">
+                <div *ngIf="conversations.length && infiniteScroll" [infiniteScrollContainer]="'.conversations'" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="200" (scrolled)="getConversations(infiniteScroll.page)" [infiniteScrollDisabled]="infiniteScroll.disabled">
+                    <a class="conversation" [routerLink]="['/messages', conversation.id]" *ngFor="let conversation of conversations" [ngClass]="{'new': conversation.unreadMessagesCount, 'active': conversation.id == activeConversationId}">
+                        <cdn-image class="avatar" [dir]="(activeProfile.type == 'vendor' ? 'wedding/' + conversation.wedding.id : 'vendor/' + conversation.vendor.id)  + '/' + 'avatars'" [filename]="activeProfile.type == 'vendor' ? conversation.wedding.avatar : conversation.vendor.avatar"
+                            [width]="45" [rounded]="true"></cdn-image>
+                        <div class="content">
+                            <strong class="actor">
+                                <span *ngIf="activeProfile.id == conversation.wedding.id">{{conversation.vendor.name}}</span>
+                                <span *ngIf="activeProfile.id == conversation.vendor.id">{{conversation.wedding.name}}</span>
+                                <span *ngIf="[conversation.vendor.id, conversation.wedding.id].indexOf(activeProfile.id) == -1">{{conversation.wedding.name}} &rarr; {{conversation.vendor.name}}</span>
+                            <span *ngIf="conversation.unreadMessagesCount"> ({{conversation.unreadMessagesCount}})</span>
+                        </strong>
+                            <p class="message">
+                                <span *ngIf="!conversation.lastMessage.asVendor">{{conversation.lastMessage.author}}:</span>
+                                <span *ngIf="conversation.lastMessage.asVendor && activeProfile.id != conversation.wedding.id">{{conversation.vendor.name}}:</span>
+                                {{conversation.lastMessage.text}}
+                            </p>
+                            <div class="created">{{conversation.lastMessage.createdAt | amTimeAgo}}</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</app-layout>

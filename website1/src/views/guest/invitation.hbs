@@ -1,0 +1,49 @@
+<div class="modal wedding-invitation">
+    <div class="modal-dialog modal-wa">
+        <div class="modal-content">
+            <div class="modal-wa-form">
+                <h2>Wedding Invitation</h2>
+                {{#if guestInvitation.wedding.avatar}}
+                    {{{avatar (concat config.cdnUrl '/wedding/' guestInvitation.wedding.id '/avatars/') guestInvitation.wedding.avatar 100}}}
+                {{/if}}
+                <p class="my-2">You were invited to the wedding of<br>
+                    <strong class="wedding-name">{{#each partners}}
+                    {{#if @last}} & {{/if}}
+                    {{firstName}} {{lastName}}
+                {{/each}}</strong>
+                </p>
+                <form method="post">
+                    {{#ifEquals guestInvitation.ceremonyGuestStatus.id 1}}
+                    {{else}}
+                    <div class="my-4">
+                        <h5 class="mb-2">Ceremony</h5>
+                        {{#ifEquals ../guestInvitation.ceremonyGuestStatus.id 3}}
+                            <div class="text-success"><strong>You have confirmed your presence</strong></div>
+                        {{/ifEquals}}
+                        {{#ifEquals ../guestInvitation.ceremonyGuestStatus.id 4}}
+                            <div class="text-danger">You have rejected your presence</div>
+                        {{/ifEquals}}
+                        {{#if ../showButtons.ceremony.reject}}<button type="submit" name="ceremony_invitation" value="reject" class="btn {{#ifEquals ../guestInvitation.ceremonyGuestStatus.id 3}}btn-link{{else}}btn-danger{{/ifEquals}}">Reject invitation</button>{{/if}}
+                        {{#if ../showButtons.ceremony.confirm}}<button type="submit" name="ceremony_invitation" value="confirm" class="btn {{#ifEquals ../guestInvitation.ceremonyGuestStatus.id 4}}btn-link{{else}}btn-success{{/ifEquals}}">Confirm presence</button>{{/if}}
+                    </div>
+                    {{/ifEquals}}
+                    {{#ifEquals guestInvitation.receptionGuestStatus.id 1}}
+                    {{else}}
+                    <div class="my-4">
+                        <h5 class="mb-2">Reception</h5>
+                        {{#ifEquals ../guestInvitation.receptionGuestStatus.id 3}}
+                            <div class="text-success"><strong>You have confirmed your presence</strong></div>
+                        {{/ifEquals}}
+                        {{#ifEquals ../guestInvitation.receptionGuestStatus.id 4}}
+                            <div class="text-danger">You have rejected your presence</div>
+                        {{/ifEquals}}
+                        {{#if ../showButtons.reception.reject}}<button type="submit" name="reception_invitation" value="reject" class="btn {{#ifEquals ../guestInvitation.receptionGuestStatus.id 3}}btn-link{{else}}btn-danger{{/ifEquals}}">Reject invitation</button>{{/if}}
+                        {{#if ../showButtons.reception.confirm}}<button type="submit" name="reception_invitation" value="confirm" class="btn {{#ifEquals ../guestInvitation.receptionGuestStatus.id 4}}btn-link{{else}}btn-success{{/ifEquals}}">Confirm presence</button>{{/if}}
+                    </div>
+                    {{/ifEquals}}
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

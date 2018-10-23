@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a href="/" class="navbar-brand d-none d-sm-inline-block">
+            <img src="{{#with assets}}{{ '/img/logotype.png' }}{{/with}}" width="170">
+        </a>
+        <a href="/" class="navbar-brand d-inline-block d-sm-none">
+            <img src="{{#with assets}}{{ '/img/logo.png' }}{{/with}}" width="50">
+        </a>
+            <ul class="navbar-nav ml-auto">
+                {{#if user}}
+                    <li class="nav-item"><a class="btn btn-lg btn-strong" href="{{config.spaUrl}}">Go to the App</a></li>
+                    <li class="nav-item"><a class="btn btn-lg btn-link" href="/logout">Logout</a></li>
+                {{else}}
+                    <li class="nav-item"><a class="btn btn-lg btn-strong" href="/login">Sign In</a></li>
+                    <li class="nav-item"><a class="btn btn-lg btn-link" href="/signup">Sign Up</a></li>
+                {{/if}}
+            </ul>
+
+    </div>
+</nav>

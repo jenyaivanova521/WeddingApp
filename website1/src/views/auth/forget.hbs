@@ -1,0 +1,21 @@
+<div class="modal">
+    <div class="modal-dialog modal-wa" role="document">
+        <div class="modal-content">
+            <div class="modal-wa-form">
+                <h2>Delete your account permanently</h2>
+
+                {{> components/flash/index center=true}}
+                <form method="post" data-parsley-validate data-parsley-error-class="is-invalid" data-parsley-success-class="is-valid">
+                    <div class="form-group">
+                        <input class="form-control form-control-lg" name="password" placeholder="Your password" type="password" minlength="8" required>
+                        <small class="form-text text-muted">If you do not have a password, because you logged in using a social network, use the <a href="/remind">password reset</a> option to get one</small>
+                    </div>
+                    <div class="pt-3 form-group">
+                        <small class="form-text text-danger mb-2">Remember, this operation can not be undone,<br>all your data will be lost forever</small>
+                        <button class="btn btn-lg btn-danger" type="submit">Delete your account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

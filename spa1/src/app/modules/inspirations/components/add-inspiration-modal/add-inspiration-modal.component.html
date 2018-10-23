@@ -1,0 +1,49 @@
+<div class="add-inspiration-modal" (drop)="$event.preventDefault();">
+    <form (ngSubmit)="onSubmit()" #inspirationForm="ngForm">
+        <div class="modal-header">
+            <h4 class="modal-title">
+            {{ 'Add an Inspiration' | translate }}
+        </h4>
+            <button type="button" class="close" aria-label="Close" (click)="cancel()">
+            <mat-icon svgIcon="close-circle"></mat-icon>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col" style="width: 320px">
+                    <div class="image" *ngIf="imageUrl">
+                        <div class="delete" (click)="deleteImage()">
+                            <mat-icon svgIcon="delete"></mat-icon>
+                        </div>
+                        <img width="320" [src]="sanitizer.bypassSecurityTrustUrl(imageUrl)">
+                    </div>
+                    <div *ngIf="!imageUrl" class="dropzone" [ngClass]="dropzoneClass" (drop)="imageInputChange($event)" (dragover)="$event.preventDefault(); dropzoneClass = 'dragover'" (dragleave)="dropzoneClass = ''">
+                        <i class="icon-wa-upload"></i>
+                        <label class="fileinput">
+                            <span class="btn btn-success">{{ 'Choose files to upload' | translate }}</span>
+                            <input name="imageInput" type="file" (change)="imageInputChange($event, fieldName)" #imageInput multiple="true" accept=".jpg,.jpeg,.png" />
+                        </label>
+                        <span class="info">{{ 'or drag and drop them here' | translate }}</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="description">{{ 'Description' | translate }}</label>
+                        <textarea [(ngModel)]="inspiration.description" #description="ngModel" name="description" class="form-control form-control-lg description" autosize></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">{{ 'Tags' | translate }}</label>
+                        <ng-select [items]="tags | async" name="tags" [addTag]="true" [multiple]="true" [hideSelected]="true" [loading]="tagsLoading" [typeahead]="tagsInput" [(ngModel)]="selectedTags">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-lg btn-secondary" (click)="cancel()">{{ 'Cancel' | translate }}</button>
+            <button type="submit" class="btn btn-lg btn-primary" [disabled]="!inspirationForm.form.valid || !imageUrl || submitted">
+                <span *ngIf="!submitted">{{ 'Submit' | translate }}</span><span *ngIf="submitted">{{ 'Saving' | translate }}...</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,54 @@
+<div class="no-gutters">
+
+    <div class="col-sm-8 col-lg-9">
+        <div class="content-box">
+            <div class="informations">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="event mb-4" *ngFor="let event of events">
+                            <div class="pb-4">
+                                <h4>{{event.type}} date</h4> {{event.date | amDateFormat:'lll'}}
+                            </div>
+                            <h4>{{ event.type + 'location' | translate }}</h4>
+                            <strong>{{event.placeName}}</strong>
+                            <br> {{event.address}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+
+                        <div class="row no-gutters mb-4" *ngFor="let partner of partners">
+                            <div class="col pr-3" style="flex: 0 0 64px;">
+                                <cdn-image [dir]="'wedding/' + wedding.id + '/' + 'avatars'" [filename]="partner.avatar" [width]="64" [rounded]="true"></cdn-image>
+                            </div>
+                            <div class="col">
+                                <h4>
+                                    {{partner.firstName}} {{partner.lastName}}
+                                    <small>{{partner.role | translate}}</small>
+                                </h4>
+                                <p class="description">
+                                    {{partner.description}}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <hr>
+
+                <h4>
+                    {{ 'Our story' | translate }}
+                </h4>
+
+                <div class="description">
+                    {{wedding?.description}}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
